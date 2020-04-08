@@ -18,7 +18,7 @@ export const MenuContainer = styled.div`
     flex-flow: row wrap;
     justify-content: center;
     width: 100%;
-    height: 80px;
+    height: ${props => props.theme.headerHeight};
     @media (max-width: ${props => props.theme.mediumBreakpoint}px) {
         justify-content: flex-end;
     }

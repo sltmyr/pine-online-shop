@@ -21,5 +21,6 @@ export const theme = {
     pineBeige: "#CEAE99",
     pineGrey: "#8D8D8D",
     mediumBreakpoint: 650,
-    largeBreakpoint: 950
+    largeBreakpoint: 950,
+    headerHeight: "80px"
 };
