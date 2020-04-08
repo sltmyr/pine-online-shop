@@ -4,15 +4,14 @@ import App from "./App";
 
 afterEach(cleanup);
 
-test("renders header", () => {
+it("renders header", () => {
   const { getByTestId } = render(<App />);
   const headerElement = getByTestId("header");
   expect(headerElement).toBeInTheDocument();
 });
 
-//TODO
-test("can use theme", () => {
-  render(<App />);
-  // const headerElement = getByTestId("header");
-  expect(window.getComputedStyle(document.getRootNode)).toHaveStyle("font-family: freight-sans-pro, sans-serif;");
+it("global styles set", () => {
+  const { getByTestId } = render(<App />);
+  const headerElement = getByTestId("header");
+  expect(headerElement).toHaveStyle("font-family: freight-sans-pro,sans-serif;");
 });

@@ -19,5 +19,7 @@ export const GlobalStyles = createGlobalStyle`
 export const theme = {
     pineNavy: "#212431",
     pineBeige: "#CEAE99",
-    pineGrey: "#8D8D8D"
+    pineGrey: "#8D8D8D",
+    mediumBreakpoint: 650,
+    largeBreakpoint: 950
 };
