@@ -1,5 +1,15 @@
 import React, { useState } from "react";
-import { MenuContainer, Button, ButtonPair, LogoContainer, Grid, Logo, Line, HamburgerLogo } from "./Header.styles";
+import {
+  MenuContainer,
+  Button,
+  ButtonPair,
+  LogoContainer,
+  Grid,
+  Logo,
+  Line,
+  HamburgerLogo,
+  SmallMenuWrapper,
+} from "./Header.styles";
 import hamburger from "../images/hamburger.svg";
 import logo from "../images/logo.png";
 import { theme } from "../global_styles";
@@ -37,11 +47,11 @@ export default () => {
         <Line />
       </Grid>
       {smallWindow && expanded && (
-        <>
+        <SmallMenuWrapper>
           <MenuContainer data-testid="menu-small">
             <Menu />
           </MenuContainer>
-        </>
+        </SmallMenuWrapper>
       )}
     </div>
   );

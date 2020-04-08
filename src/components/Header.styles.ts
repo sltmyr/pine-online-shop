@@ -49,6 +49,12 @@ export const Button = styled.button`
         `};
 `;
 
+export const SmallMenuWrapper = styled.div`
+    position: absolute;
+    background-color: white;
+    width: 100%;
+`;
+
 export const LogoContainer = styled.div`
     display: flex;
     justify-content: center;
