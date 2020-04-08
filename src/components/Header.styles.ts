@@ -11,6 +11,15 @@ export const Grid = styled.div`
     }
 `;
 
+export const DummyHeader = styled.div`
+    height: 80px;
+`;
+
+export const PositionWrapper = styled.div`
+    position: fixed;
+    background-color: white;
+    width: 100%;
+`;
 
 export const MenuContainer = styled.div`
     grid-column: 3;
@@ -47,12 +56,6 @@ export const Button = styled.button`
             border: none;
             color: white;
         `};
-`;
-
-export const SmallMenuWrapper = styled.div`
-    position: absolute;
-    background-color: white;
-    width: 100%;
 `;
 
 export const LogoContainer = styled.div`

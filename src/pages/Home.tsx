@@ -1,6 +1,14 @@
 import React from "react";
 import Header from "../components/Header";
-import { Banner, BannerText, Slogan, SloganContainer, BannerContainer } from "./Home.styles";
+import {
+  Banner,
+  BannerText,
+  Slogan,
+  SloganContainer,
+  BannerContainer,
+  PhilosophyContainer,
+  PhilosophyParagraph,
+} from "./Home.styles";
 
 export default () => (
   <>
@@ -19,5 +27,12 @@ export default () => (
       <Slogan>three basic colours. </Slogan>
       <Slogan>effortless style.</Slogan>
     </SloganContainer>
+
+    <PhilosophyContainer>
+      <PhilosophyParagraph>
+        When it get's cold outside, leaving the house in style is not easy. With a pinecoat however, you will be styled
+        nicely, just like the evergreen pine tree.
+      </PhilosophyParagraph>
+    </PhilosophyContainer>
   </>
 );

@@ -40,7 +40,6 @@ export const SloganContainer = styled.div`
     align-content: center;
     flex-wrap: wrap;
     height: 30vh;
-    /* align-items: center; */
 `;
 
 export const Slogan = styled.div`
@@ -53,3 +52,12 @@ export const Slogan = styled.div`
         width: 60vw;
     }
 `
+
+export const PhilosophyContainer = styled.div`
+    display: flex;
+    justify-content: center;
+`;
+
+export const PhilosophyParagraph = styled.p`
+    font-size: 20px;
+`;

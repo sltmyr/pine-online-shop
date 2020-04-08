@@ -8,7 +8,8 @@ import {
   Logo,
   Line,
   HamburgerLogo,
-  SmallMenuWrapper,
+  DummyHeader,
+  PositionWrapper,
 } from "./Header.styles";
 import hamburger from "../images/hamburger.svg";
 import logo from "../images/logo.png";
@@ -36,23 +37,23 @@ export default () => {
   const [expanded, setExpanded] = useState<boolean>(false);
 
   return (
-    <div data-testid="header">
-      <Grid>
-        <LogoContainer>
-          <Logo src={logo} data-testid="logo" />
-        </LogoContainer>
-        <MenuContainer onClick={() => setExpanded(!expanded)}>
-          {smallWindow ? <HamburgerLogo src={hamburger} data-testid="hamburger" /> : <Menu />}
-        </MenuContainer>
-        <Line />
-      </Grid>
-      {smallWindow && expanded && (
-        <SmallMenuWrapper>
+    <DummyHeader data-testid="header">
+      <PositionWrapper>
+        <Grid>
+          <LogoContainer>
+            <Logo src={logo} data-testid="logo" />
+          </LogoContainer>
+          <MenuContainer onClick={() => setExpanded(!expanded)}>
+            {smallWindow ? <HamburgerLogo src={hamburger} data-testid="hamburger" /> : <Menu />}
+          </MenuContainer>
+          <Line />
+        </Grid>
+        {smallWindow && expanded && (
           <MenuContainer data-testid="menu-small">
             <Menu />
           </MenuContainer>
-        </SmallMenuWrapper>
-      )}
-    </div>
+        )}
+      </PositionWrapper>
+    </DummyHeader>
   );
 };
