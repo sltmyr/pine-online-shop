@@ -1,4 +1,4 @@
-import styled, { css } from "styled-components";
+import styled from "styled-components";
 
 export const Grid = styled.div`
     display: grid;
@@ -12,7 +12,7 @@ export const Grid = styled.div`
 `;
 
 export const DummyHeader = styled.div`
-    height: 80px;
+    height: ${props => props.theme.headerHeight};
 `;
 
 export const PositionWrapper = styled.div`
