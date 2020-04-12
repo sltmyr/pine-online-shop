@@ -6,9 +6,13 @@ import {
   Slogan,
   SloganContainer,
   BannerContainer,
-  PhilosophyContainer,
   PhilosophyParagraph,
+  PilosophyPicture,
+  Grid,
+  ButtonContainer,
 } from "./Home.styles";
+import fabrics from "../images/fabrics.jpg";
+import { Button } from "../global_styles";
 
 export default () => (
   <>
@@ -28,11 +32,23 @@ export default () => (
       <Slogan>effortless style.</Slogan>
     </SloganContainer>
 
-    <PhilosophyContainer>
+    <Grid>
       <PhilosophyParagraph>
-        When it get's cold outside, leaving the house in style is not easy. With a pinecoat however, you will be styled
-        nicely, just like the evergreen pine tree.
+        The idea for pinecoat.com started when I was looking for a minimal, classic coat made of quality fabric. I could
+        not believe how difficult it is to find one, finally gave up, and decided I would take matters into my own hand.
+        Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et
+        dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum.
       </PhilosophyParagraph>
-    </PhilosophyContainer>
+      <PilosophyPicture src={fabrics} />
+      <PhilosophyParagraph>
+        Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet,
+        consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed
+        diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea
+        takimata sanctus est Lorem ipsum dolor sit amet.
+      </PhilosophyParagraph>
+      <ButtonContainer>
+        <Button color="pineGrey"> our products</Button>
+      </ButtonContainer>
+    </Grid>
   </>
 );

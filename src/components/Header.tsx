@@ -1,7 +1,6 @@
-import React, { useState } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import {
   MenuContainer,
-  Button,
   ButtonPair,
   LogoContainer,
   Grid,
@@ -13,7 +12,7 @@ import {
 } from "./Header.styles";
 import hamburger from "../images/hamburger.svg";
 import logo from "../images/logo.png";
-import { theme } from "../global_styles";
+import { theme, Button } from "../global_styles";
 
 const mediaQuery = window.matchMedia(`(max-width: ${theme.mediumBreakpoint}px)`);
 
@@ -35,9 +34,19 @@ export default () => {
   mediaQuery.addListener((event) => setSmallWindow(event.matches));
 
   const [expanded, setExpanded] = useState<boolean>(false);
+  const ref = useRef<HTMLDivElement>(null);
+  const handleClickOutside = (event: MouseEvent) => {
+    if (ref.current && !ref.current.contains(event.target as Node)) {
+      setExpanded(false);
+    }
+  };
+  useEffect(() => {
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => document.removeEventListener("mousedown", handleClickOutside);
+  });
 
   return (
-    <DummyHeader data-testid="header">
+    <DummyHeader ref={ref} data-testid="header">
       <PositionWrapper>
         <Grid>
           <LogoContainer>

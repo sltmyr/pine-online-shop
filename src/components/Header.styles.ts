@@ -43,21 +43,6 @@ export const ButtonPair = styled.div`
     }
 `;
 
-export const Button = styled.button`
-    background: transparent;
-    border: 1px solid ${props => props.theme.pineNavy};
-    color: ${props => props.theme.pineNavy};
-    /* margin: 0 1em; */
-    padding: 0.25em 1em;
-    width: 10em;
-    height: 2em;
-    ${props => props.color && props.theme[props.color] &&
-        css`background-color: ${props.theme[props.color]};
-            border: none;
-            color: white;
-        `};
-`;
-
 export const LogoContainer = styled.div`
     display: flex;
     justify-content: center;

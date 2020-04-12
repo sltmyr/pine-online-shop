@@ -1,4 +1,4 @@
-import { createGlobalStyle } from "styled-components";
+import styled, { createGlobalStyle, css } from "styled-components";
 
 export const GlobalStyles = createGlobalStyle`
     * {
@@ -24,3 +24,18 @@ export const theme = {
     largeBreakpoint: 950,
     headerHeight: "80px"
 };
+
+
+export const Button = styled.button`
+    background: transparent;
+    border: 1px solid ${props => props.theme.pineNavy};
+    color: ${props => props.theme.pineNavy};
+    padding: 0.25em 1em;
+    width: 10em;
+    height: 2em;
+    ${props => props.color && props.theme[props.color] &&
+        css`background-color: ${props.theme[props.color]};
+            border: none;
+            color: white;
+        `};
+`;
