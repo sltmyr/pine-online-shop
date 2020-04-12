@@ -22,7 +22,7 @@ export const theme = {
     pineGrey: "#8D8D8D",
     mediumBreakpoint: 650,
     largeBreakpoint: 950,
-    headerHeight: "80px"
+    headerHeight: 80,
 };
 
 

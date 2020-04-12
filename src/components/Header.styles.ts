@@ -12,7 +12,7 @@ export const Grid = styled.div`
 `;
 
 export const DummyHeader = styled.div`
-    height: ${props => props.theme.headerHeight};
+    height: ${props => props.theme.headerHeight}px;
 `;
 
 export const PositionWrapper = styled.div`
@@ -27,7 +27,7 @@ export const MenuContainer = styled.div`
     flex-flow: row wrap;
     justify-content: center;
     width: 100%;
-    height: ${props => props.theme.headerHeight};
+    height: ${props => props.theme.headerHeight}px;
     @media (max-width: ${props => props.theme.mediumBreakpoint}px) {
         justify-content: flex-end;
     }

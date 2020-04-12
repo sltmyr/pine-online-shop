@@ -32,3 +32,10 @@ it("closes menu when clicking on page", () => {
   act(() => clickCallback({ target: document.createElement("div") }));
   expect(queryByTestId(/menu-small/i)).toBeFalsy();
 });
+
+it("scrolls to top when logo is clicked", () => {
+  window.scroll = jest.fn();
+  const { getByTestId, queryByTestId } = render(<Header />);
+  fireEvent.click(getByTestId("logo"));
+  expect(window.scroll).toHaveBeenCalledWith({ top: 0, left: 0, behavior: "smooth" });
+});

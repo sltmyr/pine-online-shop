@@ -7,7 +7,7 @@ export const BannerContainer = styled.div`
     display: flex;
     justify-content: center;
     flex-wrap: wrap;
-    height: calc(70vh - ${props => props.theme.headerHeight});
+    height: calc(70vh - ${props => props.theme.headerHeight}px);
 `;
 
 export const Banner = styled.div`
