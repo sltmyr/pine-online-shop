@@ -8,6 +8,7 @@ Object.defineProperty(window, 'matchMedia', {
     writable: true,
     value: jest.fn().mockImplementation(query => ({
         matches: true,
-        addListener: jest.fn()
+        addListener: jest.fn(),
+        removeListener: jest.fn(),
     })),
 });

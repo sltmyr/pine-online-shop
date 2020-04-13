@@ -1,7 +1,6 @@
 import React, { useState, useEffect, useRef } from "react";
 import {
   MenuContainer,
-  ButtonPair,
   LogoContainer,
   Grid,
   Logo,
@@ -12,37 +11,24 @@ import {
 } from "./Header.styles";
 import hamburger from "../images/hamburger.svg";
 import logo from "../images/logo.png";
-import { theme, Button } from "../global_styles";
+import { theme } from "../global_styles";
+import { Link } from "react-router-dom";
+import Menu from "./Menu";
 
 const mediaQuery = window.matchMedia(`(max-width: ${theme.mediumBreakpoint}px)`);
 
-const Menu = (props: { onClickPhilosophy: () => void }) => {
-  const { onClickPhilosophy } = props;
-  return (
-    <>
-      <ButtonPair>
-        <Button color="pineBeige" onClick={onClickPhilosophy} data-testid="philosophy-button">
-          our philosophy
-        </Button>
-        <Button color="pineGrey">products</Button>
-      </ButtonPair>
-      <ButtonPair>
-        <Button>about us</Button>
-        <Button color="pineNavy">contact</Button>
-      </ButtonPair>
-    </>
-  );
-};
-
-export default (props: { scrollToPhilosophy: () => void }) => {
-  const { scrollToPhilosophy } = props;
+export default () => {
   const [smallWindow, setSmallWindow] = useState<boolean>(mediaQuery.matches);
-  mediaQuery.addListener((event) => setSmallWindow(event.matches));
+  const handleWindowSizeChange = (event: MediaQueryListEvent) => setSmallWindow(event.matches);
+  useEffect(() => {
+    mediaQuery.addListener(handleWindowSizeChange);
+    return () => mediaQuery.removeListener(handleWindowSizeChange);
+  });
 
   const [expanded, setExpanded] = useState<boolean>(false);
-  const ref = useRef<HTMLDivElement>(null);
+  const headerRef = useRef<HTMLDivElement>(null);
   const handleClickOutside = (event: MouseEvent) => {
-    if (ref.current && !ref.current.contains(event.target as Node)) {
+    if (headerRef.current && !headerRef.current.contains(event.target as Node)) {
       setExpanded(false);
     }
   };
@@ -51,35 +37,23 @@ export default (props: { scrollToPhilosophy: () => void }) => {
     return () => document.removeEventListener("mousedown", handleClickOutside);
   });
 
-  const scrollToTop = () => {
-    setExpanded(false);
-    window.scroll({ top: 0, left: 0, behavior: "smooth" });
-  };
-
-  const onClickPhilosophy = () => {
-    setExpanded(false);
-    scrollToPhilosophy();
-  };
-
   return (
-    <DummyHeader ref={ref} data-testid="header">
+    <DummyHeader ref={headerRef} data-testid="header">
       <PositionWrapper>
         <Grid>
           <LogoContainer>
-            <Logo src={logo} data-testid="logo" onClick={scrollToTop} />
+            <Link to={{ pathname: "/", state: { scrollTo: "top" } }}>
+              <Logo src={logo} data-testid="logo" />
+            </Link>
           </LogoContainer>
           <MenuContainer onClick={() => setExpanded(!expanded)}>
-            {smallWindow ? (
-              <HamburgerLogo src={hamburger} data-testid="hamburger" />
-            ) : (
-              <Menu onClickPhilosophy={onClickPhilosophy} />
-            )}
+            {smallWindow ? <HamburgerLogo src={hamburger} data-testid="hamburger" /> : <Menu />}
           </MenuContainer>
           <Line />
         </Grid>
         {smallWindow && expanded && (
           <MenuContainer data-testid="menu-small">
-            <Menu onClickPhilosophy={onClickPhilosophy} />
+            <Menu onClick={() => setExpanded(false)} />
           </MenuContainer>
         )}
       </PositionWrapper>

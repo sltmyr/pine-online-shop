@@ -64,7 +64,7 @@ export const Grid = styled.div`
     }
 `;
 
-export const PilosophyPicture = styled.img`
+export const PhilosophyPicture = styled.img`
     width: 80%;
     align-self: center;
     justify-self: center;

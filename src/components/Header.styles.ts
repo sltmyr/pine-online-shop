@@ -33,16 +33,6 @@ export const MenuContainer = styled.div`
     }
 `;
 
-export const ButtonPair = styled.div`
-    display: flex;
-    width: 50%;
-    justify-content: space-around;
-    align-items: center;
-    @media (max-width: ${props => props.theme.mediumBreakpoint}px) {
-        width: 100%
-    }
-`;
-
 export const LogoContainer = styled.div`
     display: flex;
     justify-content: center;
@@ -64,3 +54,4 @@ export const Line = styled.hr`
     grid-column-start: 2;
     grid-column-end: 4;
 `;
+
