@@ -39,3 +39,15 @@ export const Button = styled.button`
             color: white;
         `};
 `;
+
+
+export const Grid2Col = styled.div`
+    display: grid;
+    grid-template-columns: 15% 35% 35% 15%;
+    @media (max-width: ${props => props.theme.largeBreakpoint}px) {
+        grid-template-columns: 7.5% 42.5% 42.5% 7.5%;   
+    }
+    @media (max-width: ${props => props.theme.mediumBreakpoint}px) {
+        grid-template-columns: 5% 45% 45% 5%;
+    }
+`;

@@ -7,11 +7,10 @@ import {
   BannerContainer,
   PhilosophyParagraph,
   PhilosophyPicture,
-  Grid,
   ButtonContainer,
 } from "./Home.styles";
 import fabrics from "../images/fabrics.jpg";
-import { Button, theme } from "../global_styles";
+import { Button, theme, Grid2Col } from "../global_styles";
 import { Link, RouteComponentProps } from "react-router-dom";
 
 type HomeProps = RouteComponentProps & {
@@ -49,13 +48,11 @@ export default (props: HomeProps) => {
         <Slogan>effortless style.</Slogan>
       </SloganContainer>
 
-      <Grid ref={philosophyRef}>
+      <Grid2Col ref={philosophyRef}>
         <PhilosophyParagraph>
           The idea for pinecoat.com started when I was looking for a minimal, classic coat made of quality fabric. I
           could not believe how difficult it is to find one, finally gave up, and decided I would take matters into my
-          own hand. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut
-          labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea
-          rebum.
+          own hand.
         </PhilosophyParagraph>
         <PhilosophyPicture src={fabrics} />
         <PhilosophyParagraph>
@@ -69,7 +66,7 @@ export default (props: HomeProps) => {
             <Button color="pineGrey">our products</Button>
           </Link>
         </ButtonContainer>
-      </Grid>
+      </Grid2Col>
     </>
   );
 };
