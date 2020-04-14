@@ -4,12 +4,14 @@ import {
   LogoContainer,
   Grid,
   Logo,
-  Line,
-  HamburgerLogo,
+  HorizontalLine,
   DummyHeader,
   PositionWrapper,
+  HamburgerContainer,
+  LineTop,
+  LineMiddle,
+  LineBottom,
 } from "./Header.styles";
-import hamburger from "../images/hamburger.svg";
 import logo from "../images/logo.png";
 import { theme } from "../global_styles";
 import { Link } from "react-router-dom";
@@ -47,9 +49,17 @@ export default () => {
             </Link>
           </LogoContainer>
           <MenuContainer onClick={() => setExpanded(!expanded)}>
-            {smallWindow ? <HamburgerLogo src={hamburger} data-testid="hamburger" /> : <Menu />}
+            {smallWindow ? (
+              <HamburgerContainer data-testid="hamburger">
+                <LineTop expanded={expanded} />
+                <LineMiddle expanded={expanded} />
+                <LineBottom expanded={expanded} />
+              </HamburgerContainer>
+            ) : (
+              <Menu />
+            )}
           </MenuContainer>
-          <Line />
+          <HorizontalLine />
         </Grid>
         {smallWindow && expanded && (
           <MenuContainer data-testid="menu-small">
