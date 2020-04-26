@@ -1,7 +1,7 @@
 import styled from "styled-components";
-import { Grid2Col } from "../global_styles";
+import { TwoColumnGrid } from "../global_styles";
 
-export const Grid = styled(Grid2Col)`
+export const Grid = styled(TwoColumnGrid)`
     margin-top: 1em;
 `;
 

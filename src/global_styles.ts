@@ -41,7 +41,7 @@ export const Button = styled.button`
 `;
 
 
-export const Grid2Col = styled.div`
+export const TwoColumnGrid = styled.div`
     display: grid;
     grid-template-columns: 15% 35% 35% 15%;
     @media (max-width: ${props => props.theme.largeBreakpoint}px) {
