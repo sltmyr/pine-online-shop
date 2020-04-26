@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { TwoColumnGrid } from "../global_styles";
+import { TwoColumnGrid, Button } from "../global_styles";
 
 export const Grid = styled(TwoColumnGrid)`
     margin-top: 1em;
@@ -64,4 +64,37 @@ export const ParagraphNavy = styled(ParagraphLeft)`
     @media (min-width: ${props => props.theme.mediumBreakpoint}px) {
         grid-row: 4;
     }
+`;
+
+
+export const ModalBackground = styled.div`
+    position: fixed;
+    z-index: 1;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgb(0,0,0);
+    background-color: rgba(0,0,0,0.4);
+`;
+
+export const ModalWindow = styled.div`
+    background-color: #fefefe;
+    margin: 15% auto;
+    padding: 20px;
+    border: 1px solid #888;
+    display: flex;
+    flex-wrap: wrap;
+    width: 70%;
+    @media (max-width: ${props => props.theme.largeBreakpoint}px) {
+        width: 85%;
+    }
+    @media (max-width: ${props => props.theme.mediumBreakpoint}px) {
+        width: 90%;
+    }
+`;
+
+export const ModalButton = styled(Button)`
+    margin-top: 2em;
+    margin-left: auto;
 `;
