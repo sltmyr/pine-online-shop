@@ -1,11 +1,13 @@
-import styled from "styled-components";
+import styled, { css } from "styled-components";
 import { TwoColumnGrid, Button } from "../global_styles";
+import { Carousel } from 'react-responsive-carousel';
+import { ChevronLeft, ChevronRight } from "@styled-icons/feather";
 
 export const Grid = styled(TwoColumnGrid)`
     margin-top: 1em;
 `;
 
-export const Picture = styled.img`
+const pictureStyle = css`
     width: 80%;
     align-self: center;
     justify-self: center;
@@ -13,16 +15,66 @@ export const Picture = styled.img`
     margin-top: 1em;
     margin-bottom: 2em;
 `;
-export const PictureLeft = styled(Picture)`
+
+export const PictureLeft = styled.img`
+    ${pictureStyle}
     @media (min-width: ${props => props.theme.mediumBreakpoint}px) {
         grid-column: 2;
     }
 `;
 
-export const PictureRight = styled(Picture)`
+export const CarouselLeft = styled(Carousel)`
+    ${pictureStyle}
+     @media (min-width: ${props => props.theme.mediumBreakpoint}px) {
+        grid-column: 2;
+    }   
+`;
+
+export const CarouselRight = styled(Carousel)`
+    ${pictureStyle}
     @media (min-width: ${props => props.theme.mediumBreakpoint}px) {
         grid-column: 3;
     }
+`;
+
+export const GoLeftButton = styled.div`
+    position: absolute;
+    z-index: 2;
+    width: 60px;
+    height: 100%;
+    cursor: pointer;
+    background-color: rgba(0,0,0,0);
+    border: 0;
+    display: flex;
+    &:hover {
+        background-color: rgba(0,0,0,0.1)
+    }
+`;
+
+export const LeftArrow = styled(ChevronLeft)`
+    width: 50px;
+    color: white;
+`;
+
+export const GoRightButton = styled.div`
+    position: absolute;
+    top: 0;
+    right: 0;
+    z-index: 2;
+    width: 60px;
+    height: 100%;
+    cursor: pointer;
+    background-color: rgba(0,0,0,0);
+    border: 0;
+    display: flex;
+    &:hover {
+        background-color: rgba(0,0,0,0.1)
+    }
+`;
+
+export const RightArrow = styled(ChevronRight)`
+    width: 50px;
+    color: white;
 `;
 
 export const Paragraph = styled.div`
@@ -69,7 +121,7 @@ export const ParagraphNavy = styled(ParagraphLeft)`
 
 export const ModalBackground = styled.div`
     position: fixed;
-    z-index: 1;
+    z-index: 15;
     left: 0;
     top: 0;
     width: 100%;

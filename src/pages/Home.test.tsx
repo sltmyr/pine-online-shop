@@ -8,7 +8,6 @@ import Header from "../components/Header";
 afterEach(cleanup);
 
 it("does not scroll on initial load", () => {
-  window.scroll = jest.fn();
   render(
     <Router>
       <Route path="/" component={Home}></Route>
@@ -18,7 +17,6 @@ it("does not scroll on initial load", () => {
 });
 
 it("scrolls to philosophy section", () => {
-  window.scroll = jest.fn();
   const { getByTestId } = render(
     <Router>
       <Header />
@@ -32,7 +30,6 @@ it("scrolls to philosophy section", () => {
 });
 
 it("scrolls to top on click on logo", () => {
-  window.scroll = jest.fn();
   const { getByTestId } = render(
     <Router>
       <Header />

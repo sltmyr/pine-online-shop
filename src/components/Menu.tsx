@@ -24,7 +24,7 @@ export default (props: MenuProps) => {
       </ButtonPair>
       <ButtonPair>
         <StyledLink to="/about">
-          <Button onClick={onClick}>about us</Button>
+          <Button onClick={onClick}>about</Button>
         </StyledLink>
         <StyledLink to="/contact">
           <Button color="pineNavy" onClick={onClick}>

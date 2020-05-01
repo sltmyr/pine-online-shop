@@ -1,8 +1,6 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import {
   Grid,
-  PictureRight,
-  PictureLeft,
   ParagraphRight,
   ParagraphTop,
   ParagraphGrey,
@@ -10,15 +8,29 @@ import {
   ModalWindow,
   ModalButton,
   ModalBackground,
+  CarouselRight,
+  CarouselLeft,
+  PictureLeft,
+  GoLeftButton,
+  LeftArrow,
+  GoRightButton,
+  RightArrow,
 } from "./Products.styles";
 import picture from "../images/tailor.jpg";
-import greyCoat from "../images/front-closed.jpg";
-import beigeCoat from "../images/coat1.jpg";
-import navyCoat from "../images/coat4.jpg";
+import greyCoat1 from "../images/front-closed.jpg";
+import greyCoat2 from "../images/front-open.jpg";
+import greyCoat3 from "../images/back.jpg";
+import beigeCoat1 from "../images/beige-coat-1.jpg";
+import beigeCoat2 from "../images/beige-coat-2.jpg";
+import navyCoat1 from "../images/blue-coat-1.jpg";
+import navyCoat2 from "../images/blue-coat-2.jpg";
+import navyCoat3 from "../images/blue-coat-3.jpg";
 import { theme, Button } from "../global_styles";
+import "react-responsive-carousel/lib/styles/carousel.min.css"; // requires a loader
 
 export default () => {
   const [isModalOpen, setModalOpen] = useState<boolean>(false);
+  useEffect(() => window.scroll({ top: 0, left: 0 }));
   return (
     <>
       {isModalOpen && (
@@ -43,21 +55,75 @@ export default () => {
           30% Cashmere, 70% wool <br />
           300 €
         </ParagraphTop>
-        <PictureRight src={greyCoat} />
+        <CarouselRight
+          showThumbs={false}
+          showStatus={false}
+          infiniteLoop={true}
+          renderArrowPrev={(onClickHandler, hasPrev, label) => (
+            <GoLeftButton onClick={onClickHandler}>
+              <LeftArrow />
+            </GoLeftButton>
+          )}
+          renderArrowNext={(onClickHandler, hasNext, label) => (
+            <GoRightButton onClick={onClickHandler}>
+              <RightArrow />
+            </GoRightButton>
+          )}
+        >
+          <img src={greyCoat1} alt="" />
+          <img src={greyCoat2} alt="" />
+          <img src={greyCoat3} alt="" />
+        </CarouselRight>
+
         <ParagraphGrey>
           The grey one <br />
           <Button color="pineGrey" onClick={() => setModalOpen(true)} data-testid="buy-button">
             Buy now
           </Button>
         </ParagraphGrey>
-        <PictureLeft src={beigeCoat} />
+        <CarouselLeft
+          showThumbs={false}
+          showStatus={false}
+          infiniteLoop={true}
+          renderArrowPrev={(onClickHandler, hasPrev, label) => (
+            <GoLeftButton onClick={onClickHandler}>
+              <LeftArrow />
+            </GoLeftButton>
+          )}
+          renderArrowNext={(onClickHandler, hasNext, label) => (
+            <GoRightButton onClick={onClickHandler}>
+              <RightArrow />
+            </GoRightButton>
+          )}
+        >
+          <img src={beigeCoat1} alt="" />
+          <img src={beigeCoat2} alt="" />
+        </CarouselLeft>
         <ParagraphRight>
           The beige one <br />
           <Button color="pineBeige" onClick={() => setModalOpen(true)}>
             Buy now
           </Button>
         </ParagraphRight>
-        <PictureRight src={navyCoat} />
+        <CarouselRight
+          showThumbs={false}
+          showStatus={false}
+          infiniteLoop={true}
+          renderArrowPrev={(onClickHandler, hasPrev, label) => (
+            <GoLeftButton onClick={onClickHandler}>
+              <LeftArrow />
+            </GoLeftButton>
+          )}
+          renderArrowNext={(onClickHandler, hasNext, label) => (
+            <GoRightButton onClick={onClickHandler}>
+              <RightArrow />
+            </GoRightButton>
+          )}
+        >
+          <img src={navyCoat1} alt="" />
+          <img src={navyCoat2} alt="" />
+          <img src={navyCoat3} alt="" />
+        </CarouselRight>
         <ParagraphNavy>
           The navy one <br />
           <Button color="pineNavy" onClick={() => setModalOpen(true)}>

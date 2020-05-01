@@ -12,3 +12,5 @@ Object.defineProperty(window, 'matchMedia', {
         removeListener: jest.fn(),
     })),
 });
+
+window.scroll = jest.fn();

@@ -50,16 +50,14 @@ export default (props: HomeProps) => {
 
       <TwoColumnGrid ref={philosophyRef}>
         <PhilosophyParagraph>
-          The idea for pinecoat.com started when I was looking for a minimal, classic coat made of quality fabric. I
-          could not believe how difficult it is to find one, finally gave up, and decided I would take matters into my
-          own hand.
+          The idea for pinecoat.com was born when I was looking for a minimal, classic coat made of a quality fabric.
+          The search was more difficult than I imagined and I decided to take matters into my own hand.
         </PhilosophyParagraph>
         <PhilosophyPicture src={fabrics} />
         <PhilosophyParagraph>
-          Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet,
-          consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat,
-          sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea
-          takimata sanctus est Lorem ipsum dolor sit amet.
+          On pinecoat.com we offer exactly what I was searching: stylish, timeless coats at a reasonable price. If you
+          are currently on the look for a nice coat, you have come to right place. We only use high quality materials
+          like cashmere and wool and handcraft every coat.
         </PhilosophyParagraph>
         <ButtonContainer>
           <Link to="/products">

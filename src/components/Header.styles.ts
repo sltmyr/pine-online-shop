@@ -5,6 +5,7 @@ export const DummyHeader = styled.div`
 `;
 
 export const PositionWrapper = styled.div`
+    z-index: 10;
     position: fixed;
     background-color: white;
     width: 100%;

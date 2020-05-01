@@ -1,6 +1,6 @@
 
 import styled from 'styled-components';
-import banner from '../images/coat1.jpg';
+import banner from '../images/beige-coat-1.jpg';
 
 export const BannerContainer = styled.div`
     padding-top: 1em;
