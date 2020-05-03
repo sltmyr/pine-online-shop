@@ -1,6 +1,6 @@
 
 import styled from 'styled-components';
-import banner from '../images/beige-coat-1.jpg';
+import banner from '../images/banner.jpg';
 
 export const BannerContainer = styled.div`
     padding-top: 1em;
@@ -29,7 +29,7 @@ export const Banner = styled.div`
 
 export const BannerText = styled.div`
     margin-left: 1em;
-    margin-bottom: 1em;
+    margin-bottom: 10vh;
     align-self: flex-end;
     color: white;
 `;

@@ -9,7 +9,7 @@ import {
   PhilosophyPicture,
   ButtonContainer,
 } from "./Home.styles";
-import fabrics from "../images/fabrics.jpg";
+import bike from "../images/bike.jpg";
 import { Button, theme, TwoColumnGrid } from "../global_styles";
 import { Link, RouteComponentProps } from "react-router-dom";
 
@@ -53,7 +53,7 @@ export default (props: HomeProps) => {
           The idea for pinecoat.com was born when I was looking for a minimal, classic coat made of a quality fabric.
           The search was more difficult than I imagined and I decided to take matters into my own hand.
         </PhilosophyParagraph>
-        <PhilosophyPicture src={fabrics} />
+        <PhilosophyPicture src={bike} />
         <PhilosophyParagraph>
           On pinecoat.com we offer exactly what I was searching: stylish, timeless coats at a reasonable price. If you
           are currently on the look for a nice coat, you have come to right place. We only use high quality materials

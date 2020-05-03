@@ -1,6 +1,6 @@
 import React from "react";
 import { Grid, Paragraph, Picture } from "./About.styles";
-import picture from "../images/coat2.jpg";
+import picture from "../images/about.jpg";
 
 export default () => (
   <>

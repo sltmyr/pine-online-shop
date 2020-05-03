@@ -17,9 +17,9 @@ import {
   RightArrow,
 } from "./Products.styles";
 import picture from "../images/tailor.jpg";
-import greyCoat1 from "../images/front-closed.jpg";
-import greyCoat2 from "../images/front-open.jpg";
-import greyCoat3 from "../images/back.jpg";
+import greyCoat1 from "../images/grey-coat-1.jpg";
+import greyCoat2 from "../images/grey-coat-2.jpg";
+import greyCoat3 from "../images/grey-coat-3.jpg";
 import beigeCoat1 from "../images/beige-coat-1.jpg";
 import beigeCoat2 from "../images/beige-coat-2.jpg";
 import navyCoat1 from "../images/blue-coat-1.jpg";
@@ -85,6 +85,7 @@ export default () => {
           showThumbs={false}
           showStatus={false}
           infiniteLoop={true}
+          dynamicHeight={false}
           renderArrowPrev={(onClickHandler, hasPrev, label) => (
             <GoLeftButton onClick={onClickHandler}>
               <LeftArrow />
@@ -98,6 +99,7 @@ export default () => {
         >
           <img src={beigeCoat1} alt="" />
           <img src={beigeCoat2} alt="" />
+          {/* <img src={beigeCoat3} alt="" /> */}
         </CarouselLeft>
         <ParagraphRight>
           The beige one <br />

@@ -1,6 +1,6 @@
 import React from "react";
 import { Grid, Paragraph, Picture, InstagramIcon, PhoneIcon, MailIcon, LinkList, Link } from "./Contact.styles";
-import picture from "../images/coat3.jpg";
+import picture from "../images/beige-coat-3.jpg";
 
 export default () => (
   <Grid>
