@@ -1,0 +1,12 @@
+{
+  "name": "cdk-test",
+  "devDependencies": {
+    "aws-cdk": "1.36.1",
+    "@types/node": "10.17.5",
+    "ts-node": "^8.1.0",
+    "typescript": "~3.7.2"
+  },
+  "dependencies": {
+    "@aws-cdk/core": "1.36.1"
+  }
+}
