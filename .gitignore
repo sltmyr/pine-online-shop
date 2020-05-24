@@ -1,5 +1,3 @@
-# See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
-
 # dependencies
 node_modules
 
@@ -8,6 +6,7 @@ build
 
 # cdk
 /infrastructure/cdk.out
+/infrastructure/cdk.context.json
 
 # misc
 .DS_Store
@@ -17,8 +16,9 @@ build
 .env.production.local]
 .vscode
 
+# yarn, npm
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
 yarn.lock
-package.json.lock
+package-lock.json
