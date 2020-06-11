@@ -25,7 +25,6 @@ export const theme = {
     headerHeight: 80,
 };
 
-
 export const Button = styled.button`
     background: transparent;
     border: 1px solid ${props => props.theme.pineNavy};
@@ -40,7 +39,6 @@ export const Button = styled.button`
         `};
 `;
 
-
 export const TwoColumnGrid = styled.div`
     display: grid;
     grid-template-columns: 15% 35% 35% 15%;
@@ -50,4 +48,9 @@ export const TwoColumnGrid = styled.div`
     @media (max-width: ${props => props.theme.mediumBreakpoint}px) {
         grid-template-columns: 5% 45% 45% 5%;
     }
+`;
+
+export const SerifText = styled.p` 
+    font-family: span, serif;
+    font-weight: 200;
 `;

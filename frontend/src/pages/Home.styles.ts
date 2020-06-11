@@ -1,5 +1,6 @@
 
 import styled from 'styled-components';
+import { SerifText } from '../global_styles';
 import banner from '../images/banner.jpg';
 
 export const BannerContainer = styled.div`
@@ -64,28 +65,41 @@ export const PhilosophyPicture = styled.img`
         margin-top: 0;
         margin-bottom: 0;
         grid-column: 2;
-        grid-row: 1 / -1;
+        grid-row: 3 / 9;
     }
 `;
 
-export const PhilosophyParagraph = styled.p`
+export const PhilosophyHeader = styled(SerifText)`
+    grid-column: 2 / 4;
+`;
+
+export const Paragraph = styled.p`
     font-size: 20px;
+    text-align: justify;
     width: 100%;
-    grid-column: 3;
+    margin-top: 1em;
     margin-bottom: 1em;
-    @media (max-width: ${props => props.theme.mediumBreakpoint}px) {
-        grid-column: 2 / 4;
+    grid-column: 2 / 4;
+`;
+
+export const ParagraphRight = styled(Paragraph)`
+    @media (min-width: ${props => props.theme.mediumBreakpoint}px) {
+        grid-column: 3;
+    }
+`;
+
+export const HeaderRight = styled(SerifText)`
+    font-size: 20px;
+    grid-column: 2 / 4;
+    @media (min-width: ${props => props.theme.mediumBreakpoint}px) {
+        grid-column: 3;
     }
 `;
 
 export const ButtonContainer = styled.div`
-    grid-column: 2;
-    grid-row: 2;
+    grid-column: 2 / 4;
+    grid-row: 100;
     align-self: center;
     justify-self: center;
-    @media (max-width: ${props => props.theme.mediumBreakpoint}px) {
-        grid-column: 2 / 4;
-        grid-row: 4;
-        margin-bottom: 3em;
-    }
+    margin-bottom: 3em;
 `;
