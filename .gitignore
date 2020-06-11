@@ -1,8 +1,9 @@
-# dependencies
+# dependencies/ builds
 node_modules
-
-# production
+dependencies
+dependencies.zip
 build
+build.zip
 
 # cdk
 /infrastructure/cdk.out
