@@ -1,53 +1,45 @@
-import React, { useState, useEffect } from "react";
+import React, { useEffect, useState } from 'react';
+import 'react-responsive-carousel/lib/styles/carousel.min.css'; // requires a loader
+import Checkout from '../components/Checkout';
+import { Button, theme } from '../global_styles';
+import beigeCoat1 from '../images/beige-coat-1.jpg';
+import beigeCoat2 from '../images/beige-coat-2.jpg';
+import navyCoat1 from '../images/blue-coat-1.jpg';
+import navyCoat2 from '../images/blue-coat-2.jpg';
+import navyCoat3 from '../images/blue-coat-3.jpg';
+import greyCoat1 from '../images/grey-coat-1.jpg';
+import greyCoat2 from '../images/grey-coat-2.jpg';
+import greyCoat3 from '../images/grey-coat-3.jpg';
+import picture from '../images/tailor.jpg';
 import {
+  CarouselLeft,
+  CarouselRight,
+  GoLeftButton,
+  GoRightButton,
   Grid,
-  ParagraphRight,
-  ParagraphTop,
+  LeftArrow,
   ParagraphGrey,
   ParagraphNavy,
-  ModalWindow,
-  ModalButton,
-  ModalBackground,
-  CarouselRight,
-  CarouselLeft,
+  ParagraphRight,
+  ParagraphTop,
   PictureLeft,
-  GoLeftButton,
-  LeftArrow,
-  GoRightButton,
   RightArrow,
-} from "./Products.styles";
-import picture from "../images/tailor.jpg";
-import greyCoat1 from "../images/grey-coat-1.jpg";
-import greyCoat2 from "../images/grey-coat-2.jpg";
-import greyCoat3 from "../images/grey-coat-3.jpg";
-import beigeCoat1 from "../images/beige-coat-1.jpg";
-import beigeCoat2 from "../images/beige-coat-2.jpg";
-import navyCoat1 from "../images/blue-coat-1.jpg";
-import navyCoat2 from "../images/blue-coat-2.jpg";
-import navyCoat3 from "../images/blue-coat-3.jpg";
-import { theme, Button } from "../global_styles";
-import "react-responsive-carousel/lib/styles/carousel.min.css"; // requires a loader
+} from './Products.styles';
+
+export type CoatColor = 'beige' | 'grey' | 'navy';
 
 export default () => {
   const [isModalOpen, setModalOpen] = useState<boolean>(false);
+  const [selectedColor, setSelectedColor] = useState<CoatColor>('beige');
   useEffect(() => window.scroll({ top: 0, left: 0 }));
   return (
     <>
-      {isModalOpen && (
-        <ModalBackground>
-          <ModalWindow data-testid="modal">
-            The shop at pinecoat.com is currently under construction. Soon you will be able to order your coat here.
-            <ModalButton color="pineBeige" onClick={() => setModalOpen(false)} data-testid="modal-button">
-              Got it
-            </ModalButton>
-          </ModalWindow>
-        </ModalBackground>
-      )}
+      {isModalOpen && <Checkout selectedColor={selectedColor} onComplete={() => setModalOpen(false)} />}
       <Grid>
         <PictureLeft src={picture} />
         <ParagraphTop>
           The pinecoat is a timeless, classic design piece. It goes well with different styles and will always give you
-          that effortlessly elegant look. You can choose between 3 colors:{" "}
+          that effortlessly elegant look. You can choose between 3 colors:{' '}
           <span style={{ color: theme.pineBeige }}>beige</span>, <span style={{ color: theme.pineGrey }}>grey</span>,
           and <span style={{ color: theme.pineNavy }}>navy</span>.
           <br />
@@ -70,14 +62,21 @@ export default () => {
             </GoRightButton>
           )}
         >
-          <img src={greyCoat1} alt="" />
-          <img src={greyCoat2} alt="" />
-          <img src={greyCoat3} alt="" />
+          <img src={greyCoat1} alt='' />
+          <img src={greyCoat2} alt='' />
+          <img src={greyCoat3} alt='' />
         </CarouselRight>
 
         <ParagraphGrey>
           The grey one <br />
-          <Button color="pineGrey" onClick={() => setModalOpen(true)} data-testid="buy-button">
+          <Button
+            color='pineGrey'
+            onClick={() => {
+              setSelectedColor('grey');
+              setModalOpen(true);
+            }}
+            data-testid='buy-button'
+          >
             Buy now
           </Button>
         </ParagraphGrey>
@@ -97,13 +96,19 @@ export default () => {
             </GoRightButton>
           )}
         >
-          <img src={beigeCoat1} alt="" />
-          <img src={beigeCoat2} alt="" />
+          <img src={beigeCoat1} alt='' />
+          <img src={beigeCoat2} alt='' />
           {/* <img src={beigeCoat3} alt="" /> */}
         </CarouselLeft>
         <ParagraphRight>
           The beige one <br />
-          <Button color="pineBeige" onClick={() => setModalOpen(true)}>
+          <Button
+            color='pineBeige'
+            onClick={() => {
+              setSelectedColor('beige');
+              setModalOpen(true);
+            }}
+          >
             Buy now
           </Button>
         </ParagraphRight>
@@ -122,13 +127,19 @@ export default () => {
             </GoRightButton>
           )}
         >
-          <img src={navyCoat1} alt="" />
-          <img src={navyCoat2} alt="" />
-          <img src={navyCoat3} alt="" />
+          <img src={navyCoat1} alt='' />
+          <img src={navyCoat2} alt='' />
+          <img src={navyCoat3} alt='' />
         </CarouselRight>
         <ParagraphNavy>
           The navy one <br />
-          <Button color="pineNavy" onClick={() => setModalOpen(true)}>
+          <Button
+            color='pineNavy'
+            onClick={() => {
+              setSelectedColor('navy');
+              setModalOpen(true);
+            }}
+          >
             Buy now
           </Button>
         </ParagraphNavy>
