@@ -65,6 +65,11 @@ export const RadioInput = styled.input`
     margin-right: 10px;
 `;
 
+export const CreditCardWrapper = styled.div`
+    margin-left: 15px;
+    max-width: 350px;
+`;
+
 export const Summary = styled.div`
     display: flex;
 `;
@@ -81,4 +86,9 @@ export const SummaryPicture = styled.img`
 export const OrderNowButton = styled(Button)`
     margin-top: 2em;
     margin-left: auto;
+`;
+
+export const ErrorText = styled.p`
+    font-size: 12px;
+    color: red;
 `;

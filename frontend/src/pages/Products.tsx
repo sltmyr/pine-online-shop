@@ -1,3 +1,5 @@
+import { Elements } from '@stripe/react-stripe-js';
+import { loadStripe } from '@stripe/stripe-js';
 import React, { useEffect, useState } from 'react';
 import 'react-responsive-carousel/lib/styles/carousel.min.css'; // requires a loader
 import Checkout from '../components/Checkout';
@@ -27,6 +29,7 @@ import {
 } from './Products.styles';
 
 export type CoatColor = 'beige' | 'grey' | 'navy';
+const stripePromise = loadStripe('<ENTER PUBLISHABLE KEY HERE>');
 
 export default () => {
   const [isModalOpen, setModalOpen] = useState<boolean>(false);
@@ -34,7 +37,11 @@ export default () => {
   useEffect(() => window.scroll({ top: 0, left: 0 }));
   return (
     <>
-      {isModalOpen && <Checkout selectedColor={selectedColor} onComplete={() => setModalOpen(false)} />}
+      {isModalOpen && (
+        <Elements stripe={stripePromise}>
+          <Checkout selectedColor={selectedColor} onComplete={() => setModalOpen(false)} />
+        </Elements>
+      )}
       <Grid>
         <PictureLeft src={picture} />
         <ParagraphTop>

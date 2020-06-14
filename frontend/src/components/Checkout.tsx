@@ -1,6 +1,5 @@
-import { Elements } from '@stripe/react-stripe-js';
-import { loadStripe } from '@stripe/stripe-js';
-import React, { useState } from 'react';
+import { CardElement, useElements, useStripe } from '@stripe/react-stripe-js';
+import React, { useEffect, useState } from 'react';
 import beigeCoat from '../images/beige-coat-1.jpg';
 import navyCoat from '../images/blue-coat-1.jpg';
 import greyCoat from '../images/grey-coat-1.jpg';
@@ -9,6 +8,8 @@ import {
   AddressForm,
   CheckoutSectionHeader,
   CloseIcon,
+  CreditCardWrapper,
+  ErrorText,
   FormInput,
   FormLabel,
   FormRow,
@@ -20,22 +21,11 @@ import {
   SummaryPicture,
   SummaryText,
 } from './Checkout.styles';
-import CreditCardForm from './CreditCardForm';
 
 // COMPONENT STILL UNDER DEVELOPMENT
 const CHECKOUT_UNAVAILABLE = false; // set to true for publishing during development
 
-const stripePromise = loadStripe('<ENTER PUBLISHABLE KEY HERE>');
-
-type AddressElement = {
-  id: 'email' | 'name' | 'street' | 'postalCode' | 'city';
-  label: string;
-  autoComplete: string;
-  placeholder: string;
-};
-
-type PaymentMethod = 'creditCard' | 'paypal';
-
+const errorMessage = 'Something went wrong. Please try again later.';
 const addressElements: AddressElement[] = [
   { id: 'email', label: 'email', autoComplete: 'email', placeholder: 'jane.doe@gmail.com' },
   {
@@ -70,6 +60,24 @@ const summaryPicture = {
   grey: greyCoat,
 };
 
+const stripeCardElementOptions = {
+  style: {
+    base: {
+      fontFamily: 'freight-sans-pro, sans-serif',
+      fontWeight: '300',
+      fontStyle: 'normal',
+      fontSize: '15px',
+      color: 'black',
+      '::placeholder': {
+        color: '#aab7c4',
+      },
+    },
+    invalid: {
+      color: '#9e2146',
+    },
+  },
+};
+
 export default ({ onComplete, selectedColor }: Props) => {
   if (CHECKOUT_UNAVAILABLE) {
     return (
@@ -84,6 +92,8 @@ export default ({ onComplete, selectedColor }: Props) => {
     );
   }
 
+  const [stripeClientSecret, setStripeClientSecret] = useState<string>('');
+  const [error, setError] = useState<string>('');
   const [address, setAddress] = useState({
     email: '',
     name: '',
@@ -92,6 +102,46 @@ export default ({ onComplete, selectedColor }: Props) => {
     city: '',
   });
   const [paymentMethod, setPaymentMethod] = useState<PaymentMethod>('creditCard');
+
+  const fetchClientSecret = async () => {
+    try {
+      const response = await fetch('https://checkout.pinecoat.com/intent');
+      const { clientSecret } = await response.json();
+      !clientSecret && setError(errorMessage);
+      setStripeClientSecret(clientSecret);
+    } catch {
+      setError(errorMessage);
+    }
+  };
+  useEffect(() => {
+    fetchClientSecret();
+  }, []);
+
+  const stripe = useStripe();
+  const elements = useElements();
+
+  const processStripePayment = async () => {
+    if (!stripe || !elements) {
+      return;
+    }
+    const stripeCardElement = elements.getElement(CardElement);
+    if (!stripeCardElement) {
+      return;
+    }
+    const result = await stripe.confirmCardPayment(stripeClientSecret, {
+      payment_method: {
+        card: stripeCardElement,
+        billing_details: {
+          name: 'Jenny Rosen',
+        },
+      },
+    });
+    if (result.error) {
+      setError(result.error.message || '');
+    } else if (result.paymentIntent?.status === 'succeeded') {
+      setError(result.paymentIntent.description || '');
+    }
+  };
 
   return (
     <ModalBackground>
@@ -124,7 +174,11 @@ export default ({ onComplete, selectedColor }: Props) => {
           />
           <FormLabel htmlFor='creditCard'>Credit Card</FormLabel>
         </FormRow>
-        <Elements stripe={stripePromise}>{paymentMethod === 'creditCard' && <CreditCardForm />}</Elements>
+        {paymentMethod === 'creditCard' && (
+          <CreditCardWrapper>
+            <CardElement options={stripeCardElementOptions} /> {error && <ErrorText>{error}</ErrorText>}
+          </CreditCardWrapper>
+        )}
         <FormRow>
           <RadioInput
             id='paypal'
@@ -147,7 +201,9 @@ export default ({ onComplete, selectedColor }: Props) => {
         </Summary>
         <OrderNowButton
           color={`pine${selectedColor.charAt(0).toUpperCase()}${selectedColor.slice(1)}`}
-          onClick={() => console.log(greyCoat)}
+          onClick={() => {
+            paymentMethod === 'creditCard' ? processStripePayment() : console.log('do paypal stuff');
+          }}
         >
           Order now
         </OrderNowButton>
@@ -160,3 +216,11 @@ type Props = {
   onComplete: () => void;
   selectedColor: CoatColor;
 };
+
+type AddressElement = {
+  id: 'email' | 'name' | 'street' | 'postalCode' | 'city';
+  label: string;
+  autoComplete: string;
+  placeholder: string;
+};
+type PaymentMethod = 'creditCard' | 'paypal';

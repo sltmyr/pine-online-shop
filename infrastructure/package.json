@@ -1,5 +1,5 @@
 {
-  "name": "cdk-test",
+  "name": "pinecoat-online-shop-cdk",
   "devDependencies": {
     "@types/node": "10.17.5",
     "aws-cdk": "1.36.1",
