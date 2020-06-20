@@ -79,6 +79,10 @@ export const SummaryText = styled.div`
     margin-left: 15px;
 `;
 
+export const ConfirmationText = styled(SummaryText)`
+    margin-bottom: 2em;
+`;
+
 export const SummaryPicture = styled.img`
     width: 80px;
 `;
@@ -91,4 +95,8 @@ export const OrderNowButton = styled(Button)`
 export const ErrorText = styled.p`
     font-size: 12px;
     color: red;
+`;
+
+export const SpinnerContainer = styled.div`
+    margin-top: -10px;
 `;

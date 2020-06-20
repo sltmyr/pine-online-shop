@@ -29,7 +29,7 @@ import {
 } from './Products.styles';
 
 export type CoatColor = 'beige' | 'grey' | 'navy';
-const stripePromise = loadStripe('<ENTER PUBLISHABLE KEY HERE>');
+const stripePromise = loadStripe(process.env.REACT_APP_STRIPE_PUBLISHABLE_KEY!);
 
 export default () => {
   const [isModalOpen, setModalOpen] = useState<boolean>(false);

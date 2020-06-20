@@ -3,11 +3,13 @@ import React, { useEffect, useState } from 'react';
 import beigeCoat from '../images/beige-coat-1.jpg';
 import navyCoat from '../images/blue-coat-1.jpg';
 import greyCoat from '../images/grey-coat-1.jpg';
+import Spinner from '../images/spinner.svg';
 import { CoatColor } from '../pages/Products';
 import {
   AddressForm,
   CheckoutSectionHeader,
   CloseIcon,
+  ConfirmationText,
   CreditCardWrapper,
   ErrorText,
   FormInput,
@@ -17,6 +19,7 @@ import {
   ModalWindow,
   OrderNowButton,
   RadioInput,
+  SpinnerContainer,
   Summary,
   SummaryPicture,
   SummaryText,
@@ -102,6 +105,8 @@ export default ({ onComplete, selectedColor }: Props) => {
     city: '',
   });
   const [paymentMethod, setPaymentMethod] = useState<PaymentMethod>('creditCard');
+  const [paymentSucceeded, setPaymentSucceeded] = useState<boolean>(false);
+  const [loading, setLoading] = useState<boolean>(false);
 
   const fetchClientSecret = async () => {
     try {
@@ -128,6 +133,7 @@ export default ({ onComplete, selectedColor }: Props) => {
     if (!stripeCardElement) {
       return;
     }
+    setLoading(true);
     const result = await stripe.confirmCardPayment(stripeClientSecret, {
       payment_method: {
         card: stripeCardElement,
@@ -136,58 +142,68 @@ export default ({ onComplete, selectedColor }: Props) => {
         },
       },
     });
+    setLoading(false);
     if (result.error) {
       setError(result.error.message || '');
     } else if (result.paymentIntent?.status === 'succeeded') {
-      setError(result.paymentIntent.description || '');
+      setPaymentSucceeded(true);
     }
   };
 
   return (
     <ModalBackground>
       <ModalWindow data-testid='modal'>
-        <CloseIcon onClick={onComplete} />
-        <CheckoutSectionHeader>Address</CheckoutSectionHeader>
-        <AddressForm>
-          {addressElements.map((addressElement) => (
-            <FormRow key={addressElement.id}>
-              <FormLabel htmlFor={addressElement.id}>{addressElement.label}</FormLabel>
-              <FormInput
-                id={addressElement.id}
-                type='text'
-                placeholder={addressElement.placeholder}
-                required
-                autoComplete={addressElement.autoComplete}
-                value={address[addressElement.id]}
-                onChange={(e) => setAddress({ ...address, [addressElement.id]: e.target.value })}
+        <CloseIcon onClick={() => !loading && onComplete()} />
+        {!paymentSucceeded ? (
+          <>
+            <CheckoutSectionHeader>Address</CheckoutSectionHeader>
+            <AddressForm>
+              {addressElements.map((addressElement) => (
+                <FormRow key={addressElement.id}>
+                  <FormLabel htmlFor={addressElement.id}>{addressElement.label}</FormLabel>
+                  <FormInput
+                    id={addressElement.id}
+                    type='text'
+                    placeholder={addressElement.placeholder}
+                    required
+                    autoComplete={addressElement.autoComplete}
+                    value={address[addressElement.id]}
+                    onChange={(e) => setAddress({ ...address, [addressElement.id]: e.target.value })}
+                  />
+                </FormRow>
+              ))}
+            </AddressForm>
+            <CheckoutSectionHeader>Payment</CheckoutSectionHeader>
+            <FormRow>
+              <RadioInput
+                id='creditCard'
+                type='radio'
+                checked={paymentMethod === 'creditCard'}
+                onChange={() => setPaymentMethod('creditCard')}
               />
+              <FormLabel htmlFor='creditCard'>Credit Card</FormLabel>
             </FormRow>
-          ))}
-        </AddressForm>
-        <CheckoutSectionHeader>Payment</CheckoutSectionHeader>
-        <FormRow>
-          <RadioInput
-            id='creditCard'
-            type='radio'
-            checked={paymentMethod === 'creditCard'}
-            onChange={() => setPaymentMethod('creditCard')}
-          />
-          <FormLabel htmlFor='creditCard'>Credit Card</FormLabel>
-        </FormRow>
-        {paymentMethod === 'creditCard' && (
-          <CreditCardWrapper>
-            <CardElement options={stripeCardElementOptions} /> {error && <ErrorText>{error}</ErrorText>}
-          </CreditCardWrapper>
+            {paymentMethod === 'creditCard' && (
+              <CreditCardWrapper>
+                <CardElement options={stripeCardElementOptions} /> {error && <ErrorText>{error}</ErrorText>}
+              </CreditCardWrapper>
+            )}
+            <FormRow>
+              <RadioInput
+                id='paypal'
+                type='radio'
+                checked={paymentMethod === 'paypal'}
+                onChange={() => setPaymentMethod('paypal')}
+              />
+              <FormLabel htmlFor='paypal'>Paypal</FormLabel>
+            </FormRow>
+          </>
+        ) : (
+          <>
+            <CheckoutSectionHeader>Thank you for your order!</CheckoutSectionHeader>
+            <ConfirmationText>You will shortly get the confirmation via email.</ConfirmationText>
+          </>
         )}
-        <FormRow>
-          <RadioInput
-            id='paypal'
-            type='radio'
-            checked={paymentMethod === 'paypal'}
-            onChange={() => setPaymentMethod('paypal')}
-          />
-          <FormLabel htmlFor='paypal'>Paypal</FormLabel>
-        </FormRow>
         <CheckoutSectionHeader>Order Summary</CheckoutSectionHeader>
         <Summary>
           <SummaryPicture src={summaryPicture[selectedColor]} />
@@ -199,14 +215,23 @@ export default ({ onComplete, selectedColor }: Props) => {
             price: 300 euro
           </SummaryText>
         </Summary>
-        <OrderNowButton
-          color={`pine${selectedColor.charAt(0).toUpperCase()}${selectedColor.slice(1)}`}
-          onClick={() => {
-            paymentMethod === 'creditCard' ? processStripePayment() : console.log('do paypal stuff');
-          }}
-        >
-          Order now
-        </OrderNowButton>
+        {!paymentSucceeded && (
+          <OrderNowButton
+            color={`pine${selectedColor.charAt(0).toUpperCase()}${selectedColor.slice(1)}`}
+            onClick={() => {
+              paymentMethod === 'creditCard' ? processStripePayment() : console.log('do paypal stuff');
+            }}
+            disabled={loading}
+          >
+            {loading ? (
+              <SpinnerContainer>
+                <img src={Spinner} alt='loading...' />
+              </SpinnerContainer>
+            ) : (
+              'Order now'
+            )}
+          </OrderNowButton>
+        )}
       </ModalWindow>
     </ModalBackground>
   );
