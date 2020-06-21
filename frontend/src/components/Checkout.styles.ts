@@ -97,6 +97,7 @@ export const ErrorText = styled.p`
     color: red;
 `;
 
-export const SpinnerContainer = styled.div`
-    margin-top: -10px;
+export const StyledSpinner = styled.img`
+    width: 20px;
+    height: 20px;
 `;

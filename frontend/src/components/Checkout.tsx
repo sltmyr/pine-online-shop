@@ -19,7 +19,7 @@ import {
   ModalWindow,
   OrderNowButton,
   RadioInput,
-  SpinnerContainer,
+  StyledSpinner,
   Summary,
   SummaryPicture,
   SummaryText,
@@ -223,13 +223,7 @@ export default ({ onComplete, selectedColor }: Props) => {
             }}
             disabled={loading}
           >
-            {loading ? (
-              <SpinnerContainer>
-                <img src={Spinner} alt='loading...' />
-              </SpinnerContainer>
-            ) : (
-              'Order now'
-            )}
+            {loading ? <StyledSpinner src={Spinner} alt='loading...' /> : 'Order now'}
           </OrderNowButton>
         )}
       </ModalWindow>
