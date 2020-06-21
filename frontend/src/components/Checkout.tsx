@@ -1,5 +1,6 @@
 import { CardElement, useElements, useStripe } from '@stripe/react-stripe-js';
 import React, { useEffect, useState } from 'react';
+import ReactDOM from 'react-dom';
 import beigeCoat from '../images/beige-coat-1.jpg';
 import navyCoat from '../images/blue-coat-1.jpg';
 import greyCoat from '../images/grey-coat-1.jpg';
@@ -18,12 +19,19 @@ import {
   ModalBackground,
   ModalWindow,
   OrderNowButton,
+  PaypalButtonContainer,
   RadioInput,
   StyledSpinner,
   Summary,
   SummaryPicture,
   SummaryText,
 } from './Checkout.styles';
+
+declare global {
+  interface Window {
+    paypal: any;
+  }
+}
 
 // COMPONENT STILL UNDER DEVELOPMENT
 const CHECKOUT_UNAVAILABLE = false; // set to true for publishing during development
@@ -150,6 +158,8 @@ export default ({ onComplete, selectedColor }: Props) => {
     }
   };
 
+  const PaypalButton = window.paypal.Buttons.driver('react', { React, ReactDOM });
+
   return (
     <ModalBackground>
       <ModalWindow data-testid='modal'>
@@ -215,17 +225,30 @@ export default ({ onComplete, selectedColor }: Props) => {
             price: 300 euro
           </SummaryText>
         </Summary>
-        {!paymentSucceeded && (
-          <OrderNowButton
-            color={`pine${selectedColor.charAt(0).toUpperCase()}${selectedColor.slice(1)}`}
-            onClick={() => {
-              paymentMethod === 'creditCard' ? processStripePayment() : console.log('do paypal stuff');
-            }}
-            disabled={loading}
-          >
-            {loading ? <StyledSpinner src={Spinner} alt='loading...' /> : 'Order now'}
-          </OrderNowButton>
-        )}
+        {!paymentSucceeded &&
+          (paymentMethod === 'creditCard' ? (
+            <OrderNowButton
+              color={`pine${selectedColor.charAt(0).toUpperCase()}${selectedColor.slice(1)}`}
+              onClick={() => {
+                paymentMethod === 'creditCard' ? processStripePayment() : console.log('do paypal stuff');
+              }}
+              disabled={loading}
+            >
+              {loading ? <StyledSpinner src={Spinner} alt='loading...' /> : 'Order now'}
+            </OrderNowButton>
+          ) : (
+            <PaypalButtonContainer>
+              <PaypalButton
+                style={{ layout: 'horizontal', color: 'silver', height: 30, tagline: false, label: 'pay' }}
+                createOrder={(data: any, actions: any) => {
+                  return actions.order.create({
+                    purchase_units: [{ amount: { currency_code: 'EUR', value: '234.56' } }],
+                  });
+                }}
+                onApprove={() => setPaymentSucceeded(true)}
+              />
+            </PaypalButtonContainer>
+          ))}
       </ModalWindow>
     </ModalBackground>
   );

@@ -91,6 +91,13 @@ export const OrderNowButton = styled(Button)`
     margin-top: 2em;
     margin-left: auto;
 `;
+export const PaypalButtonContainer = styled.div`
+    margin-top: 2em;
+    margin-left: auto;
+    width: 10em;
+    height: 2em;
+    font-size: 13.3333px;
+`;
 
 export const ErrorText = styled.p`
     font-size: 12px;
