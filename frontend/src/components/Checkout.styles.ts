@@ -12,6 +12,7 @@ export const ModalBackground = styled.div`
     height: 100%;
     background-color: rgb(0,0,0);
     background-color: rgba(0,0,0,0.4);
+    overflow-y: scroll;
 `;
 
 export const ModalWindow = styled.div`
@@ -47,7 +48,8 @@ export const AddressForm = styled.form`
 
 export const FormRow = styled.div`
     display: flex;
-    align-items: center;
+    flex-direction: column;
+    align-items: start;
     margin-bottom: 0.5em;
     margin-left: 15px;
 `;
@@ -55,19 +57,31 @@ export const FormRow = styled.div`
 export const FormLabel = styled.label`
     font-size: 15px;
     min-width: 80px;
+    margin-bottom: 0.5em;
 `;
 
 export const FormInput = styled.input`
-    width: 100%;
+    width: 90%;
+    height: 2em;
+    border: 1px solid grey;
+`;
+
+export const RadioOption = styled.div`
+    display: flex;
+    align-items: center;
+    margin-bottom: 0.5em;
+    margin-left: 15px;
 `;
 
 export const RadioInput = styled.input`
     margin-right: 10px;
+    margin-bottom: 0.5em;
 `;
 
 export const CreditCardWrapper = styled.div`
     margin-left: 15px;
     max-width: 350px;
+    margin-bottom: 1em;
 `;
 
 export const Summary = styled.div`

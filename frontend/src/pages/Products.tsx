@@ -34,7 +34,28 @@ const stripePromise = loadStripe(process.env.REACT_APP_STRIPE_PUBLISHABLE_KEY!);
 export default () => {
   const [isModalOpen, setModalOpen] = useState<boolean>(false);
   const [selectedColor, setSelectedColor] = useState<CoatColor>('beige');
+  const [isPaypalLoaded, setIsPaypalLoaded] = useState<boolean>(false);
   useEffect(() => window.scroll({ top: 0, left: 0 }));
+
+  const loadPaypalScript = () => {
+    const script = document.createElement('script');
+    script.type = 'text/javascript';
+    script.src =
+      'https://www.paypal.com/sdk/js?client-id=AYG7a8HDzlkcHAUypehl8qu92bfzfV7PpyampFhdFKIEMIc-M0yttQTMP8-xDiVOinj2IOKcpJqusU2e&currency=EUR';
+    script.async = true;
+    script.onload = () => {
+      setIsPaypalLoaded(true);
+    };
+    script.onerror = () => {
+      console.log('Paypal SDK could not be loaded.');
+    };
+
+    document.body.appendChild(script);
+  };
+  useEffect(() => {
+    loadPaypalScript();
+  }, []);
+
   return (
     <>
       {isModalOpen && (
@@ -80,7 +101,7 @@ export default () => {
             color='pineGrey'
             onClick={() => {
               setSelectedColor('grey');
-              setModalOpen(true);
+              isPaypalLoaded && setModalOpen(true);
             }}
             data-testid='buy-button'
           >
@@ -105,7 +126,6 @@ export default () => {
         >
           <img src={beigeCoat1} alt='' />
           <img src={beigeCoat2} alt='' />
-          {/* <img src={beigeCoat3} alt="" /> */}
         </CarouselLeft>
         <ParagraphRight>
           The beige one <br />
@@ -113,7 +133,7 @@ export default () => {
             color='pineBeige'
             onClick={() => {
               setSelectedColor('beige');
-              setModalOpen(true);
+              isPaypalLoaded && setModalOpen(true);
             }}
           >
             Buy now
@@ -144,7 +164,7 @@ export default () => {
             color='pineNavy'
             onClick={() => {
               setSelectedColor('navy');
-              setModalOpen(true);
+              isPaypalLoaded && setModalOpen(true);
             }}
           >
             Buy now

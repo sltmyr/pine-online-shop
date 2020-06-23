@@ -21,6 +21,7 @@ import {
   OrderNowButton,
   PaypalButtonContainer,
   RadioInput,
+  RadioOption,
   StyledSpinner,
   Summary,
   SummaryPicture,
@@ -38,30 +39,28 @@ const CHECKOUT_UNAVAILABLE = false; // set to true for publishing during develop
 
 const errorMessage = 'Something went wrong. Please try again later.';
 const addressElements: AddressElement[] = [
-  { id: 'email', label: 'email', autoComplete: 'email', placeholder: 'jane.doe@gmail.com' },
-  {
-    id: 'name',
-    label: 'full name',
-    autoComplete: 'name',
-    placeholder: 'Jane Doe',
-  },
+  { id: 'email', label: 'email', autoComplete: 'email', placeholder: 'jane.doe@gmail.com', type: 'email' },
+  { id: 'name', label: 'full name', autoComplete: 'name', placeholder: 'Jane Doe', type: 'text' },
   {
     id: 'street',
     label: 'street & no.',
     autoComplete: 'street-address',
     placeholder: 'Beautifulstreet 12a',
+    type: 'text',
   },
   {
     id: 'postalCode',
     label: 'postal code',
     autoComplete: 'postal-code',
     placeholder: '12345',
+    type: 'number',
   },
   {
     id: 'city',
     label: 'city',
     autoComplete: 'address-level2',
     placeholder: 'Pine city',
+    type: 'text',
   },
 ];
 
@@ -172,10 +171,10 @@ export default ({ onComplete, selectedColor }: Props) => {
                 <FormRow key={addressElement.id}>
                   <FormLabel htmlFor={addressElement.id}>{addressElement.label}</FormLabel>
                   <FormInput
-                    id={addressElement.id}
-                    type='text'
-                    placeholder={addressElement.placeholder}
                     required
+                    id={addressElement.id}
+                    type={addressElement.type}
+                    placeholder={addressElement.placeholder}
                     autoComplete={addressElement.autoComplete}
                     value={address[addressElement.id]}
                     onChange={(e) => setAddress({ ...address, [addressElement.id]: e.target.value })}
@@ -184,7 +183,7 @@ export default ({ onComplete, selectedColor }: Props) => {
               ))}
             </AddressForm>
             <CheckoutSectionHeader>Payment</CheckoutSectionHeader>
-            <FormRow>
+            <RadioOption>
               <RadioInput
                 id='creditCard'
                 type='radio'
@@ -192,13 +191,13 @@ export default ({ onComplete, selectedColor }: Props) => {
                 onChange={() => setPaymentMethod('creditCard')}
               />
               <FormLabel htmlFor='creditCard'>Credit Card</FormLabel>
-            </FormRow>
+            </RadioOption>
             {paymentMethod === 'creditCard' && (
               <CreditCardWrapper>
                 <CardElement options={stripeCardElementOptions} /> {error && <ErrorText>{error}</ErrorText>}
               </CreditCardWrapper>
             )}
-            <FormRow>
+            <RadioOption>
               <RadioInput
                 id='paypal'
                 type='radio'
@@ -206,7 +205,7 @@ export default ({ onComplete, selectedColor }: Props) => {
                 onChange={() => setPaymentMethod('paypal')}
               />
               <FormLabel htmlFor='paypal'>Paypal</FormLabel>
-            </FormRow>
+            </RadioOption>
           </>
         ) : (
           <>
@@ -264,5 +263,6 @@ type AddressElement = {
   label: string;
   autoComplete: string;
   placeholder: string;
+  type: string;
 };
 type PaymentMethod = 'creditCard' | 'paypal';
