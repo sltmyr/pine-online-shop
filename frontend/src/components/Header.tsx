@@ -1,21 +1,21 @@
-import React, { useState, useEffect, useRef } from "react";
+import React, { useEffect, useRef, useState } from 'react';
+import { Link } from 'react-router-dom';
+import { theme } from '../global_styles';
+import logo from '../images/logo.png';
 import {
-  MenuContainer,
-  LogoContainer,
-  Grid,
-  Logo,
-  HorizontalLine,
   DummyHeader,
-  PositionWrapper,
+  Grid,
   HamburgerContainer,
-  LineTop,
-  LineMiddle,
+  HorizontalLine,
   LineBottom,
-} from "./Header.styles";
-import logo from "../images/logo.png";
-import { theme } from "../global_styles";
-import { Link } from "react-router-dom";
-import Menu from "./Menu";
+  LineMiddle,
+  LineTop,
+  Logo,
+  LogoContainer,
+  MenuContainer,
+  PositionWrapper,
+} from './Header.styles';
+import Menu from './Menu';
 
 const mediaQuery = window.matchMedia(`(max-width: ${theme.mediumBreakpoint}px)`);
 
@@ -35,22 +35,22 @@ export default () => {
     }
   };
   useEffect(() => {
-    document.addEventListener("mousedown", handleClickOutside);
-    return () => document.removeEventListener("mousedown", handleClickOutside);
+    document.addEventListener('mousedown', handleClickOutside);
+    return () => document.removeEventListener('mousedown', handleClickOutside);
   });
 
   return (
-    <DummyHeader ref={headerRef} data-testid="header">
+    <DummyHeader ref={headerRef} data-testid='header'>
       <PositionWrapper>
         <Grid>
           <LogoContainer>
-            <Link to={{ pathname: "/", state: { scrollTo: "top" } }}>
-              <Logo src={logo} data-testid="logo" />
+            <Link to={{ pathname: '/', state: { scrollTo: 'top' } }}>
+              <Logo src={logo} data-testid='logo' />
             </Link>
           </LogoContainer>
           <MenuContainer onClick={() => setExpanded(!expanded)}>
             {smallWindow ? (
-              <HamburgerContainer data-testid="hamburger">
+              <HamburgerContainer data-testid='hamburger'>
                 <LineTop expanded={expanded} />
                 <LineMiddle expanded={expanded} />
                 <LineBottom expanded={expanded} />
@@ -62,8 +62,8 @@ export default () => {
           <HorizontalLine />
         </Grid>
         {smallWindow && expanded && (
-          <MenuContainer data-testid="menu-small">
-            <Menu onClick={() => setExpanded(false)} />
+          <MenuContainer data-testid='menu-small'>
+            <Menu onClickCloseMenu={() => setExpanded(false)} />
           </MenuContainer>
         )}
       </PositionWrapper>

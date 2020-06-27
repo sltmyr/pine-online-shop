@@ -1,5 +1,5 @@
 import { Elements } from '@stripe/react-stripe-js';
-import { loadStripe } from '@stripe/stripe-js';
+import { loadStripe, Stripe } from '@stripe/stripe-js';
 import React, { useEffect, useState } from 'react';
 import 'react-responsive-carousel/lib/styles/carousel.min.css'; // requires a loader
 import Checkout from '../components/Checkout';
@@ -29,41 +29,41 @@ import {
 } from './Products.styles';
 
 export type CoatColor = 'beige' | 'grey' | 'navy';
+
 const stripePromise = loadStripe(process.env.REACT_APP_STRIPE_PUBLISHABLE_KEY!);
 
-export default () => {
+const loadPaypalScript = (onLoad: () => void) => {
+  const script = document.createElement('script');
+  script.type = 'text/javascript';
+  script.src = `https://www.paypal.com/sdk/js?client-id=${process.env.REACT_APP_PAYPAL_CLIENT_ID}&currency=EUR`;
+  script.async = true;
+  script.onload = onLoad;
+  script.onerror = () => console.log('Paypal SDK could not be loaded.');
+  document.body.appendChild(script);
+};
+
+interface ProductsProps {
+  loadPaypal?: (onLoad: () => void) => void;
+  stripeElememtsPromise?: Promise<Stripe | null>;
+}
+
+export default ({ loadPaypal = loadPaypalScript, stripeElememtsPromise = stripePromise }: ProductsProps) => {
   const [isModalOpen, setModalOpen] = useState<boolean>(false);
   const [selectedColor, setSelectedColor] = useState<CoatColor>('beige');
   const [isPaypalLoaded, setIsPaypalLoaded] = useState<boolean>(false);
-  useEffect(() => window.scroll({ top: 0, left: 0 }));
-
-  const loadPaypalScript = () => {
-    const script = document.createElement('script');
-    script.type = 'text/javascript';
-    script.src =
-      'https://www.paypal.com/sdk/js?client-id=AYG7a8HDzlkcHAUypehl8qu92bfzfV7PpyampFhdFKIEMIc-M0yttQTMP8-xDiVOinj2IOKcpJqusU2e&currency=EUR';
-    script.async = true;
-    script.onload = () => {
-      setIsPaypalLoaded(true);
-    };
-    script.onerror = () => {
-      console.log('Paypal SDK could not be loaded.');
-    };
-
-    document.body.appendChild(script);
-  };
+  useEffect(() => window.scroll({ top: 0, left: 0 }), []);
   useEffect(() => {
-    loadPaypalScript();
-  }, []);
+    loadPaypal(() => setIsPaypalLoaded(true));
+  }, [loadPaypal]);
 
   return (
     <>
       {isModalOpen && (
-        <Elements stripe={stripePromise}>
+        <Elements stripe={stripeElememtsPromise}>
           <Checkout selectedColor={selectedColor} onComplete={() => setModalOpen(false)} />
         </Elements>
       )}
-      <Grid>
+      <Grid data-testid='produts-page'>
         <PictureLeft src={picture} />
         <ParagraphTop>
           The pinecoat is a timeless, classic design piece. It goes well with different styles and will always give you

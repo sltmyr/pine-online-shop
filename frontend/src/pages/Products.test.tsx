@@ -1,18 +1,30 @@
-import React from "react";
-import { render, cleanup, fireEvent } from "@testing-library/react";
-import Products from "./Products";
+import { cleanup, fireEvent, render } from '@testing-library/react';
+import React from 'react';
+import Products from './Products';
 
 afterEach(cleanup);
 
-it("renders without modal window", () => {
+it('renders without checkout modal open ', () => {
   const { queryByTestId } = render(<Products />);
-  expect(queryByTestId(/modal/i)).not.toBeInTheDocument();
+  expect(queryByTestId(/'checkout'/i)).not.toBeInTheDocument();
 });
 
-it("opens and closes modal window on button click", () => {
-  const { getByTestId, queryByTestId } = render(<Products />);
-  fireEvent.click(getByTestId("buy-button"));
-  expect(getByTestId("modal")).toBeInTheDocument();
-  fireEvent.click(getByTestId("modal-button"));
+it('scrolls to top on initial load', () => {
+  render(<Products />);
+  expect(window.scroll).toHaveBeenCalledWith({ left: 0, top: 0 });
+});
+
+it('loads paypal script on render', () => {
+  const loadPaypal = jest.fn();
+  render(<Products loadPaypal={loadPaypal} />);
+  expect(loadPaypal).toHaveBeenCalledTimes(1);
+});
+
+it('opens checkout modal on button click', () => {
+  window.paypal = { Buttons: { driver: () => {} } };
+  const loadPaypalScript = jest.fn((onLoad) => onLoad());
+  const { getByTestId, queryByTestId } = render(<Products loadPaypal={loadPaypalScript} />);
   expect(queryByTestId(/modal/i)).not.toBeInTheDocument();
+  fireEvent.click(getByTestId('buy-button'));
+  expect(getByTestId('modal')).toBeInTheDocument();
 });
