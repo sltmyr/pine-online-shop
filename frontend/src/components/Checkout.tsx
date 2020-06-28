@@ -89,7 +89,7 @@ const stripeCardElementOptions = {
 
 const fetchClientSecret = async (): Promise<string | undefined> => {
   try {
-    const response = await fetch('https://checkout.pinecoat.com/inten');
+    const response = await fetch('https://checkout.pinecoat.com/intent');
     const { clientSecret } = await response.json();
     return clientSecret;
   } catch {
@@ -112,7 +112,7 @@ export default ({ onComplete, selectedColor }: Props) => {
   }
 
   const [stripeClientSecret, setStripeClientSecret] = useState<string>('');
-  const [error, setError] = useState<string>('');
+  const [stripeError, setStripeError] = useState<string>('');
   const [address, setAddress] = useState({
     email: '',
     name: '',
@@ -123,13 +123,23 @@ export default ({ onComplete, selectedColor }: Props) => {
   const [paymentMethod, setPaymentMethod] = useState<PaymentMethod>('creditCard');
   const [paymentSucceeded, setPaymentSucceeded] = useState<boolean>(false);
   const [loading, setLoading] = useState<boolean>(false);
+  const [formComplete, setFormComplete] = useState<boolean>(false);
+  const [showErrors, setShowErrors] = useState<boolean>(false);
 
   useEffect(() => {
     (async () => {
       const secret = await fetchClientSecret();
-      secret ? setStripeClientSecret(secret) : setError(errorMessage);
+      secret ? setStripeClientSecret(secret) : setStripeError(errorMessage);
     })();
   }, []);
+
+  useEffect(() => {
+    if (address.email && address.name && address.street && address.postalCode && address.city) {
+      setFormComplete(true);
+    } else {
+      setFormComplete(false);
+    }
+  }, [address]);
 
   const stripe = useStripe();
   const elements = useElements();
@@ -152,7 +162,7 @@ export default ({ onComplete, selectedColor }: Props) => {
     });
     setLoading(false);
     if (result.error) {
-      setError(result.error.message || '');
+      setStripeError(result.error.message || '');
     } else if (result.paymentIntent?.status === 'succeeded') {
       setPaymentSucceeded(true);
     }
@@ -164,56 +174,74 @@ export default ({ onComplete, selectedColor }: Props) => {
     <ModalBackground>
       <ModalWindow data-testid='modal'>
         <CloseIcon onClick={() => !loading && onComplete()} />
-        {!paymentSucceeded ? (
-          <>
-            <CheckoutSectionHeader>Address</CheckoutSectionHeader>
-            <AddressForm>
-              {addressElements.map((addressElement) => (
-                <FormRow key={addressElement.id}>
-                  <FormLabel htmlFor={addressElement.id}>{addressElement.label}</FormLabel>
-                  <FormInput
-                    required
-                    id={addressElement.id}
-                    type={addressElement.type}
-                    placeholder={addressElement.placeholder}
-                    autoComplete={addressElement.autoComplete}
-                    value={address[addressElement.id]}
-                    onChange={(e) => setAddress({ ...address, [addressElement.id]: e.target.value })}
-                  />
-                </FormRow>
-              ))}
-            </AddressForm>
-            <CheckoutSectionHeader>Payment</CheckoutSectionHeader>
-            <RadioOption>
-              <RadioInput
-                id='creditCard'
-                type='radio'
-                checked={paymentMethod === 'creditCard'}
-                onChange={() => setPaymentMethod('creditCard')}
+        {paymentSucceeded ? renderThankYouMessage() : renderCheckoutForm()}
+        {renderSummary()}
+        {!paymentSucceeded && renderOrderButton()}
+        {showErrors && <ErrorText>An Error occured</ErrorText>}
+      </ModalWindow>
+    </ModalBackground>
+  );
+
+  function renderCheckoutForm() {
+    return (
+      <>
+        <CheckoutSectionHeader>Address</CheckoutSectionHeader>
+        <AddressForm>
+          {addressElements.map((addressElement) => (
+            <FormRow key={addressElement.id}>
+              <FormLabel htmlFor={addressElement.id}>{addressElement.label}</FormLabel>
+              <FormInput
+                required
+                id={addressElement.id}
+                type={addressElement.type}
+                placeholder={addressElement.placeholder}
+                autoComplete={addressElement.autoComplete}
+                value={address[addressElement.id]}
+                onChange={(e) => setAddress({ ...address, [addressElement.id]: e.target.value })}
               />
-              <FormLabel htmlFor='creditCard'>Credit Card</FormLabel>
-            </RadioOption>
-            {paymentMethod === 'creditCard' && (
-              <CreditCardWrapper>
-                <CardElement options={stripeCardElementOptions} /> {error && <ErrorText>{error}</ErrorText>}
-              </CreditCardWrapper>
-            )}
-            <RadioOption>
-              <RadioInput
-                id='paypal'
-                type='radio'
-                checked={paymentMethod === 'paypal'}
-                onChange={() => setPaymentMethod('paypal')}
-              />
-              <FormLabel htmlFor='paypal'>Paypal</FormLabel>
-            </RadioOption>
-          </>
-        ) : (
-          <>
-            <CheckoutSectionHeader>Thank you for your order!</CheckoutSectionHeader>
-            <ConfirmationText>You will shortly get the confirmation via email.</ConfirmationText>
-          </>
+            </FormRow>
+          ))}
+        </AddressForm>
+        <CheckoutSectionHeader>Payment</CheckoutSectionHeader>
+        <RadioOption>
+          <RadioInput
+            id='creditCard'
+            type='radio'
+            checked={paymentMethod === 'creditCard'}
+            onChange={() => setPaymentMethod('creditCard')}
+          />
+          <FormLabel htmlFor='creditCard'>Credit Card</FormLabel>
+        </RadioOption>
+        {paymentMethod === 'creditCard' && (
+          <CreditCardWrapper>
+            <CardElement options={stripeCardElementOptions} /> {stripeError && <ErrorText>{stripeError}</ErrorText>}
+          </CreditCardWrapper>
         )}
+        <RadioOption>
+          <RadioInput
+            id='paypal'
+            type='radio'
+            checked={paymentMethod === 'paypal'}
+            onChange={() => setPaymentMethod('paypal')}
+          />
+          <FormLabel htmlFor='paypal'>Paypal</FormLabel>
+        </RadioOption>
+      </>
+    );
+  }
+
+  function renderThankYouMessage() {
+    return (
+      <>
+        <CheckoutSectionHeader>Thank you for your order!</CheckoutSectionHeader>
+        <ConfirmationText>You will shortly get the confirmation via email.</ConfirmationText>
+      </>
+    );
+  }
+
+  function renderSummary() {
+    return (
+      <>
         <CheckoutSectionHeader>Order Summary</CheckoutSectionHeader>
         <Summary>
           <SummaryPicture src={summaryPicture[selectedColor]} />
@@ -225,33 +253,39 @@ export default ({ onComplete, selectedColor }: Props) => {
             price: 300 euro
           </SummaryText>
         </Summary>
-        {!paymentSucceeded &&
-          (paymentMethod === 'creditCard' ? (
-            <OrderNowButton
-              color={`pine${selectedColor.charAt(0).toUpperCase()}${selectedColor.slice(1)}`}
-              onClick={() => {
-                paymentMethod === 'creditCard' ? processStripePayment() : console.log('do paypal stuff');
-              }}
-              disabled={loading}
-            >
-              {loading ? <StyledSpinner src={Spinner} alt='loading...' /> : 'Order now'}
-            </OrderNowButton>
-          ) : (
-            <PaypalButtonContainer>
-              <PaypalButton
-                style={{ layout: 'horizontal', color: 'silver', height: 30, tagline: false, label: 'pay' }}
-                createOrder={(data: any, actions: any) => {
-                  return actions.order.create({
-                    purchase_units: [{ amount: { currency_code: 'EUR', value: '234.56' } }],
-                  });
-                }}
-                onApprove={() => setPaymentSucceeded(true)}
-              />
-            </PaypalButtonContainer>
-          ))}
-      </ModalWindow>
-    </ModalBackground>
-  );
+      </>
+    );
+  }
+
+  function renderOrderButton() {
+    if (paymentMethod === 'creditCard' || !formComplete) {
+      return (
+        <OrderNowButton
+          color={`pine${selectedColor.charAt(0).toUpperCase()}${selectedColor.slice(1)}`}
+          onClick={() => {
+            formComplete ? processStripePayment() : setShowErrors(true);
+          }}
+          disabled={loading}
+        >
+          {loading ? <StyledSpinner src={Spinner} alt='loading...' /> : 'Order now'}
+        </OrderNowButton>
+      );
+    } else {
+      return (
+        <PaypalButtonContainer>
+          <PaypalButton
+            style={{ layout: 'horizontal', color: 'silver', height: 30, tagline: false, label: 'pay' }}
+            createOrder={(data: any, actions: any) => {
+              return actions.order.create({
+                purchase_units: [{ amount: { currency_code: 'EUR', value: '234.56' } }],
+              });
+            }}
+            onApprove={() => setPaymentSucceeded(true)}
+          />
+        </PaypalButtonContainer>
+      );
+    }
+  }
 };
 
 type Props = {

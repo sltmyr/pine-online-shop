@@ -13,6 +13,14 @@ export const GlobalStyles = createGlobalStyle`
     }
     :root {
         font-size: 30px;
+        input::-webkit-outer-spin-button,
+        input::-webkit-inner-spin-button {
+            -webkit-appearance: none;
+            margin: 0;
+        }
+        input[type=number] {
+            -moz-appearance: textfield;
+        }
     }
 `;
 
@@ -37,6 +45,11 @@ export const Button = styled.button`
             border: none;
             color: white;
         `};
+    &:disabled {
+        border: 1px solid #999999;
+        background-color: #cccccc;
+        color: #666666;
+    }
 `;
 
 export const TwoColumnGrid = styled.div`
