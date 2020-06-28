@@ -2,6 +2,7 @@ import { Elements } from '@stripe/react-stripe-js';
 import { loadStripe, Stripe } from '@stripe/stripe-js';
 import React, { useEffect, useState } from 'react';
 import 'react-responsive-carousel/lib/styles/carousel.min.css'; // requires a loader
+import Carousel from '../components/Carousel';
 import Checkout from '../components/Checkout';
 import { Button, theme } from '../global_styles';
 import beigeCoat1 from '../images/beige-coat-1.jpg';
@@ -13,20 +14,7 @@ import greyCoat1 from '../images/grey-coat-1.jpg';
 import greyCoat2 from '../images/grey-coat-2.jpg';
 import greyCoat3 from '../images/grey-coat-3.jpg';
 import picture from '../images/tailor.jpg';
-import {
-  CarouselLeft,
-  CarouselRight,
-  GoLeftButton,
-  GoRightButton,
-  Grid,
-  LeftArrow,
-  ParagraphGrey,
-  ParagraphNavy,
-  ParagraphRight,
-  ParagraphTop,
-  PictureLeft,
-  RightArrow,
-} from './Products.styles';
+import { Grid, ParagraphGrey, ParagraphNavy, ParagraphRight, ParagraphTop, PictureLeft } from './Products.styles';
 
 export type CoatColor = 'beige' | 'grey' | 'navy';
 
@@ -48,7 +36,7 @@ interface ProductsProps {
 }
 
 export default ({ loadPaypal = loadPaypalScript, stripeElememtsPromise = stripePromise }: ProductsProps) => {
-  const [isModalOpen, setModalOpen] = useState<boolean>(false);
+  const [isCheckoutOpen, setCheckoutOpen] = useState<boolean>(false);
   const [selectedColor, setSelectedColor] = useState<CoatColor>('beige');
   const [isPaypalLoaded, setIsPaypalLoaded] = useState<boolean>(false);
   useEffect(() => window.scroll({ top: 0, left: 0 }), []);
@@ -56,14 +44,19 @@ export default ({ loadPaypal = loadPaypalScript, stripeElememtsPromise = stripeP
     loadPaypal(() => setIsPaypalLoaded(true));
   }, [loadPaypal]);
 
+  const onClickBuy = (color: CoatColor) => {
+    setSelectedColor(color);
+    isPaypalLoaded && setCheckoutOpen(true);
+  };
+
   return (
     <>
-      {isModalOpen && (
+      {isCheckoutOpen && (
         <Elements stripe={stripeElememtsPromise}>
-          <Checkout selectedColor={selectedColor} onComplete={() => setModalOpen(false)} />
+          <Checkout selectedColor={selectedColor} onComplete={() => setCheckoutOpen(false)} />
         </Elements>
       )}
-      <Grid data-testid='produts-page'>
+      <Grid>
         <PictureLeft src={picture} />
         <ParagraphTop>
           The pinecoat is a timeless, classic design piece. It goes well with different styles and will always give you
@@ -75,98 +68,24 @@ export default ({ loadPaypal = loadPaypalScript, stripeElememtsPromise = stripeP
           30% Cashmere, 70% wool <br />
           300 €
         </ParagraphTop>
-        <CarouselRight
-          showThumbs={false}
-          showStatus={false}
-          infiniteLoop={true}
-          renderArrowPrev={(onClickHandler, hasPrev, label) => (
-            <GoLeftButton onClick={onClickHandler}>
-              <LeftArrow />
-            </GoLeftButton>
-          )}
-          renderArrowNext={(onClickHandler, hasNext, label) => (
-            <GoRightButton onClick={onClickHandler}>
-              <RightArrow />
-            </GoRightButton>
-          )}
-        >
-          <img src={greyCoat1} alt='' />
-          <img src={greyCoat2} alt='' />
-          <img src={greyCoat3} alt='' />
-        </CarouselRight>
-
+        <Carousel side='right' pictures={[greyCoat1, greyCoat2, greyCoat3]} />
         <ParagraphGrey>
           The grey one <br />
-          <Button
-            color='pineGrey'
-            onClick={() => {
-              setSelectedColor('grey');
-              isPaypalLoaded && setModalOpen(true);
-            }}
-            data-testid='buy-button'
-          >
+          <Button color='pineGrey' onClick={() => onClickBuy('grey')} data-testid='buy-button'>
             Buy now
           </Button>
         </ParagraphGrey>
-        <CarouselLeft
-          showThumbs={false}
-          showStatus={false}
-          infiniteLoop={true}
-          dynamicHeight={false}
-          renderArrowPrev={(onClickHandler, hasPrev, label) => (
-            <GoLeftButton onClick={onClickHandler}>
-              <LeftArrow />
-            </GoLeftButton>
-          )}
-          renderArrowNext={(onClickHandler, hasNext, label) => (
-            <GoRightButton onClick={onClickHandler}>
-              <RightArrow />
-            </GoRightButton>
-          )}
-        >
-          <img src={beigeCoat1} alt='' />
-          <img src={beigeCoat2} alt='' />
-        </CarouselLeft>
+        <Carousel side='left' pictures={[beigeCoat1, beigeCoat2]} />
         <ParagraphRight>
           The beige one <br />
-          <Button
-            color='pineBeige'
-            onClick={() => {
-              setSelectedColor('beige');
-              isPaypalLoaded && setModalOpen(true);
-            }}
-          >
+          <Button color='pineBeige' onClick={() => onClickBuy('beige')}>
             Buy now
           </Button>
         </ParagraphRight>
-        <CarouselRight
-          showThumbs={false}
-          showStatus={false}
-          infiniteLoop={true}
-          renderArrowPrev={(onClickHandler, hasPrev, label) => (
-            <GoLeftButton onClick={onClickHandler}>
-              <LeftArrow />
-            </GoLeftButton>
-          )}
-          renderArrowNext={(onClickHandler, hasNext, label) => (
-            <GoRightButton onClick={onClickHandler}>
-              <RightArrow />
-            </GoRightButton>
-          )}
-        >
-          <img src={navyCoat1} alt='' />
-          <img src={navyCoat2} alt='' />
-          <img src={navyCoat3} alt='' />
-        </CarouselRight>
+        <Carousel side='right' pictures={[navyCoat1, navyCoat2, navyCoat3]} />
         <ParagraphNavy>
           The navy one <br />
-          <Button
-            color='pineNavy'
-            onClick={() => {
-              setSelectedColor('navy');
-              isPaypalLoaded && setModalOpen(true);
-            }}
-          >
+          <Button color='pineNavy' onClick={() => onClickBuy('navy')}>
             Buy now
           </Button>
         </ParagraphNavy>
