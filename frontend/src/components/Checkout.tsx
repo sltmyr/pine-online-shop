@@ -34,10 +34,9 @@ declare global {
   }
 }
 
-// COMPONENT STILL UNDER DEVELOPMENT
 const CHECKOUT_UNAVAILABLE = false; // set to true for publishing during development
 
-const errorMessage = 'Something went wrong. Please try again later.';
+const errorMessage = 'Something went wrong. Please try reloading the page.';
 const addressElements: AddressElement[] = [
   { id: 'email', label: 'email', autoComplete: 'email', placeholder: 'jane.doe@gmail.com', type: 'email' },
   { id: 'name', label: 'full name', autoComplete: 'name', placeholder: 'Jane Doe', type: 'text' },
@@ -88,6 +87,16 @@ const stripeCardElementOptions = {
   },
 };
 
+const fetchClientSecret = async (): Promise<string | undefined> => {
+  try {
+    const response = await fetch('https://checkout.pinecoat.com/inten');
+    const { clientSecret } = await response.json();
+    return clientSecret;
+  } catch {
+    return undefined;
+  }
+};
+
 export default ({ onComplete, selectedColor }: Props) => {
   if (CHECKOUT_UNAVAILABLE) {
     return (
@@ -115,37 +124,29 @@ export default ({ onComplete, selectedColor }: Props) => {
   const [paymentSucceeded, setPaymentSucceeded] = useState<boolean>(false);
   const [loading, setLoading] = useState<boolean>(false);
 
-  const fetchClientSecret = async () => {
-    try {
-      const response = await fetch('https://checkout.pinecoat.com/intent');
-      const { clientSecret } = await response.json();
-      !clientSecret && setError(errorMessage);
-      setStripeClientSecret(clientSecret);
-    } catch {
-      setError(errorMessage);
-    }
-  };
   useEffect(() => {
-    fetchClientSecret();
+    (async () => {
+      const secret = await fetchClientSecret();
+      secret ? setStripeClientSecret(secret) : setError(errorMessage);
+    })();
   }, []);
 
   const stripe = useStripe();
   const elements = useElements();
 
   const processStripePayment = async () => {
-    if (!stripe || !elements) {
-      return;
-    }
+    if (!stripe || !elements) return;
     const stripeCardElement = elements.getElement(CardElement);
-    if (!stripeCardElement) {
-      return;
-    }
+    if (!stripeCardElement) return;
+
     setLoading(true);
     const result = await stripe.confirmCardPayment(stripeClientSecret, {
       payment_method: {
         card: stripeCardElement,
         billing_details: {
-          name: 'Jenny Rosen',
+          name: address.name,
+          email: address.email,
+          address: { city: address.city, line1: address.street, postal_code: address.postalCode },
         },
       },
     });
