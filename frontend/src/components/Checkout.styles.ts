@@ -17,7 +17,7 @@ export const ModalBackground = styled.div`
 
 export const ModalWindow = styled.div`
     background-color: #fefefe;
-    margin: 15% auto;
+    margin: 5% auto;
     padding: 20px;
     border: 1px solid #888;
     display: flex;
@@ -64,6 +64,7 @@ export const FormInput = styled.input`
     width: 90%;
     height: 2em;
     border: 1px solid grey;
+    padding: 3px;
 `;
 
 export const RadioOption = styled.div`

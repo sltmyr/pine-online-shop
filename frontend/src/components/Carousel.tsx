@@ -13,12 +13,12 @@ export default (props: CarouselProps) => {
       showThumbs={false}
       showStatus={false}
       infiniteLoop={true}
-      renderArrowPrev={(onClickHandler, hasPrev, label) => (
+      renderArrowPrev={(onClickHandler) => (
         <GoLeftButton onClick={onClickHandler}>
           <LeftArrow />
         </GoLeftButton>
       )}
-      renderArrowNext={(onClickHandler, hasNext, label) => (
+      renderArrowNext={(onClickHandler) => (
         <GoRightButton onClick={onClickHandler}>
           <RightArrow />
         </GoRightButton>

@@ -1,6 +1,7 @@
 import { CardElement, useElements, useStripe } from '@stripe/react-stripe-js';
 import React, { useEffect, useState } from 'react';
 import ReactDOM from 'react-dom';
+import { cityRegex, emailRegex, fullNameRegex, max100Chars, postalCodeRegex, streetRegex } from '../constants/regex';
 import beigeCoat from '../images/beige-coat-1.jpg';
 import navyCoat from '../images/blue-coat-1.jpg';
 import greyCoat from '../images/grey-coat-1.jpg';
@@ -28,6 +29,7 @@ import {
   SummaryText,
 } from './Checkout.styles';
 
+// needed to make typescript accept the window.paypal elements that are provided by the paypal script
 declare global {
   interface Window {
     paypal: any;
@@ -36,23 +38,43 @@ declare global {
 
 const CHECKOUT_UNAVAILABLE = false; // set to true for publishing during development
 
-const errorMessage = 'Something went wrong. Please try reloading the page.';
+const generalError = 'Something went wrong. Please try reloading the page.';
 const addressElements: AddressElement[] = [
-  { id: 'email', label: 'email', autoComplete: 'email', placeholder: 'jane.doe@gmail.com', type: 'email' },
-  { id: 'name', label: 'full name', autoComplete: 'name', placeholder: 'Jane Doe', type: 'text' },
+  {
+    id: 'email',
+    label: 'email',
+    autoComplete: 'email',
+    placeholder: 'jane.doe@gmail.com',
+    type: 'email',
+    errorMessage: 'Please enter a valid email address.',
+    regExp: emailRegex,
+  },
+  {
+    id: 'name',
+    label: 'full name',
+    autoComplete: 'name',
+    placeholder: 'Jane Doe',
+    type: 'text',
+    errorMessage: 'Please enter your full name.',
+    regExp: fullNameRegex,
+  },
   {
     id: 'street',
     label: 'street & no.',
     autoComplete: 'street-address',
     placeholder: 'Beautifulstreet 12a',
     type: 'text',
+    errorMessage: 'Please enter your street and number.',
+    regExp: streetRegex,
   },
   {
     id: 'postalCode',
     label: 'postal code',
     autoComplete: 'postal-code',
     placeholder: '12345',
-    type: 'number',
+    type: 'text',
+    errorMessage: 'Please enter a valid postal code',
+    regExp: postalCodeRegex,
   },
   {
     id: 'city',
@@ -60,6 +82,8 @@ const addressElements: AddressElement[] = [
     autoComplete: 'address-level2',
     placeholder: 'Pine city',
     type: 'text',
+    errorMessage: 'Please enter a valid city name.',
+    regExp: cityRegex,
   },
 ];
 
@@ -120,34 +144,59 @@ export default ({ onComplete, selectedColor }: Props) => {
     postalCode: '',
     city: '',
   });
+  const [addressErrors, setAddressErrors] = useState({
+    email: false,
+    name: false,
+    street: false,
+    postalCode: false,
+    city: false,
+  });
+  const [formComplete, setFormComplete] = useState<boolean>(false);
+  const [showErrors, setShowErrors] = useState<boolean>(false);
   const [paymentMethod, setPaymentMethod] = useState<PaymentMethod>('creditCard');
   const [paymentSucceeded, setPaymentSucceeded] = useState<boolean>(false);
   const [loading, setLoading] = useState<boolean>(false);
-  const [formComplete, setFormComplete] = useState<boolean>(false);
-  const [showErrors, setShowErrors] = useState<boolean>(false);
 
   useEffect(() => {
     (async () => {
       const secret = await fetchClientSecret();
-      secret ? setStripeClientSecret(secret) : setStripeError(errorMessage);
+      secret ? setStripeClientSecret(secret) : setStripeError(generalError);
     })();
   }, []);
 
   useEffect(() => {
-    if (address.email && address.name && address.street && address.postalCode && address.city) {
+    const errors: any = {};
+    addressElements.forEach((addressElement) => {
+      const textInput = address[addressElement.id];
+      errors[addressElement.id] = !max100Chars.test(textInput) || !addressElement.regExp.test(textInput);
+    });
+    setAddressErrors((addressErrors) => ({
+      ...addressErrors,
+      ...errors,
+    }));
+  }, [address]);
+
+  useEffect(() => {
+    if (Object.values(addressErrors).every((error) => !error)) {
       setFormComplete(true);
     } else {
       setFormComplete(false);
     }
-  }, [address]);
+  }, [addressErrors]);
 
   const stripe = useStripe();
   const elements = useElements();
 
   const processStripePayment = async () => {
-    if (!stripe || !elements) return;
+    if (!stripe || !elements) {
+      setStripeError(generalError);
+      return;
+    }
     const stripeCardElement = elements.getElement(CardElement);
-    if (!stripeCardElement) return;
+    if (!stripeCardElement) {
+      setStripeError(generalError);
+      return;
+    }
 
     setLoading(true);
     const result = await stripe.confirmCardPayment(stripeClientSecret, {
@@ -177,7 +226,6 @@ export default ({ onComplete, selectedColor }: Props) => {
         {paymentSucceeded ? renderThankYouMessage() : renderCheckoutForm()}
         {renderSummary()}
         {!paymentSucceeded && renderOrderButton()}
-        {showErrors && <ErrorText>An Error occured</ErrorText>}
       </ModalWindow>
     </ModalBackground>
   );
@@ -199,6 +247,7 @@ export default ({ onComplete, selectedColor }: Props) => {
                 value={address[addressElement.id]}
                 onChange={(e) => setAddress({ ...address, [addressElement.id]: e.target.value })}
               />
+              {showErrors && addressErrors[addressElement.id] && <ErrorText>{addressElement.errorMessage}</ErrorText>}
             </FormRow>
           ))}
         </AddressForm>
@@ -299,5 +348,7 @@ type AddressElement = {
   autoComplete: string;
   placeholder: string;
   type: string;
+  errorMessage: string;
+  regExp: RegExp;
 };
 type PaymentMethod = 'creditCard' | 'paypal';
