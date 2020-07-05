@@ -38,6 +38,7 @@ declare global {
 
 const CHECKOUT_UNAVAILABLE = false; // set to true for publishing during development
 
+export const intentUrl = 'https://checkout.pinecoat.com/intent';
 const generalError = 'Something went wrong. Please try reloading the page.';
 const addressElements: AddressElement[] = [
   {
@@ -113,7 +114,7 @@ const stripeCardElementOptions = {
 
 const fetchClientSecret = async (): Promise<string | undefined> => {
   try {
-    const response = await fetch('https://checkout.pinecoat.com/intent');
+    const response = await fetch(intentUrl);
     const { clientSecret } = await response.json();
     return clientSecret;
   } catch {
@@ -145,11 +146,11 @@ export default ({ onComplete, selectedColor }: Props) => {
     city: '',
   });
   const [addressErrors, setAddressErrors] = useState({
-    email: false,
-    name: false,
-    street: false,
-    postalCode: false,
-    city: false,
+    email: true,
+    name: true,
+    street: true,
+    postalCode: true,
+    city: true,
   });
   const [formComplete, setFormComplete] = useState<boolean>(false);
   const [showErrors, setShowErrors] = useState<boolean>(false);
@@ -177,12 +178,18 @@ export default ({ onComplete, selectedColor }: Props) => {
   }, [address]);
 
   useEffect(() => {
-    if (Object.values(addressErrors).every((error) => !error)) {
+    if (Object.values(addressErrors).every((error) => error === false)) {
       setFormComplete(true);
     } else {
       setFormComplete(false);
     }
   }, [addressErrors]);
+
+  useEffect(() => {
+    if (formComplete) {
+      setShowErrors(true);
+    }
+  }, [formComplete]);
 
   const stripe = useStripe();
   const elements = useElements();
@@ -192,6 +199,7 @@ export default ({ onComplete, selectedColor }: Props) => {
       setStripeError(generalError);
       return;
     }
+
     const stripeCardElement = elements.getElement(CardElement);
     if (!stripeCardElement) {
       setStripeError(generalError);
@@ -222,7 +230,7 @@ export default ({ onComplete, selectedColor }: Props) => {
   return (
     <ModalBackground>
       <ModalWindow data-testid='modal'>
-        <CloseIcon onClick={() => !loading && onComplete()} />
+        <CloseIcon onClick={() => !loading && onComplete()} data-testid='close-icon' />
         {paymentSucceeded ? renderThankYouMessage() : renderCheckoutForm()}
         {renderSummary()}
         {!paymentSucceeded && renderOrderButton()}
@@ -234,7 +242,7 @@ export default ({ onComplete, selectedColor }: Props) => {
     return (
       <>
         <CheckoutSectionHeader>Address</CheckoutSectionHeader>
-        <AddressForm>
+        <AddressForm data-testid='address-form'>
           {addressElements.map((addressElement) => (
             <FormRow key={addressElement.id}>
               <FormLabel htmlFor={addressElement.id}>{addressElement.label}</FormLabel>
@@ -246,8 +254,11 @@ export default ({ onComplete, selectedColor }: Props) => {
                 autoComplete={addressElement.autoComplete}
                 value={address[addressElement.id]}
                 onChange={(e) => setAddress({ ...address, [addressElement.id]: e.target.value })}
+                data-testid={`input-${addressElement.id}`}
               />
-              {showErrors && addressErrors[addressElement.id] && <ErrorText>{addressElement.errorMessage}</ErrorText>}
+              {showErrors && addressErrors[addressElement.id] && (
+                <ErrorText data-testid='address-input-error'>{addressElement.errorMessage}</ErrorText>
+              )}
             </FormRow>
           ))}
         </AddressForm>
@@ -262,8 +273,9 @@ export default ({ onComplete, selectedColor }: Props) => {
           <FormLabel htmlFor='creditCard'>Credit Card</FormLabel>
         </RadioOption>
         {paymentMethod === 'creditCard' && (
-          <CreditCardWrapper>
-            <CardElement options={stripeCardElementOptions} /> {stripeError && <ErrorText>{stripeError}</ErrorText>}
+          <CreditCardWrapper data-testid='credit-card-input'>
+            <CardElement options={stripeCardElementOptions} data-testid='stripe-card-element' />
+            {stripeError && <ErrorText data-testid='stripe-error'>{stripeError}</ErrorText>}
           </CreditCardWrapper>
         )}
         <RadioOption>
@@ -282,7 +294,7 @@ export default ({ onComplete, selectedColor }: Props) => {
   function renderThankYouMessage() {
     return (
       <>
-        <CheckoutSectionHeader>Thank you for your order!</CheckoutSectionHeader>
+        <CheckoutSectionHeader data-testid='thank-you-message'>Thank you for your order!</CheckoutSectionHeader>
         <ConfirmationText>You will shortly get the confirmation via email.</ConfirmationText>
       </>
     );
@@ -292,7 +304,7 @@ export default ({ onComplete, selectedColor }: Props) => {
     return (
       <>
         <CheckoutSectionHeader>Order Summary</CheckoutSectionHeader>
-        <Summary>
+        <Summary data-testid='summary'>
           <SummaryPicture src={summaryPicture[selectedColor]} />
           <SummaryText>
             model: the classic PINE coat <br />
@@ -315,6 +327,7 @@ export default ({ onComplete, selectedColor }: Props) => {
             formComplete ? processStripePayment() : setShowErrors(true);
           }}
           disabled={loading}
+          data-testid='order-button'
         >
           {loading ? <StyledSpinner src={Spinner} alt='loading...' /> : 'Order now'}
         </OrderNowButton>
@@ -330,6 +343,7 @@ export default ({ onComplete, selectedColor }: Props) => {
               });
             }}
             onApprove={() => setPaymentSucceeded(true)}
+            data-testid='paypal-button'
           />
         </PaypalButtonContainer>
       );

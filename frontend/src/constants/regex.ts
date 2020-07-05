@@ -2,6 +2,7 @@ const allowedCharacters = 'A-Za-z\xAA\xB5\xBA\xC0-\xD6\xD8-\xF6\xF8-\u02C1\u02C6
 export const max100Chars = /^.{1,100}$/
 export const emailRegex = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
 export const fullNameRegex = new RegExp(`^ *[${allowedCharacters}]{2,}( [${allowedCharacters}]+){0,5} *$`)
+// eslint-disable-next-line
 export const streetRegex = new RegExp(`^[${allowedCharacters} 0-9\.\,]*$`)
 export const postalCodeRegex = /^[0-9A-Za-z ]{2,10}$/
 export const cityRegex = new RegExp(`^[${allowedCharacters} ]*$`)

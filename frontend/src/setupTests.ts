@@ -14,3 +14,5 @@ Object.defineProperty(window, 'matchMedia', {
 });
 
 window.scroll = jest.fn();
+window.paypal = { Buttons: { driver: jest.fn() } };
+
