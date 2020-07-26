@@ -14,6 +14,7 @@ import {
   LogoContainer,
   MenuContainer,
   PositionWrapper,
+  SplashScreenCover,
 } from './Header.styles';
 import Menu from './Menu';
 
@@ -43,6 +44,7 @@ export default () => {
     <DummyHeader ref={headerRef} data-testid='header'>
       <PositionWrapper>
         <Grid>
+          <SplashScreenCover data-testid='cover' />
           <LogoContainer>
             <Link to={{ pathname: '/', state: { scrollTo: 'top' } }}>
               <Logo src={logo} data-testid='logo' />
@@ -56,8 +58,8 @@ export default () => {
                 <LineBottom expanded={expanded} />
               </HamburgerContainer>
             ) : (
-              <Menu />
-            )}
+                <Menu />
+              )}
           </MenuContainer>
           <HorizontalLine />
         </Grid>

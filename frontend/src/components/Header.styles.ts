@@ -1,4 +1,4 @@
-import styled, { css } from "styled-components";
+import styled, { css, keyframes } from "styled-components";
 
 export const DummyHeader = styled.div`
     height: ${props => props.theme.headerHeight}px;
@@ -27,10 +27,6 @@ export const LogoContainer = styled.div`
     justify-content: center;
     align-items: center;
     grid-column: 2;
-`;
-
-export const Logo = styled.img`
-    height: 50px;
 `;
 
 export const MenuContainer = styled.div`
@@ -91,3 +87,46 @@ export const HorizontalLine = styled.hr`
     grid-column-end: 4;
 `;
 
+const disappear = keyframes`
+    0% {opacity: 1;}
+    100% {opacity: 0; visibility: hidden}
+`;
+
+const appearAndMove = keyframes`
+    0% {
+        opacity: 0;
+        height: 200px;
+        margin-top: calc(50vh - 100px);
+        width: 400px;
+        margin-left: 50vw;
+    }
+    75% {
+        opacity: 1;
+        height: 200px;
+        margin-top: calc(50vh - 100px);
+        width: 400px;
+        margin-left: 50vw;
+    }
+    100% {
+        opacity: 1;
+        height: 50px;
+        margin-top: 0;
+        margin-left: 0;
+    }
+`;
+
+export const SplashScreenCover = styled.div`
+    width: 100vw;
+    height: 100vh;
+    position: fixed;
+    left: 0;
+    background-color: white;
+    animation: ${disappear} 0.5s;
+    animation-delay: 2s;
+    animation-fill-mode: forwards;
+`;
+
+export const Logo = styled.img`
+    animation: ${appearAndMove} 2s;
+    animation-fill-mode: forwards;
+`;
