@@ -9,11 +9,6 @@ it('renders without checkout modal open ', () => {
   expect(queryByTestId(/'checkout'/i)).not.toBeInTheDocument();
 });
 
-it('scrolls to top on initial load', () => {
-  render(<Products />);
-  expect(window.scroll).toHaveBeenCalledWith({ left: 0, top: 0 });
-});
-
 it('loads paypal script on render', () => {
   const loadPaypal = jest.fn();
   render(<Products loadPaypal={loadPaypal} />);

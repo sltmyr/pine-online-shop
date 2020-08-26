@@ -15,6 +15,7 @@ import {
   MenuContainer,
   PositionWrapper,
   SplashScreenCover,
+  MenuContainerSmall,
 } from './Header.styles';
 import Menu from './Menu';
 
@@ -58,15 +59,15 @@ export default () => {
                 <LineBottom expanded={expanded} />
               </HamburgerContainer>
             ) : (
-                <Menu />
-              )}
+              <Menu />
+            )}
           </MenuContainer>
           <HorizontalLine />
         </Grid>
         {smallWindow && expanded && (
-          <MenuContainer data-testid='menu-small'>
+          <MenuContainerSmall data-testid='menu-small'>
             <Menu onClickCloseMenu={() => setExpanded(false)} />
-          </MenuContainer>
+          </MenuContainerSmall>
         )}
       </PositionWrapper>
     </DummyHeader>

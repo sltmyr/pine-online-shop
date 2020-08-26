@@ -28,6 +28,7 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test --env=jest-environment-jsdom-sixteen",
+    "format": "prettier --write 'src/**/*.{js,jsx,ts,tsx,json,md}'",
     "eject": "react-scripts eject"
   },
   "eslintConfig": {
@@ -46,6 +47,12 @@
     ]
   },
   "devDependencies": {
-    "jest-environment-jsdom-sixteen": "^1.0.3"
+    "jest-environment-jsdom-sixteen": "^1.0.3",
+    "prettier": "2.1.1"
+  },
+  "prettier": {
+    "printWidth": 120,
+    "singleQuote": true,
+    "jsxSingleQuote": true
   }
 }

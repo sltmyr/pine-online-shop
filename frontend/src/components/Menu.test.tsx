@@ -12,7 +12,7 @@ it('click on button calls close menu function', () => {
       <Menu onClickCloseMenu={onClickCloseMenu} />
     </Router>
   );
-  const productsButton = getByTestId('products-button');
+  const productsButton = getByTestId('coats-button');
   fireEvent.click(productsButton);
   expect(onClickCloseMenu).toHaveBeenCalledTimes(1);
 });

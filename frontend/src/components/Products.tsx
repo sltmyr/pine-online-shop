@@ -1,9 +1,9 @@
 import { Elements } from '@stripe/react-stripe-js';
 import { loadStripe, Stripe } from '@stripe/stripe-js';
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, RefObject } from 'react';
 import 'react-responsive-carousel/lib/styles/carousel.min.css'; // requires a loader
-import Carousel from '../components/Carousel';
-import Checkout from '../components/Checkout';
+import Carousel from './Carousel';
+import Checkout from './Checkout';
 import { Button, theme } from '../global_styles';
 import beigeCoat1 from '../images/beige-coat-1.jpg';
 import beigeCoat2 from '../images/beige-coat-2.jpg';
@@ -13,8 +13,7 @@ import navyCoat3 from '../images/blue-coat-3.jpg';
 import greyCoat1 from '../images/grey-coat-1.jpg';
 import greyCoat2 from '../images/grey-coat-2.jpg';
 import greyCoat3 from '../images/grey-coat-3.jpg';
-import picture from '../images/tailor.jpg';
-import { Grid, ParagraphGrey, ParagraphNavy, ParagraphRight, ParagraphTop, PictureLeft } from './Products.styles';
+import { Grid, ParagraphGrey, ParagraphNavy, ParagraphRight, ParagraphTop } from './Products.styles';
 
 export type CoatColor = 'beige' | 'grey' | 'navy';
 
@@ -31,15 +30,15 @@ const loadPaypalScript = (onLoad: () => void) => {
 };
 
 interface ProductsProps {
+  topRef: RefObject<HTMLDivElement>;
   loadPaypal?: (onLoad: () => void) => void;
   stripeElememtsPromise?: Promise<Stripe | null>;
 }
 
-export default ({ loadPaypal = loadPaypalScript, stripeElememtsPromise = stripePromise }: ProductsProps) => {
+export default ({ loadPaypal = loadPaypalScript, stripeElememtsPromise = stripePromise, topRef }: ProductsProps) => {
   const [isCheckoutOpen, setCheckoutOpen] = useState<boolean>(false);
   const [selectedColor, setSelectedColor] = useState<CoatColor>('beige');
   const [isPaypalLoaded, setIsPaypalLoaded] = useState<boolean>(false);
-  useEffect(() => window.scroll({ top: 0, left: 0 }), []);
   useEffect(() => {
     loadPaypal(() => setIsPaypalLoaded(true));
   }, [loadPaypal]);
@@ -56,8 +55,7 @@ export default ({ loadPaypal = loadPaypalScript, stripeElememtsPromise = stripeP
           <Checkout selectedColor={selectedColor} onComplete={() => setCheckoutOpen(false)} />
         </Elements>
       )}
-      <Grid>
-        <PictureLeft src={picture} />
+      <Grid ref={topRef}>
         <ParagraphTop>
           The pinecoat is a timeless, classic design piece. It goes well with different styles and will always give you
           that effortlessly elegant look. You can choose between 3 colors:{' '}

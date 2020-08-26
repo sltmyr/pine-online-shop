@@ -5,14 +5,13 @@
 import '@testing-library/jest-dom/extend-expect';
 
 Object.defineProperty(window, 'matchMedia', {
-    writable: true,
-    value: jest.fn().mockImplementation(query => ({
-        matches: true,
-        addListener: jest.fn(),
-        removeListener: jest.fn(),
-    })),
+  writable: true,
+  value: jest.fn().mockImplementation((query) => ({
+    matches: true,
+    addListener: jest.fn(),
+    removeListener: jest.fn(),
+  })),
 });
 
 window.scroll = jest.fn();
 window.paypal = { Buttons: { driver: jest.fn() } };
-
