@@ -26,13 +26,6 @@ export const Banner = styled.div`
   }
 `;
 
-export const BannerText = styled.div`
-  margin-left: 1em;
-  margin-bottom: 10vh;
-  align-self: flex-end;
-  color: white;
-`;
-
 export const SloganContainer = styled.div`
   display: flex;
   justify-content: center;

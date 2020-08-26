@@ -1,7 +1,7 @@
 import React, { useEffect, useRef } from 'react';
 import { RouteComponentProps } from 'react-router-dom';
 import { theme } from '../global_styles';
-import { Banner, BannerContainer, BannerText, Slogan, SloganContainer } from './Home.styles';
+import { Banner, BannerContainer, Slogan, SloganContainer } from './Home.styles';
 import Products from '../components/Products';
 
 type HomeProps = RouteComponentProps & {
@@ -25,18 +25,12 @@ export default (props: HomeProps) => {
   return (
     <>
       <BannerContainer data-testid='banner'>
-        <Banner>
-          <BannerText>
-            back to basics. <br />
-            clean cut. <br />
-            neutral colours.
-          </BannerText>
-        </Banner>
+        <Banner />
       </BannerContainer>
       <SloganContainer>
-        <Slogan>one timeless model. </Slogan>
-        <Slogan>three basic colours. </Slogan>
-        <Slogan>effortless style.</Slogan>
+        <Slogan>BEAUTIFUL COATS. </Slogan>
+        <Slogan>NEUTRAL COLOURS. </Slogan>
+        <Slogan>ELEGANT CUT.</Slogan>
       </SloganContainer>
       <Products topRef={coatsRef} />
     </>
