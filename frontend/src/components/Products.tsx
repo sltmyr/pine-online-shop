@@ -68,18 +68,18 @@ export default ({ loadPaypal = loadPaypalScript, stripeElememtsPromise = stripeP
           300 €
         </ParagraphTop>
         <Carousel side='right' pictures={[greyCoat1, greyCoat2, greyCoat3]} />
-        <ParagraphGrey onClick={() => onClickBuy('grey')}>
+        <ParagraphGrey onClick={() => onClickBuy('grey')} data-aos='fade-right' data-testid='buy-button'>
           <ParagraphHeader>The grey one </ParagraphHeader>
           You can combine our classic grey coat with virtually anything and you will always look and feel elegant.
         </ParagraphGrey>
         <Carousel side='left' pictures={[beigeCoat1, beigeCoat2]} />
-        <ParagraphRight onClick={() => onClickBuy('beige')}>
+        <ParagraphRight onClick={() => onClickBuy('beige')} data-aos='fade-left'>
           <ParagraphHeader>The beige one </ParagraphHeader>
           Our best seller and arguably the most elegant one of our three colors. In our camel colored coat you are
           definitely going to stand out.
         </ParagraphRight>
         <Carousel side='right' pictures={[navyCoat1, navyCoat2, navyCoat3]} />
-        <ParagraphNavy onClick={() => onClickBuy('navy')}>
+        <ParagraphNavy onClick={() => onClickBuy('navy')} data-aos='fade-right'>
           <ParagraphHeader>The navy one </ParagraphHeader>
           Our navy coat is the right choice for anyone tired of wearing only black in the colder months of the year.
         </ParagraphNavy>
