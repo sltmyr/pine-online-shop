@@ -63,7 +63,8 @@ export default ({ loadPaypal = loadPaypalScript, stripeElememtsPromise = stripeP
           and <span style={{ color: theme.pineNavy }}>navy</span>.
           <br />
           <br />
-          30% Cashmere, 70% wool <br />
+          fabric: 10% cashmere, 70% wool, 20% polyamide <br />
+          lining: 100% satin <br />
           300 €
         </ParagraphTop>
         <Carousel side='right' pictures={[greyCoat1, greyCoat2, greyCoat3]} />
