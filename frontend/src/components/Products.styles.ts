@@ -34,16 +34,22 @@ export const ParagraphLeft = styled(Paragraph)`
   @media (min-width: ${(props) => props.theme.mediumBreakpoint}px) {
     margin-top: 10em;
   }
-  text-align: center;
+  text-align: left;
   grid-column: 2;
+  width: 300px;
+  justify-self: center;
+  cursor: pointer;
 `;
 
 export const ParagraphRight = styled(Paragraph)`
   @media (min-width: ${(props) => props.theme.mediumBreakpoint}px) {
     margin-top: 10em;
   }
-  text-align: center;
+  text-align: left;
   grid-column: 3;
+  width: 300px;
+  justify-self: center;
+  cursor: pointer;
 `;
 
 export const ParagraphGrey = styled(ParagraphLeft)`
@@ -56,4 +62,9 @@ export const ParagraphNavy = styled(ParagraphLeft)`
   @media (min-width: ${(props) => props.theme.mediumBreakpoint}px) {
     grid-row: 4;
   }
+`;
+
+export const ParagraphHeader = styled.p`
+  text-decoration: underline;
+  font-size: 30px;
 `;

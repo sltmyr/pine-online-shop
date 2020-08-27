@@ -36,7 +36,7 @@ declare global {
   }
 }
 
-const CHECKOUT_UNAVAILABLE = false; // set to true for publishing during development
+const CHECKOUT_UNAVAILABLE = true; // set to true for publishing during development
 
 export const intentUrl = 'https://checkout.pinecoat.com/intent';
 const generalError = 'Something went wrong. Please try reloading the page.';
