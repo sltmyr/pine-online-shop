@@ -34,22 +34,25 @@ export const ParagraphTop = styled(Paragraph)`
 export const ParagraphLeft = styled(Paragraph)`
   text-align: left;
   grid-column: 2;
-  width: 300px;
+  width: 90%;
   justify-self: right;
   @media (min-width: ${(props) => props.theme.mediumBreakpoint}px) {
     margin-top: 10em;
     justify-self: center;
+    width: 300px;
   }
 `;
 
 export const ParagraphRight = styled(Paragraph)`
   text-align: left;
   grid-column: 3;
-  width: 300px;
+  width: 90%;
+  max-width: 300px;
   justify-self: left;
   @media (min-width: ${(props) => props.theme.mediumBreakpoint}px) {
     margin-top: 10em;
     justify-self: center;
+    width: 300px;
   }
 `;
 

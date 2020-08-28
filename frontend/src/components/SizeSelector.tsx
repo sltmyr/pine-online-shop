@@ -13,9 +13,11 @@ export default ({ selectedSize, setSelectedSize }: SizeSelectorProps) => {
     <Container>
       {availableSizes.map((size) =>
         size === selectedSize ? (
-          <Selected>{size}</Selected>
+          <Selected key={size}>{size}</Selected>
         ) : (
-          <Option onClick={() => setSelectedSize(size)}>{size}</Option>
+          <Option key={size} onClick={() => setSelectedSize(size)}>
+            {size}
+          </Option>
         )
       )}
     </Container>
