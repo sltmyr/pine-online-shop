@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import {
   PhilosophyHeader,
   HeaderRight,
@@ -14,8 +14,12 @@ import { TwoColumnGrid, Button } from '../global_styles';
 import bike from '../images/bike.jpg';
 import { Link } from 'react-router-dom';
 
-export default () => (
-  <>
+export default () => {
+  useEffect(() => {
+    window.scroll({ top: 0, left: 0, behavior: 'smooth' });
+  }, []);
+
+  return (
     <TwoColumnGrid>
       <PhilosophyHeader>Architecture meets fashion design</PhilosophyHeader>
       <PhilosopyParagraph>
@@ -61,5 +65,5 @@ export default () => (
       </ParagraphLeft>
       <AboutPicture src={picture} />
     </TwoColumnGrid>
-  </>
-);
+  );
+};

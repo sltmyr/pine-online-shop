@@ -11,17 +11,17 @@ export default (props: MenuProps) => {
     <>
       <StyledLink to={{ pathname: '/', state: { scrollTo: 'coats' } }}>
         <StyledButton color='pineBeige' onClick={onClickCloseMenu} data-testid='coats-button'>
-          coats
+          COATS
         </StyledButton>
       </StyledLink>
       <StyledLink to='/about'>
         <StyledButton color='pineGrey' onClick={onClickCloseMenu}>
-          about
+          ABOUT
         </StyledButton>
       </StyledLink>
       <StyledLink to='/contact'>
         <StyledButton color='pineNavy' onClick={onClickCloseMenu}>
-          contact
+          CONTACT
         </StyledButton>
       </StyledLink>
     </>

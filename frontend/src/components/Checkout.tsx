@@ -122,7 +122,7 @@ const fetchClientSecret = async (): Promise<string | undefined> => {
   }
 };
 
-export default ({ onComplete, selectedColor }: Props) => {
+export default ({ onComplete, selectedColor, selectedSize }: Props) => {
   if (CHECKOUT_UNAVAILABLE) {
     return (
       <ModalBackground>
@@ -309,7 +309,7 @@ export default ({ onComplete, selectedColor }: Props) => {
           <SummaryText>
             model: the classic PINE coat <br />
             color: {selectedColor} <br />
-            size: L <br />
+            size: {selectedSize} <br />
             shipping: 2-3 business days in Germany, 5-7 in EU <br />
             price: 300 euro
           </SummaryText>
@@ -354,6 +354,7 @@ export default ({ onComplete, selectedColor }: Props) => {
 type Props = {
   onComplete: () => void;
   selectedColor: CoatColor;
+  selectedSize: number;
 };
 
 type AddressElement = {

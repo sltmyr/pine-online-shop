@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import { TwoColumnGrid } from '../global_styles';
+import { TwoColumnGrid, Button } from '../global_styles';
 
 export const Grid = styled(TwoColumnGrid)`
   margin-top: 1em;
@@ -41,7 +41,7 @@ export const RigthPicture = styled(MainPicture)`
 export const Description = styled.div`
   font-size: 20px;
   width: 100%;
-  margin-top: 5em;
+  margin-top: 1em;
   margin-bottom: 1em;
   margin-left: 1em;
   grid-column: 3;
@@ -55,4 +55,16 @@ export const Description = styled.div`
 export const Title = styled.p`
   font-size: 30px;
   margin-bottom: 1em;
+`;
+
+export const SubTitle = styled.p`
+  font-size: 25px;
+  margin-top: 0.7em;
+  margin-bottom: 0.5em;
+`;
+
+export const BuyButton = styled(Button)`
+  margin-top: 2em;
+  margin-left: 2em;
+  width: 250px;
 `;

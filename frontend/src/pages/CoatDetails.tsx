@@ -2,7 +2,17 @@ import React, { useEffect, useState } from 'react';
 import { Elements } from '@stripe/react-stripe-js';
 import { loadStripe, Stripe } from '@stripe/stripe-js';
 import { useParams } from 'react-router-dom';
-import { Grid, ErrorMessage, MainPicture, Description, Title, RigthPicture, LeftPicture } from './CoatDetails.styles';
+import {
+  Grid,
+  ErrorMessage,
+  MainPicture,
+  Description,
+  Title,
+  RigthPicture,
+  LeftPicture,
+  BuyButton,
+  SubTitle,
+} from './CoatDetails.styles';
 import beigeCoat from '../images/beige-coat-1.jpg';
 import beigeCoat2 from '../images/beige-coat-2.jpg';
 import beigeCoat3 from '../images/beige-coat-3.jpg';
@@ -13,7 +23,7 @@ import greyCoat from '../images/grey-coat-1.jpg';
 import greyCoat2 from '../images/grey-coat-2.jpg';
 import greyCoat3 from '../images/grey-coat-3.jpg';
 import Checkout from '../components/Checkout';
-import { Button } from '../global_styles';
+import SizeSelector from '../components/SizeSelector';
 
 const models = ['beige', 'grey', 'navy'];
 export type CoatColor = 'beige' | 'grey' | 'navy';
@@ -51,13 +61,22 @@ export default ({ loadPaypal = loadPaypalScript, stripeElememtsPromise = stripeP
   const { model } = useParams<{ model: string }>();
   const [isCheckoutOpen, setCheckoutOpen] = useState<boolean>(false);
   const [isPaypalLoaded, setIsPaypalLoaded] = useState<boolean>(false);
+  const [selectedSize, setSelectedSize] = useState<number>(44);
+
   useEffect(() => {
     loadPaypal(() => setIsPaypalLoaded(true));
   }, [loadPaypal]);
 
+  useEffect(() => {
+    window.scroll({ top: 0, left: 0 });
+  }, []);
+
   const onClickBuy = () => {
     isPaypalLoaded && setCheckoutOpen(true);
   };
+
+  const helper = (size: number) => setSelectedSize(size);
+
   if (!models.includes(model)) {
     return (
       <Grid>
@@ -69,25 +88,35 @@ export default ({ loadPaypal = loadPaypalScript, stripeElememtsPromise = stripeP
     <>
       {isCheckoutOpen && (
         <Elements stripe={stripeElememtsPromise}>
-          <Checkout selectedColor={model as CoatColor} onComplete={() => setCheckoutOpen(false)} />
+          <Checkout
+            selectedColor={model as CoatColor}
+            selectedSize={selectedSize}
+            onComplete={() => setCheckoutOpen(false)}
+          />
         </Elements>
       )}
       <Grid>
         <MainPicture src={mainPicture[model]} />
         <Description>
           <Title>The classic PINE coat</Title>
-          color: {model} <br />
-          fabric: 10% cashmere, 70% wool, 20% polyamide <br />
+          <SubTitle>Price</SubTitle>
+          300 € including taxes and shipping.
+          <br />
+          <SubTitle>Material</SubTitle>
+          10% cashmere <br />
+          70% wool <br />
+          20% polyamide <br />
           lining: 100% satin <br />
-          shipping: 2-3 business days in Germany, 5-7 in EU <br />
-          price: 300 euro <br />
-          sizes: S M L <br />
-          <Button color={`pine${model.charAt(0).toUpperCase()}${model.slice(1)}`} onClick={onClickBuy}>
-            BUY NOW
-          </Button>
+          <SubTitle>Shipping</SubTitle>
+          2-3 business days in Germany, 5-7 in EU. See shipping/returns. <br />
+          <SubTitle>Choose your size</SubTitle>
+          <SizeSelector selectedSize={selectedSize} setSelectedSize={helper} />
+          <BuyButton color={`pine${model.charAt(0).toUpperCase()}${model.slice(1)}`} onClick={onClickBuy}>
+            ORDER NOW
+          </BuyButton>
         </Description>
         {additionalPictures[model].map((picture, index) => {
-          return index % 2 ? <RigthPicture src={picture} /> : <LeftPicture src={picture} />;
+          return index % 2 ? <RigthPicture key={picture} src={picture} /> : <LeftPicture key={picture} src={picture} />;
         })}
       </Grid>
     </>

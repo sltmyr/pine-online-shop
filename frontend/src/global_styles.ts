@@ -37,9 +37,10 @@ export const Button = styled.button`
   background: transparent;
   border: 1px solid ${(props) => props.theme.pineNavy};
   color: ${(props) => props.theme.pineNavy};
-  padding: 0.25em 1em;
-  width: 10em;
-  height: 2em;
+  padding: 0.1em 1em;
+  width: 8em;
+  height: 1.5em;
+  font-size: 20px;
   ${(props) =>
     props.color &&
     props.theme[props.color] &&
