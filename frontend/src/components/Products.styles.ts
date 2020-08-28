@@ -32,23 +32,25 @@ export const ParagraphTop = styled(Paragraph)`
 `;
 
 export const ParagraphLeft = styled(Paragraph)`
-  @media (min-width: ${(props) => props.theme.mediumBreakpoint}px) {
-    margin-top: 10em;
-  }
   text-align: left;
   grid-column: 2;
   width: 300px;
-  justify-self: center;
+  justify-self: right;
+  @media (min-width: ${(props) => props.theme.mediumBreakpoint}px) {
+    margin-top: 10em;
+    justify-self: center;
+  }
 `;
 
 export const ParagraphRight = styled(Paragraph)`
-  @media (min-width: ${(props) => props.theme.mediumBreakpoint}px) {
-    margin-top: 10em;
-  }
   text-align: left;
   grid-column: 3;
   width: 300px;
-  justify-self: center;
+  justify-self: left;
+  @media (min-width: ${(props) => props.theme.mediumBreakpoint}px) {
+    margin-top: 10em;
+    justify-self: center;
+  }
 `;
 
 export const ParagraphGrey = styled(ParagraphLeft)`
@@ -73,23 +75,37 @@ export const LinkWrapper = styled(Link)`
   color: inherit;
 `;
 
-export const SidePicture = styled.img<{ side: 'left' | 'right' }>`
-  width: 80%;
+export const PictureLinkWrapper = styled(Link)<{ side: 'left' | 'right' }>`
+  width: 90%;
   align-self: center;
-  justify-self: center;
+  ${(props) =>
+    props.side === 'left'
+      ? css`
+          justify-self: left;
+        `
+      : css`
+          justify-self: right;
+        `};
+
   grid-column: 2 / 4;
   margin-top: 1em;
-  margin-bottom: 2em;
   @media (min-width: ${(props) => props.theme.mediumBreakpoint}px) {
+    margin-bottom: 2em;
     ${(props) =>
       props.side === 'left' &&
       css`
         grid-column: 2;
+        justify-self: center;
       `};
     ${(props) =>
       props.side === 'right' &&
       css`
         grid-column: 3;
+        justify-self: center;
       `};
   }
+`;
+
+export const SidePicture = styled.img`
+  width: 100%;
 `;

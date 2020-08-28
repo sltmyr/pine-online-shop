@@ -12,6 +12,7 @@ import {
   ParagraphTop,
   ParagraphHeader,
   LinkWrapper,
+  PictureLinkWrapper,
   SidePicture,
 } from './Products.styles';
 
@@ -29,14 +30,20 @@ export default ({ topRef }: { topRef: RefObject<HTMLDivElement> }) => {
         lining: 100% satin <br />
         300 €
       </ParagraphTop>
-      <SidePicture src={greyCoat1} side='right' />
+
+      <PictureLinkWrapper side='right' to='/coat/grey'>
+        <SidePicture src={greyCoat1} />
+      </PictureLinkWrapper>
       <ParagraphGrey data-aos='fade-right' data-testid='buy-button'>
         <LinkWrapper to='/coat/grey'>
           <ParagraphHeader>The grey one </ParagraphHeader>
           You can combine our classic grey coat with virtually anything and you will always look and feel elegant.
         </LinkWrapper>
       </ParagraphGrey>
-      <SidePicture src={beigeCoat1} side='left' />
+
+      <PictureLinkWrapper side='left' to='/coat/beige'>
+        <SidePicture src={beigeCoat1} />
+      </PictureLinkWrapper>
       <ParagraphRight data-aos='fade-left'>
         <LinkWrapper to='/coat/beige'>
           <ParagraphHeader>The beige one </ParagraphHeader>
@@ -44,7 +51,10 @@ export default ({ topRef }: { topRef: RefObject<HTMLDivElement> }) => {
           definitely going to stand out.
         </LinkWrapper>
       </ParagraphRight>
-      <SidePicture src={navyCoat1} side='right' />
+
+      <PictureLinkWrapper side='right' to='/coat/navy'>
+        <SidePicture src={navyCoat1} />
+      </PictureLinkWrapper>
       <ParagraphNavy data-aos='fade-right'>
         <LinkWrapper to='/coat/navy'>
           <ParagraphHeader>The navy one </ParagraphHeader>
