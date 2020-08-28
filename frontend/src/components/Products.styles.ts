@@ -1,5 +1,6 @@
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
 import { TwoColumnGrid } from '../global_styles';
+import { Link } from 'react-router-dom';
 
 export const Grid = styled(TwoColumnGrid)`
   margin-top: 1em;
@@ -38,7 +39,6 @@ export const ParagraphLeft = styled(Paragraph)`
   grid-column: 2;
   width: 300px;
   justify-self: center;
-  cursor: pointer;
 `;
 
 export const ParagraphRight = styled(Paragraph)`
@@ -49,7 +49,6 @@ export const ParagraphRight = styled(Paragraph)`
   grid-column: 3;
   width: 300px;
   justify-self: center;
-  cursor: pointer;
 `;
 
 export const ParagraphGrey = styled(ParagraphLeft)`
@@ -67,4 +66,30 @@ export const ParagraphNavy = styled(ParagraphLeft)`
 export const ParagraphHeader = styled.p`
   text-decoration: underline;
   font-size: 30px;
+`;
+
+export const LinkWrapper = styled(Link)`
+  text-decoration: none;
+  color: inherit;
+`;
+
+export const SidePicture = styled.img<{ side: 'left' | 'right' }>`
+  width: 80%;
+  align-self: center;
+  justify-self: center;
+  grid-column: 2 / 4;
+  margin-top: 1em;
+  margin-bottom: 2em;
+  @media (min-width: ${(props) => props.theme.mediumBreakpoint}px) {
+    ${(props) =>
+      props.side === 'left' &&
+      css`
+        grid-column: 2;
+      `};
+    ${(props) =>
+      props.side === 'right' &&
+      css`
+        grid-column: 3;
+      `};
+  }
 `;

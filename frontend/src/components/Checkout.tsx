@@ -6,7 +6,6 @@ import beigeCoat from '../images/beige-coat-1.jpg';
 import navyCoat from '../images/blue-coat-1.jpg';
 import greyCoat from '../images/grey-coat-1.jpg';
 import Spinner from '../images/spinner.svg';
-import { CoatColor } from './Products';
 import {
   AddressForm,
   CheckoutSectionHeader,
@@ -28,6 +27,7 @@ import {
   SummaryPicture,
   SummaryText,
 } from './Checkout.styles';
+import { CoatColor } from '../pages/CoatDetails';
 
 // needed to make typescript accept the window.paypal elements that are provided by the paypal script
 declare global {
