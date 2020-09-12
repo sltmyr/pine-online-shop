@@ -9,6 +9,7 @@ import Header from './components/Header';
 import AOS from 'aos';
 import 'aos/dist/aos.css';
 import CoatDetails from './pages/CoatDetails';
+import Footer from './components/Footer';
 
 function App() {
   useEffect(() => {
@@ -26,6 +27,7 @@ function App() {
           <Route path='/coat/:model' component={CoatDetails}></Route>
           <Route path='/' component={Home}></Route>
         </Switch>
+        <Footer />
       </Router>
     </ThemeProvider>
   );

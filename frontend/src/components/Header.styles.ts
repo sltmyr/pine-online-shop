@@ -101,21 +101,21 @@ const disappear = keyframes`
 const appearAndMove = keyframes`
     0% {
         opacity: 0;
-        height: 200px;
+        height: 150px;
         margin-top: calc(50vh - 100px);
-        width: 400px;
+        width: 300px;
         margin-left: 50vw;
     }
     75% {
         opacity: 1;
-        height: 200px;
+        height: 150px;
         margin-top: calc(50vh - 100px);
-        width: 400px;
+        width: 300px;
         margin-left: 50vw;
     }
     100% {
         opacity: 1;
-        height: 50px;
+        height: 30px;
         margin-top: 0;
         margin-left: 0;
     }

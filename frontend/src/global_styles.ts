@@ -31,6 +31,7 @@ export const theme = {
   mediumBreakpoint: 650,
   largeBreakpoint: 950,
   headerHeight: 80,
+  footerHeight: 80,
 };
 
 export const Button = styled.button`
@@ -68,6 +69,6 @@ export const TwoColumnGrid = styled.div`
 `;
 
 export const SerifText = styled.p`
-  font-family: span, serif;
+  font-family: 'Playfair Display', serif;
   font-weight: 200;
 `;

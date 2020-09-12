@@ -1,7 +1,7 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { theme } from '../global_styles';
-import logo from '../images/logo.png';
+import logo from '../images/pine-logo.svg';
 import {
   DummyHeader,
   Grid,

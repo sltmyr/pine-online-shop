@@ -52,7 +52,7 @@ export default () => {
       </PhilosopyParagraph>
       <ButtonContainer>
         <Link to={{ pathname: '/', state: { scrollTo: 'coats' } }}>
-          <Button color='pineBeige'>our coats</Button>
+          <Button color='pineBeige'>OUR COATS</Button>
         </Link>
       </ButtonContainer>
       <PhilosophyHeader>About Us</PhilosophyHeader>
