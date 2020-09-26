@@ -43,12 +43,13 @@ export const Description = styled.div`
   width: 100%;
   margin-top: 1em;
   margin-bottom: 1em;
-  margin-left: 1em;
+  padding-left: 1em;
   grid-column: 3;
 
   @media (max-width: ${(props) => props.theme.mediumBreakpoint}px) {
     margin-top: 1em;
     grid-column: 2 / 4;
+    padding-left: 0;
   }
 `;
 
@@ -63,8 +64,14 @@ export const SubTitle = styled.p`
   margin-bottom: 0.5em;
 `;
 
+export const ButtonContainer = styled.div`
+  width: 100%;
+  display: flex;
+`;
+
 export const BuyButton = styled(Button)`
   margin-top: 2em;
-  margin-left: 2em;
+  margin-left: auto;
+  margin-right: auto;
   width: 250px;
 `;

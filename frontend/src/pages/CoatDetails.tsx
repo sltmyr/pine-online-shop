@@ -12,6 +12,7 @@ import {
   LeftPicture,
   BuyButton,
   SubTitle,
+  ButtonContainer,
 } from './CoatDetails.styles';
 import beigeCoat from '../images/beige-coat-1.jpg';
 import beigeCoat2 from '../images/beige-coat-2.jpg';
@@ -113,9 +114,11 @@ export default ({ loadPaypal = loadPaypalScript, stripeElememtsPromise = stripeP
           2-3 business days in Germany, 5-7 in EU. See shipping/returns. <br />
           <SubTitle>Choose your size</SubTitle>
           <SizeSelector selectedSize={selectedSize} setSelectedSize={helper} />
-          <BuyButton color={`pine${model.charAt(0).toUpperCase()}${model.slice(1)}`} onClick={onClickBuy}>
-            ORDER NOW
-          </BuyButton>
+          <ButtonContainer>
+            <BuyButton color={`pine${model.charAt(0).toUpperCase()}${model.slice(1)}`} onClick={onClickBuy}>
+              ORDER NOW
+            </BuyButton>
+          </ButtonContainer>
         </Description>
         {additionalPictures[model].map((picture, index) => {
           return index % 2 ? <RigthPicture key={picture} src={picture} /> : <LeftPicture key={picture} src={picture} />;
