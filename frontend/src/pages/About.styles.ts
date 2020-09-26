@@ -48,7 +48,6 @@ export const PhilosophyHeader = styled(SerifText)`
 
 export const PhilosopyParagraph = styled.p`
   font-size: 20px;
-  text-align: justify;
   width: 100%;
   margin-top: 1em;
   margin-bottom: 1em;

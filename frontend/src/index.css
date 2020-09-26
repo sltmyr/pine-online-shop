@@ -4,6 +4,6 @@
 }
 
 @font-face {
-  font-family: 'Heebo';
-  src: local('Heebo'), url(./fonts/Heebo.ttf) format('truetype');
+  font-family: 'WorkSans';
+  src: local('WorkSans'), url(./fonts/WorkSans.ttf) format('truetype');
 }
