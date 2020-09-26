@@ -29,7 +29,7 @@ export default (props: HomeProps) => {
       </BannerContainer>
       <SloganContainer>
         <Slogan>BEAUTIFUL COATS. </Slogan>
-        <Slogan>NEUTRAL COLOURS. </Slogan>
+        <Slogan>NEUTRAL COLORS. </Slogan>
         <Slogan>ELEGANT CUT.</Slogan>
       </SloganContainer>
       <Products topRef={coatsRef} />

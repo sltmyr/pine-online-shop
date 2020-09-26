@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom';
 import App from './App';
 import './index.css';
 import './fonts/PlayfairDisplay-Italic.ttf';
-import './fonts/WorkSans.ttf';
+import './fonts/Chivo-Light.ttf';
 
 ReactDOM.render(
   <React.StrictMode>

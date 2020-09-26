@@ -5,7 +5,7 @@ export const GlobalStyles = createGlobalStyle`
         margin: 0;
         padding: 0;
         box-sizing: border-box;
-        font-family: WorkSans, sans-serif;
+        font-family: ChivoLight, sans-serif;
         font-weight: 200;
         font-style: normal;
         -webkit-font-smoothing: antialiased;
