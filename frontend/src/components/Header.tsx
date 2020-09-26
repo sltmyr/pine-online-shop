@@ -16,6 +16,7 @@ import {
   PositionWrapper,
   SplashScreenCover,
   MenuContainerSmall,
+  logoHeight,
 } from './Header.styles';
 import Menu from './Menu';
 
@@ -47,7 +48,7 @@ export default () => {
         <Grid>
           <SplashScreenCover data-testid='cover' />
           <LogoContainer>
-            <Link to={{ pathname: '/', state: { scrollTo: 'top' } }}>
+            <Link to={{ pathname: '/', state: { scrollTo: 'top' } }} style={{ height: logoHeight }}>
               <Logo src={logo} data-testid='logo' />
             </Link>
           </LogoContainer>

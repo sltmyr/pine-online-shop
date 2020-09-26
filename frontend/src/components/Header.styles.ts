@@ -98,6 +98,8 @@ const disappear = keyframes`
     100% {opacity: 0; visibility: hidden}
 `;
 
+export const logoHeight = '40px';
+
 const appearAndMove = keyframes`
     0% {
         opacity: 0;
@@ -115,7 +117,7 @@ const appearAndMove = keyframes`
     }
     100% {
         opacity: 1;
-        height: 30px;
+        height: ${logoHeight};
         margin-top: 0;
         margin-left: 0;
     }

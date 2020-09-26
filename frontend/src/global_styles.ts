@@ -5,8 +5,8 @@ export const GlobalStyles = createGlobalStyle`
         margin: 0;
         padding: 0;
         box-sizing: border-box;
-        font-family: freight-sans-pro, sans-serif;
-        font-weight: 300;
+        font-family: Heebo, sans-serif;
+        font-weight: 100;
         font-style: normal;
         -webkit-font-smoothing: antialiased;
         -moz-osx-font-smoothing: grayscale;
@@ -69,6 +69,6 @@ export const TwoColumnGrid = styled.div`
 `;
 
 export const SerifText = styled.p`
-  font-family: 'Playfair Display', serif;
+  font-family: PlayfairDisplay, serif;
   font-weight: 200;
 `;

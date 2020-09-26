@@ -1,0 +1,9 @@
+@font-face {
+  font-family: 'PlayfairDisplay';
+  src: local('PlayfairDisplay'), url(./fonts/PlayfairDisplay-Italic.ttf) format('truetype');
+}
+
+@font-face {
+  font-family: 'Heebo';
+  src: local('Heebo'), url(./fonts/Heebo.ttf) format('truetype');
+}

@@ -41,6 +41,6 @@ export const Slogan = styled.div`
     font-size: 25px;
   }
   @media (max-width: ${(props) => props.theme.mediumBreakpoint}px) {
-    width: 60vw;
+    width: 70vw;
   }
 `;
