@@ -1,8 +1,9 @@
-import React, { useEffect, useRef } from 'react';
+import React, { useEffect, useRef, useContext } from 'react';
 import { RouteComponentProps } from 'react-router-dom';
 import { theme } from '../global_styles';
 import { Banner, BannerContainer, Slogan, SloganContainer } from './Home.styles';
 import Products from '../components/Products';
+import { LanguageContext, Language } from '../App';
 
 type HomeProps = RouteComponentProps & {
   location: { state: { scrollTo: 'top' | 'coats' } };
@@ -10,6 +11,7 @@ type HomeProps = RouteComponentProps & {
 
 export default (props: HomeProps) => {
   const coatsRef = useRef<HTMLDivElement>(null);
+  const { language, setLanguage } = useContext(LanguageContext);
   useEffect(() => {
     if (props?.location?.state?.scrollTo === 'coats') {
       window.scroll({
@@ -22,15 +24,30 @@ export default (props: HomeProps) => {
     }
   });
 
+  const text = {
+    slogan1: {
+      [Language.english]: 'BEAUTIFUL COATS.',
+      [Language.german]: 'SCHÖNE MÄNTEL.',
+    },
+    slogan2: {
+      [Language.english]: 'NEUTRAL COLORS.',
+      [Language.german]: 'NEUTRALE FARBEN.',
+    },
+    slogan3: {
+      [Language.english]: 'ELEGANT CUT.',
+      [Language.german]: 'ELEGANTER SCHNITT.',
+    },
+  };
+
   return (
     <>
       <BannerContainer data-testid='banner'>
         <Banner />
       </BannerContainer>
       <SloganContainer>
-        <Slogan>BEAUTIFUL COATS. </Slogan>
-        <Slogan>NEUTRAL COLORS. </Slogan>
-        <Slogan>ELEGANT CUT.</Slogan>
+        <Slogan>{text.slogan1[language]}</Slogan>
+        <Slogan>{text.slogan2[language]}</Slogan>
+        <Slogan>{text.slogan3[language]}</Slogan>
       </SloganContainer>
       <Products topRef={coatsRef} />
     </>
