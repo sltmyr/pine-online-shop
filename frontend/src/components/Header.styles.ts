@@ -7,7 +7,7 @@ export const DummyHeader = styled.div`
 export const PositionWrapper = styled.div`
   z-index: 10;
   position: fixed;
-  background-color: white;
+  background-color: ${(props) => props.theme.globalBackground};
   width: 100%;
 `;
 
@@ -42,7 +42,8 @@ export const MenuContainer = styled.div`
 `;
 
 export const MenuContainerSmall = styled(MenuContainer)`
-  height: 30vh;
+  height: calc(100vh - ${(props) => props.theme.headerHeight}px);
+  align-content: flex-start;
 `;
 
 export const HamburgerContainer = styled.div`
@@ -128,7 +129,7 @@ export const SplashScreenCover = styled.div`
   height: 100vh;
   position: fixed;
   left: 0;
-  background-color: white;
+  background-color: ${(props) => props.theme.globalBackground};
   animation: ${disappear} 0.5s;
   animation-delay: 2s;
   animation-fill-mode: forwards;

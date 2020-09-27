@@ -99,17 +99,17 @@ export default ({ loadPaypal = loadPaypalScript, stripeElememtsPromise = stripeP
       <Grid>
         <MainPicture src={mainPicture[model]} />
         <Description>
-          <Title>Our classic coat</Title>
+          <Title>OUR CLASSIC COAT</Title>
           300 € including taxes and shipping.
           <br />
-          <SubTitle>Material</SubTitle>
+          <SubTitle>MATERIAL</SubTitle>
           10% cashmere <br />
           70% wool <br />
           20% polyamide <br />
           lining: 100% satin <br />
-          <SubTitle>Shipping</SubTitle>
+          <SubTitle>SHIPPING</SubTitle>
           2-3 business days in Germany, 5-7 in EU. See shipping/returns. <br />
-          <SubTitle>Choose your size</SubTitle>
+          <SubTitle>CHOOSE YOUR SIZE</SubTitle>
           <SizeSelector selectedSize={selectedSize} setSelectedSize={helper} />
           <ButtonContainer>
             <BuyButton color={`pine${model.charAt(0).toUpperCase()}${model.slice(1)}`} onClick={onClickBuy}>

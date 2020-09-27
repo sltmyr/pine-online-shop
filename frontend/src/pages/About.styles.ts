@@ -42,14 +42,16 @@ export const AboutPicture = styled(Picture)`
 `;
 
 export const PhilosophyHeader = styled(FancyText)`
-  font-size: 25px;
-  margin-top: 1em;
+  font-size: 30px;
+  margin-top: 2em;
+  margin-bottom: 1em;
   grid-column: 2 / 4;
 `;
 
 export const PhilosopyParagraph = styled.p`
   font-size: 16px;
   width: 100%;
+  max-width: 300px;
   margin-top: 1em;
   margin-bottom: 1em;
   grid-column: 2 / 4;
@@ -68,7 +70,8 @@ export const ParagraphLeft = styled(PhilosopyParagraph)`
 `;
 
 export const HeaderRight = styled(FancyText)`
-  font-size: 20px;
+  font-size: 25px;
+  margin-top: 2em;
   grid-column: 2 / 4;
   @media (min-width: ${(props) => props.theme.mediumBreakpoint}px) {
     grid-column: 3;

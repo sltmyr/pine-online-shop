@@ -26,5 +26,6 @@ export const Link = styled.a`
   color: ${(props) => props.theme.pineNavy};
   @media (max-width: ${(props) => props.theme.mediumBreakpoint}px) {
     margin-bottom: 0.5em;
+    width: 100%;
   }
 `;
