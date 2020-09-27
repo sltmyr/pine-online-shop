@@ -2,6 +2,7 @@ import styled from 'styled-components';
 
 export const HorizontalLine = styled.hr`
   margin-top: 40px;
+  border-width: 0.1px;
   grid-column-start: 2;
   grid-column-end: 4;
 `;

@@ -1,8 +1,8 @@
 import React, { RefObject } from 'react';
 import { theme } from '../global_styles';
-import beigeCoat1 from '../images/beige-coat-1.jpg';
-import navyCoat1 from '../images/blue-coat-1.jpg';
-import greyCoat1 from '../images/grey-coat-1.jpg';
+import beigeCoat1 from '../images/coat.jpg';
+import navyCoat1 from '../images/navy.jpg';
+import greyCoat1 from '../images/grey.jpg';
 import {
   Grid,
   ParagraphGrey,

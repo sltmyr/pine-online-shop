@@ -2,7 +2,7 @@ import styled from 'styled-components';
 import banner from '../images/banner.jpg';
 
 export const BannerContainer = styled.div`
-  padding-top: 1em;
+  padding-top: 5em;
   display: flex;
   justify-content: center;
   flex-wrap: wrap;

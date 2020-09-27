@@ -90,6 +90,7 @@ export const LineBottom = styled(LineBase)<LineProps>`
 `;
 
 export const HorizontalLine = styled.hr`
+  border-width: 0.1px;
   grid-column-start: 2;
   grid-column-end: 4;
 `;

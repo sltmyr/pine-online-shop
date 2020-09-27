@@ -4,10 +4,11 @@ export const theme = {
   pineNavy: '#212431',
   pineBeige: '#CEAE99',
   pineGrey: '#8D8D8D',
-  globalBackground: '#eee6db',
+  globalBackground: 'white',
+  // globalBackground: '#eee6db',
   mediumBreakpoint: 650,
   largeBreakpoint: 950,
-  headerHeight: 80,
+  headerHeight: 100,
   footerHeight: 80,
 };
 
@@ -41,7 +42,7 @@ export const Button = styled.button`
   color: ${(props) => props.theme.pineNavy};
   padding: 0.1em 1em;
   width: 8em;
-  height: 1.5em;
+  height: 3em;
   font-size: 16px;
   ${(props) =>
     props.color &&
