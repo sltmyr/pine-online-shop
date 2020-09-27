@@ -2,8 +2,8 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import App from './App';
 import './index.css';
-import './fonts/PlayfairDisplay-Italic.ttf';
-import './fonts/Chivo-Light.ttf';
+import './fonts/domaine-sans-fine-web-thin.woff';
+import './fonts/Montserrat-Thin.ttf';
 
 ReactDOM.render(
   <React.StrictMode>

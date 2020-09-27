@@ -5,14 +5,13 @@ export const GlobalStyles = createGlobalStyle`
         margin: 0;
         padding: 0;
         box-sizing: border-box;
-        font-family: ChivoLight, sans-serif;
-        font-weight: 200;
+        font-family: Montserrat, sans-serif;
         font-style: normal;
         -webkit-font-smoothing: antialiased;
         -moz-osx-font-smoothing: grayscale;
     }
     :root {
-        font-size: 30px;
+        font-size: 16px;
         input::-webkit-outer-spin-button,
         input::-webkit-inner-spin-button {
             -webkit-appearance: none;
@@ -41,7 +40,7 @@ export const Button = styled.button`
   padding: 0.1em 1em;
   width: 8em;
   height: 1.5em;
-  font-size: 20px;
+  font-size: 16px;
   ${(props) =>
     props.color &&
     props.theme[props.color] &&
@@ -68,7 +67,6 @@ export const TwoColumnGrid = styled.div`
   }
 `;
 
-export const SerifText = styled.p`
-  font-family: PlayfairDisplay, serif;
-  font-weight: 200;
+export const FancyText = styled.p`
+  font-family: Domaine, Montserrat, sans-serif;
 `;

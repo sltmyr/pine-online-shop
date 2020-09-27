@@ -22,7 +22,7 @@ export const Picture = styled.img`
 `;
 
 export const Paragraph = styled.div`
-  font-size: 20px;
+  font-size: 16px;
   width: 100%;
   grid-column: 2;
   margin-bottom: 1em;

@@ -1,12 +1,12 @@
 import styled from 'styled-components';
-import { TwoColumnGrid, Button } from '../global_styles';
+import { TwoColumnGrid, Button, FancyText } from '../global_styles';
 
 export const Grid = styled(TwoColumnGrid)`
   margin-top: 1em;
 `;
 
 export const ErrorMessage = styled.div`
-  font-size: 20px;
+  font-size: 16px;
   width: 100%;
   grid-column: 2 / 4;
 `;
@@ -39,7 +39,7 @@ export const RigthPicture = styled(MainPicture)`
 `;
 
 export const Description = styled.div`
-  font-size: 20px;
+  font-size: 16px;
   width: 100%;
   margin-top: 1em;
   margin-bottom: 1em;
@@ -53,15 +53,15 @@ export const Description = styled.div`
   }
 `;
 
-export const Title = styled.p`
+export const Title = styled(FancyText)`
   font-size: 30px;
   margin-bottom: 1em;
 `;
 
-export const SubTitle = styled.p`
+export const SubTitle = styled(FancyText)`
   font-size: 25px;
-  margin-top: 0.7em;
-  margin-bottom: 0.5em;
+  margin-top: 2em;
+  margin-bottom: 1em;
 `;
 
 export const ButtonContainer = styled.div`

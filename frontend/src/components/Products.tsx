@@ -1,6 +1,5 @@
 import React, { RefObject } from 'react';
-import 'react-responsive-carousel/lib/styles/carousel.min.css'; // requires a loader
-import { theme, SerifText } from '../global_styles';
+import { theme } from '../global_styles';
 import beigeCoat1 from '../images/beige-coat-1.jpg';
 import navyCoat1 from '../images/blue-coat-1.jpg';
 import greyCoat1 from '../images/grey-coat-1.jpg';
@@ -36,9 +35,7 @@ export default ({ topRef }: { topRef: RefObject<HTMLDivElement> }) => {
       </PictureLinkWrapper>
       <ParagraphGrey data-aos='fade-up' data-testid='buy-button'>
         <LinkWrapper to='/coat/grey'>
-          <ParagraphHeader>
-            <SerifText>The grey one </SerifText>
-          </ParagraphHeader>
+          <ParagraphHeader>The grey one</ParagraphHeader>
           You can combine our classic grey coat with virtually anything and you will always look and feel great.
         </LinkWrapper>
       </ParagraphGrey>
@@ -48,9 +45,7 @@ export default ({ topRef }: { topRef: RefObject<HTMLDivElement> }) => {
       </PictureLinkWrapper>
       <ParagraphRight data-aos='fade-up'>
         <LinkWrapper to='/coat/beige'>
-          <ParagraphHeader>
-            <SerifText>The beige one</SerifText>
-          </ParagraphHeader>
+          <ParagraphHeader>The beige one</ParagraphHeader>
           Our best seller, and with good reason. In our camel colored coat you are definitely going to stand out.
         </LinkWrapper>
       </ParagraphRight>
@@ -60,9 +55,7 @@ export default ({ topRef }: { topRef: RefObject<HTMLDivElement> }) => {
       </PictureLinkWrapper>
       <ParagraphNavy data-aos='fade-up'>
         <LinkWrapper to='/coat/navy'>
-          <ParagraphHeader>
-            <SerifText>The navy one</SerifText>
-          </ParagraphHeader>
+          <ParagraphHeader>The navy one</ParagraphHeader>
           Our navy coat is the right choice for anyone tired of wearing only black in the colder months of the year.
         </LinkWrapper>
       </ParagraphNavy>

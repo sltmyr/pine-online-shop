@@ -25,7 +25,6 @@ import greyCoat2 from '../images/grey-coat-2.jpg';
 import greyCoat3 from '../images/grey-coat-3.jpg';
 import Checkout from '../components/Checkout';
 import SizeSelector from '../components/SizeSelector';
-import { SerifText } from '../global_styles';
 
 const models = ['beige', 'grey', 'navy'];
 export type CoatColor = 'beige' | 'grey' | 'navy';
@@ -100,9 +99,7 @@ export default ({ loadPaypal = loadPaypalScript, stripeElememtsPromise = stripeP
       <Grid>
         <MainPicture src={mainPicture[model]} />
         <Description>
-          <Title>
-            <SerifText>Our classic coat</SerifText>
-          </Title>
+          <Title>Our classic coat</Title>
           300 € including taxes and shipping.
           <br />
           <SubTitle>Material</SubTitle>

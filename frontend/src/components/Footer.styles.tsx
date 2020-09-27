@@ -12,7 +12,7 @@ export const FooterContent = styled.div`
   min-height: ${(props) => props.theme.footerHeight}px;
   margin-top: 1em;
   margin-bottom: 1em;
-  font-size: 20px;
+  font-size: 16px;
   display: flex;
   flex-wrap: wrap;
   justify-content: space-evenly;

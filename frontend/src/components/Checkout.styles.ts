@@ -37,7 +37,7 @@ export const CloseIcon = styled(X)`
 `;
 
 export const CheckoutSectionHeader = styled.p`
-  font-size: 20px;
+  font-size: 16px;
   margin-bottom: 0.5em;
 `;
 

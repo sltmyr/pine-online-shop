@@ -1,5 +1,5 @@
 import styled, { css } from 'styled-components';
-import { TwoColumnGrid } from '../global_styles';
+import { TwoColumnGrid, FancyText } from '../global_styles';
 import { Link } from 'react-router-dom';
 
 export const Grid = styled(TwoColumnGrid)`
@@ -19,9 +19,10 @@ export const PictureLeft = styled.img`
 `;
 
 export const Paragraph = styled.div`
-  font-size: 20px;
+  font-size: 16px;
   width: 100%;
-  margin-bottom: 1em;
+  margin-top: 2em;
+  margin-bottom: 3em;
   @media (max-width: ${(props) => props.theme.mediumBreakpoint}px) {
     grid-column: 2 / 4;
   }
@@ -29,6 +30,8 @@ export const Paragraph = styled.div`
 
 export const ParagraphTop = styled(Paragraph)`
   grid-column: 2 / 4;
+  width: 70vw;
+  max-width: 400px;
 `;
 
 export const ParagraphLeft = styled(Paragraph)`
@@ -68,9 +71,9 @@ export const ParagraphNavy = styled(ParagraphLeft)`
   }
 `;
 
-export const ParagraphHeader = styled.p`
-  text-decoration: underline;
+export const ParagraphHeader = styled(FancyText)`
   font-size: 30px;
+  margin-bottom: 0.5em;
 `;
 
 export const LinkWrapper = styled(Link)`

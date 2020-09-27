@@ -1,5 +1,6 @@
 import styled from 'styled-components';
 import banner from '../images/banner.jpg';
+import { FancyText } from '../global_styles';
 
 export const BannerContainer = styled.div`
   padding-top: 1em;
@@ -17,13 +18,6 @@ export const Banner = styled.div`
   background-position: center;
   height: 100%;
   width: 70vw;
-
-  @media (max-width: ${(props) => props.theme.largeBreakpoint}px) {
-    width: 85vw;
-  }
-  @media (max-width: ${(props) => props.theme.mediumBreakpoint}px) {
-    width: 90vw;
-  }
 `;
 
 export const SloganContainer = styled.div`
@@ -34,13 +28,8 @@ export const SloganContainer = styled.div`
   height: 30vh;
 `;
 
-export const Slogan = styled.div`
+export const Slogan = styled(FancyText)`
   color: ${(props) => props.theme.pineNavy};
-  margin-right: 1em;
-  @media (max-width: ${(props) => props.theme.largeBreakpoint}px) {
-    font-size: 25px;
-  }
-  @media (max-width: ${(props) => props.theme.mediumBreakpoint}px) {
-    width: 70vw;
-  }
+  font-size: 25px;
+  width: 70vw;
 `;

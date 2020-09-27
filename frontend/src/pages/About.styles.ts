@@ -1,12 +1,12 @@
 import styled from 'styled-components';
-import { TwoColumnGrid, SerifText } from '../global_styles';
+import { TwoColumnGrid, FancyText } from '../global_styles';
 
 export const Grid = styled(TwoColumnGrid)`
   margin-top: 1em;
 `;
 
 export const Paragraph = styled.div`
-  font-size: 20px;
+  font-size: 16px;
   width: 100%;
   grid-column: 2;
   margin-bottom: 1em;
@@ -41,13 +41,14 @@ export const AboutPicture = styled(Picture)`
   }
 `;
 
-export const PhilosophyHeader = styled(SerifText)`
+export const PhilosophyHeader = styled(FancyText)`
+  font-size: 25px;
   margin-top: 1em;
   grid-column: 2 / 4;
 `;
 
 export const PhilosopyParagraph = styled.p`
-  font-size: 20px;
+  font-size: 16px;
   width: 100%;
   margin-top: 1em;
   margin-bottom: 1em;
@@ -66,7 +67,7 @@ export const ParagraphLeft = styled(PhilosopyParagraph)`
   }
 `;
 
-export const HeaderRight = styled(SerifText)`
+export const HeaderRight = styled(FancyText)`
   font-size: 20px;
   grid-column: 2 / 4;
   @media (min-width: ${(props) => props.theme.mediumBreakpoint}px) {
