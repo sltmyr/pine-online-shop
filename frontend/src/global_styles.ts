@@ -1,5 +1,16 @@
 import styled, { createGlobalStyle, css } from 'styled-components';
 
+export const theme = {
+  pineNavy: '#212431',
+  pineBeige: '#CEAE99',
+  pineGrey: '#8D8D8D',
+  globalBackground: '#eee6db',
+  mediumBreakpoint: 650,
+  largeBreakpoint: 950,
+  headerHeight: 80,
+  footerHeight: 80,
+};
+
 export const GlobalStyles = createGlobalStyle`
     * {
         margin: 0;
@@ -9,6 +20,7 @@ export const GlobalStyles = createGlobalStyle`
         font-style: normal;
         -webkit-font-smoothing: antialiased;
         -moz-osx-font-smoothing: grayscale;
+        background-color: ${theme.globalBackground};
     }
     :root {
         font-size: 16px;
@@ -22,16 +34,6 @@ export const GlobalStyles = createGlobalStyle`
         }
     }
 `;
-
-export const theme = {
-  pineNavy: '#212431',
-  pineBeige: '#CEAE99',
-  pineGrey: '#8D8D8D',
-  mediumBreakpoint: 650,
-  largeBreakpoint: 950,
-  headerHeight: 80,
-  footerHeight: 80,
-};
 
 export const Button = styled.button`
   background: transparent;
@@ -68,5 +70,6 @@ export const TwoColumnGrid = styled.div`
 `;
 
 export const FancyText = styled.p`
-  font-family: Domaine, Montserrat, sans-serif;
+  font-family: Domaine, sans-serif;
+  font-weight: bold;
 `;

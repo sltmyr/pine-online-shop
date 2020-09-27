@@ -22,7 +22,7 @@ export const Paragraph = styled.div`
   font-size: 16px;
   width: 100%;
   margin-top: 2em;
-  margin-bottom: 3em;
+  margin-bottom: 8em;
   @media (max-width: ${(props) => props.theme.mediumBreakpoint}px) {
     grid-column: 2 / 4;
   }
@@ -72,7 +72,7 @@ export const ParagraphNavy = styled(ParagraphLeft)`
 `;
 
 export const ParagraphHeader = styled(FancyText)`
-  font-size: 30px;
+  font-size: 35px;
   margin-bottom: 0.5em;
 `;
 
@@ -96,7 +96,7 @@ export const PictureLinkWrapper = styled(Link)<{ side: 'left' | 'right' }>`
   grid-column: 2 / 4;
   margin-top: 1em;
   @media (min-width: ${(props) => props.theme.mediumBreakpoint}px) {
-    margin-bottom: 2em;
+    margin-bottom: 10em;
     ${(props) =>
       props.side === 'left' &&
       css`

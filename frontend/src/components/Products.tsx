@@ -30,32 +30,32 @@ export default ({ topRef }: { topRef: RefObject<HTMLDivElement> }) => {
         300 €
       </ParagraphTop>
 
-      <PictureLinkWrapper side='right' to='/coat/grey'>
+      <PictureLinkWrapper data-aos='fade-up' side='right' to='/coat/grey'>
         <SidePicture src={greyCoat1} />
       </PictureLinkWrapper>
       <ParagraphGrey data-aos='fade-up' data-testid='buy-button'>
         <LinkWrapper to='/coat/grey'>
-          <ParagraphHeader>The grey one</ParagraphHeader>
+          <ParagraphHeader>THE GREY ONE</ParagraphHeader>
           You can combine our classic grey coat with virtually anything and you will always look and feel great.
         </LinkWrapper>
       </ParagraphGrey>
 
-      <PictureLinkWrapper side='left' to='/coat/beige'>
+      <PictureLinkWrapper data-aos='fade-up' side='left' to='/coat/beige'>
         <SidePicture src={beigeCoat1} />
       </PictureLinkWrapper>
       <ParagraphRight data-aos='fade-up'>
         <LinkWrapper to='/coat/beige'>
-          <ParagraphHeader>The beige one</ParagraphHeader>
+          <ParagraphHeader>THE BEIGE ONE</ParagraphHeader>
           Our best seller, and with good reason. In our camel colored coat you are definitely going to stand out.
         </LinkWrapper>
       </ParagraphRight>
 
-      <PictureLinkWrapper side='right' to='/coat/navy'>
+      <PictureLinkWrapper data-aos='fade-up' side='right' to='/coat/navy'>
         <SidePicture src={navyCoat1} />
       </PictureLinkWrapper>
       <ParagraphNavy data-aos='fade-up'>
         <LinkWrapper to='/coat/navy'>
-          <ParagraphHeader>The navy one</ParagraphHeader>
+          <ParagraphHeader>THE NAVY ONE</ParagraphHeader>
           Our navy coat is the right choice for anyone tired of wearing only black in the colder months of the year.
         </LinkWrapper>
       </ParagraphNavy>
