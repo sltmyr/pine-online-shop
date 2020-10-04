@@ -27,6 +27,12 @@ export const Link = styled.a`
   color: ${(props) => props.theme.pineNavy};
   @media (max-width: ${(props) => props.theme.mediumBreakpoint}px) {
     margin-bottom: 0.5em;
-    width: 100%;
+    width: 80%;
   }
+`;
+
+export const Flag = styled.img`
+  width: 40px;
+  height: 20px;
+  cursor: pointer;
 `;

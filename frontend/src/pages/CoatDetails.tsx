@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useContext } from 'react';
 import { Elements } from '@stripe/react-stripe-js';
 import { loadStripe, Stripe } from '@stripe/stripe-js';
 import { useParams } from 'react-router-dom';
@@ -25,6 +25,7 @@ import greyCoat2 from '../images/grey-coat-2.jpg';
 import greyCoat3 from '../images/grey-coat-3.jpg';
 import Checkout from '../components/Checkout';
 import SizeSelector from '../components/SizeSelector';
+import { LanguageContext, Language } from '../App';
 
 const models = ['beige', 'grey', 'navy'];
 export type CoatColor = 'beige' | 'grey' | 'navy';
@@ -58,7 +59,61 @@ interface CoatDetailsProps {
   stripeElememtsPromise?: Promise<Stripe | null>;
 }
 
-export default ({ loadPaypal = loadPaypalScript, stripeElememtsPromise = stripePromise }: CoatDetailsProps) => {
+export default function CoatDetails({
+  loadPaypal = loadPaypalScript,
+  stripeElememtsPromise = stripePromise,
+}: CoatDetailsProps) {
+  const text = {
+    error: {
+      [Language.english]: 'Could not find product',
+      [Language.german]: 'Konnte folgendes Produkt nicht finden:',
+    },
+    title: {
+      [Language.english]: 'OUR CLASSIC COAT',
+      [Language.german]: 'UNSER KLASSISCHER MANTEL',
+    },
+    price: {
+      [Language.english]: '300 € including taxes and shipping.',
+      [Language.german]: '300 € inkl. Steuern und Versand.',
+    },
+    material: {
+      [Language.english]: 'MATERIAL',
+      [Language.german]: 'MATERIAL',
+    },
+    cashmere: {
+      [Language.english]: '10% cashmere',
+      [Language.german]: '10% Kaschmir',
+    },
+    wool: {
+      [Language.english]: '70% wool',
+      [Language.german]: '70% Wolle',
+    },
+    polyamide: {
+      [Language.english]: '20% polyamide',
+      [Language.german]: '20% Polyamid',
+    },
+    lining: {
+      [Language.english]: 'lining: 100% satin',
+      [Language.german]: 'Futter: 100% Satin',
+    },
+    shipping: {
+      [Language.english]: 'SHIPPING',
+      [Language.german]: 'VERSAND',
+    },
+    shippingText: {
+      [Language.english]: '2-3 business days in Germany, 5-7 in EU. See shipping/returns.',
+      [Language.german]: '2-3 Werktage in Deutschland, 5-7 in der EU. Siehe auch Versand/Rückgabe.',
+    },
+    chooseSize: {
+      [Language.english]: 'CHOOSE YOUR SIZE',
+      [Language.german]: 'WÄHLE DEINE GRÖSSE',
+    },
+    orderNow: {
+      [Language.english]: 'ORDER NOW',
+      [Language.german]: 'JETZT BESTELLEN',
+    },
+  };
+  const { language } = useContext(LanguageContext);
   const { model } = useParams<{ model: string }>();
   const [isCheckoutOpen, setCheckoutOpen] = useState<boolean>(false);
   const [isPaypalLoaded, setIsPaypalLoaded] = useState<boolean>(false);
@@ -81,7 +136,9 @@ export default ({ loadPaypal = loadPaypalScript, stripeElememtsPromise = stripeP
   if (!models.includes(model)) {
     return (
       <Grid>
-        <ErrorMessage>Could not find product {model}.</ErrorMessage>
+        <ErrorMessage>
+          {text.error[language]} {model}.
+        </ErrorMessage>
       </Grid>
     );
   }
@@ -99,21 +156,25 @@ export default ({ loadPaypal = loadPaypalScript, stripeElememtsPromise = stripeP
       <Grid>
         <MainPicture src={mainPicture[model]} />
         <Description>
-          <Title>OUR CLASSIC COAT</Title>
-          300 € including taxes and shipping.
+          <Title>{text.title[language]}</Title>
+          {text.price[language]}
           <br />
-          <SubTitle>MATERIAL</SubTitle>
-          10% cashmere <br />
-          70% wool <br />
-          20% polyamide <br />
-          lining: 100% satin <br />
-          <SubTitle>SHIPPING</SubTitle>
-          2-3 business days in Germany, 5-7 in EU. See shipping/returns. <br />
-          <SubTitle>CHOOSE YOUR SIZE</SubTitle>
+          <SubTitle>{text.material[language]}</SubTitle>
+          {text.cashmere[language]}
+          <br />
+          {text.wool[language]}
+          <br />
+          {text.polyamide[language]}
+          <br />
+          {text.lining[language]}
+          <br />
+          <SubTitle>{text.shipping[language]}</SubTitle>
+          {text.shippingText[language]} <br />
+          <SubTitle>{text.chooseSize[language]}</SubTitle>
           <SizeSelector selectedSize={selectedSize} setSelectedSize={helper} />
           <ButtonContainer>
             <BuyButton color={`pine${model.charAt(0).toUpperCase()}${model.slice(1)}`} onClick={onClickBuy}>
-              ORDER NOW
+              {text.orderNow[language]}
             </BuyButton>
           </ButtonContainer>
         </Description>
@@ -123,4 +184,4 @@ export default ({ loadPaypal = loadPaypalScript, stripeElememtsPromise = stripeP
       </Grid>
     </>
   );
-};
+}

@@ -22,7 +22,7 @@ import Menu from './Menu';
 
 const mediaQuery = window.matchMedia(`(max-width: ${theme.mediumBreakpoint}px)`);
 
-export default () => {
+export default function Header() {
   const [smallWindow, setSmallWindow] = useState<boolean>(mediaQuery.matches);
   const handleWindowSizeChange = (event: MediaQueryListEvent) => setSmallWindow(event.matches);
   useEffect(() => {
@@ -73,4 +73,4 @@ export default () => {
       </PositionWrapper>
     </DummyHeader>
   );
-};
+}
