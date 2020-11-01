@@ -1,8 +1,8 @@
 ## Repository for source of [pinecoat.com](https://pinecoat.com)
 
-This repository contains the source code for pinecoat.com -- a react based online shop for coats.
+This repository contains the source code for pinecoat.com -- an online shop for coats.
 
-The folder `/frontend` contains the [react](https://reactjs.org/) app written in typescript and styled with [styled-components](https://styled-components.com/). It was bootstrapped with [Create React App](https://github.com/facebook/create-react-app), so the scripts `yarn start`, `yarn test`, and `yarn build` can be used for development.
+The folder `/frontend` contains the [gatsby](https://www.gatsbyjs.com/) app based on react, typescript and [styled-components](https://styled-components.com/).
 
 The folder `/paymentApi` contains python code for an AWS lambda function that communicates with [stripe](https://stripe.com). It is used to facilitate payments for orders placed in our online shop.
 
@@ -14,7 +14,7 @@ The folder `/infrastructure` contains an [AWS CDK](https://aws.amazon.com/cdk/) 
 
 ### Deployment
 
-Follow these steps to deploy the web app. Prerequisites are: an AWS account, a Stripe account, a machine with node, yarn, pip, aws-cli, and cdk (`npm install -g aws-cdk`) installed.
+Follow these steps to deploy the web app. Prerequisites are: an AWS account, a Stripe account, a machine with node.js, pip, aws-cli, and cdk (`npm install -g aws-cdk`) installed.
 Note: to interact with the AWS via the CLI, a tool like [aws-vault](https://github.com/99designs/aws-vault) for the handling of session credentials is useful but not necessary.
 
 - Create a public route53 hosted zone for the domain (in this case pinecoat.com) with the usual NS entries

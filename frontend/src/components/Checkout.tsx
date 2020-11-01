@@ -1,11 +1,18 @@
-import { CardElement, useElements, useStripe } from '@stripe/react-stripe-js';
-import React, { useEffect, useState } from 'react';
-import ReactDOM from 'react-dom';
-import { cityRegex, emailRegex, fullNameRegex, max100Chars, postalCodeRegex, streetRegex } from '../constants/regex';
-import beigeCoat from '../images/beige-coat-1.jpg';
-import navyCoat from '../images/blue-coat-1.jpg';
-import greyCoat from '../images/grey-coat-1.jpg';
-import Spinner from '../images/spinner.svg';
+import { CardElement, useElements, useStripe } from "@stripe/react-stripe-js";
+import React, { useEffect, useState } from "react";
+import ReactDOM from "react-dom";
+import {
+  cityRegex,
+  emailRegex,
+  fullNameRegex,
+  max100Chars,
+  postalCodeRegex,
+  streetRegex,
+} from "../constants/regex";
+import beigeCoat from "../images/beige-coat-1.jpg";
+import navyCoat from "../images/blue-coat-1.jpg";
+import greyCoat from "../images/grey-coat-1.jpg";
+import Spinner from "../images/spinner.svg";
 import {
   AddressForm,
   CheckoutSectionHeader,
@@ -26,8 +33,8 @@ import {
   Summary,
   SummaryPicture,
   SummaryText,
-} from './Checkout.styles';
-import { CoatColor } from '../pages/CoatDetails';
+} from "./checkout.styles";
+import { CoatColor } from "../templates/coatDetails";
 
 // needed to make typescript accept the window.paypal elements that are provided by the paypal script
 declare global {
@@ -38,52 +45,52 @@ declare global {
 
 const CHECKOUT_UNAVAILABLE = true; // set to true for publishing during development
 
-export const intentUrl = 'https://checkout.pinecoat.com/intent';
-const generalError = 'Something went wrong. Please try reloading the page.';
+export const intentUrl = "https://checkout.pinecoat.com/intent";
+const generalError = "Something went wrong. Please try reloading the page.";
 const addressElements: AddressElement[] = [
   {
-    id: 'email',
-    label: 'email',
-    autoComplete: 'email',
-    placeholder: 'jane.doe@gmail.com',
-    type: 'email',
-    errorMessage: 'Please enter a valid email address.',
+    id: "email",
+    label: "email",
+    autoComplete: "email",
+    placeholder: "jane.doe@gmail.com",
+    type: "email",
+    errorMessage: "Please enter a valid email address.",
     regExp: emailRegex,
   },
   {
-    id: 'name',
-    label: 'full name',
-    autoComplete: 'name',
-    placeholder: 'Jane Doe',
-    type: 'text',
-    errorMessage: 'Please enter your full name.',
+    id: "name",
+    label: "full name",
+    autoComplete: "name",
+    placeholder: "Jane Doe",
+    type: "text",
+    errorMessage: "Please enter your full name.",
     regExp: fullNameRegex,
   },
   {
-    id: 'street',
-    label: 'street & no.',
-    autoComplete: 'street-address',
-    placeholder: 'Beautifulstreet 12a',
-    type: 'text',
-    errorMessage: 'Please enter your street and number.',
+    id: "street",
+    label: "street & no.",
+    autoComplete: "street-address",
+    placeholder: "Beautifulstreet 12a",
+    type: "text",
+    errorMessage: "Please enter your street and number.",
     regExp: streetRegex,
   },
   {
-    id: 'postalCode',
-    label: 'postal code',
-    autoComplete: 'postal-code',
-    placeholder: '12345',
-    type: 'text',
-    errorMessage: 'Please enter a valid postal code',
+    id: "postalCode",
+    label: "postal code",
+    autoComplete: "postal-code",
+    placeholder: "12345",
+    type: "text",
+    errorMessage: "Please enter a valid postal code",
     regExp: postalCodeRegex,
   },
   {
-    id: 'city',
-    label: 'city',
-    autoComplete: 'address-level2',
-    placeholder: 'Pine city',
-    type: 'text',
-    errorMessage: 'Please enter a valid city name.',
+    id: "city",
+    label: "city",
+    autoComplete: "address-level2",
+    placeholder: "Pine city",
+    type: "text",
+    errorMessage: "Please enter a valid city name.",
     regExp: cityRegex,
   },
 ];
@@ -97,17 +104,17 @@ const summaryPicture = {
 const stripeCardElementOptions = {
   style: {
     base: {
-      fontFamily: 'freight-sans-pro, sans-serif',
-      fontWeight: '300',
-      fontStyle: 'normal',
-      fontSize: '15px',
-      color: 'black',
-      '::placeholder': {
-        color: '#aab7c4',
+      fontFamily: "freight-sans-pro, sans-serif",
+      fontWeight: "300",
+      fontStyle: "normal",
+      fontSize: "15px",
+      color: "black",
+      "::placeholder": {
+        color: "#aab7c4",
       },
     },
     invalid: {
-      color: '#9e2146',
+      color: "#9e2146",
     },
   },
 };
@@ -126,9 +133,10 @@ export default ({ onComplete, selectedColor, selectedSize }: Props) => {
   if (CHECKOUT_UNAVAILABLE) {
     return (
       <ModalBackground>
-        <ModalWindow data-testid='modal'>
-          The shop at pinecoat.com is currently under construction. Soon you will be able to order your coat here.
-          <OrderNowButton color='pineBeige' onClick={onComplete} data-testid='modal-button'>
+        <ModalWindow data-testid="modal">
+          The shop at pinecoat.com is currently under construction. Soon you will be able to order
+          your coat here.
+          <OrderNowButton color="pineBeige" onClick={onComplete} data-testid="modal-button">
             Got it
           </OrderNowButton>
         </ModalWindow>
@@ -136,14 +144,14 @@ export default ({ onComplete, selectedColor, selectedSize }: Props) => {
     );
   }
 
-  const [stripeClientSecret, setStripeClientSecret] = useState<string>('');
-  const [stripeError, setStripeError] = useState<string>('');
+  const [stripeClientSecret, setStripeClientSecret] = useState<string>("");
+  const [stripeError, setStripeError] = useState<string>("");
   const [address, setAddress] = useState({
-    email: '',
-    name: '',
-    street: '',
-    postalCode: '',
-    city: '',
+    email: "",
+    name: "",
+    street: "",
+    postalCode: "",
+    city: "",
   });
   const [addressErrors, setAddressErrors] = useState({
     email: true,
@@ -154,7 +162,7 @@ export default ({ onComplete, selectedColor, selectedSize }: Props) => {
   });
   const [formComplete, setFormComplete] = useState<boolean>(false);
   const [showErrors, setShowErrors] = useState<boolean>(false);
-  const [paymentMethod, setPaymentMethod] = useState<PaymentMethod>('creditCard');
+  const [paymentMethod, setPaymentMethod] = useState<PaymentMethod>("creditCard");
   const [paymentSucceeded, setPaymentSucceeded] = useState<boolean>(false);
   const [loading, setLoading] = useState<boolean>(false);
 
@@ -167,18 +175,19 @@ export default ({ onComplete, selectedColor, selectedSize }: Props) => {
 
   useEffect(() => {
     const errors: any = {};
-    addressElements.forEach((addressElement) => {
+    addressElements.forEach(addressElement => {
       const textInput = address[addressElement.id];
-      errors[addressElement.id] = !max100Chars.test(textInput) || !addressElement.regExp.test(textInput);
+      errors[addressElement.id] =
+        !max100Chars.test(textInput) || !addressElement.regExp.test(textInput);
     });
-    setAddressErrors((addressErrors) => ({
+    setAddressErrors(addressErrors => ({
       ...addressErrors,
       ...errors,
     }));
   }, [address]);
 
   useEffect(() => {
-    if (Object.values(addressErrors).every((error) => error === false)) {
+    if (Object.values(addressErrors).every(error => error === false)) {
       setFormComplete(true);
     } else {
       setFormComplete(false);
@@ -219,18 +228,18 @@ export default ({ onComplete, selectedColor, selectedSize }: Props) => {
     });
     setLoading(false);
     if (result.error) {
-      setStripeError(result.error.message || '');
-    } else if (result.paymentIntent?.status === 'succeeded') {
+      setStripeError(result.error.message || "");
+    } else if (result.paymentIntent?.status === "succeeded") {
       setPaymentSucceeded(true);
     }
   };
 
-  const PaypalButton = window.paypal.Buttons.driver('react', { React, ReactDOM });
+  const PaypalButton = window.paypal.Buttons.driver("react", { React, ReactDOM });
 
   return (
     <ModalBackground>
-      <ModalWindow data-testid='modal'>
-        <CloseIcon onClick={() => !loading && onComplete()} data-testid='close-icon' />
+      <ModalWindow data-testid="modal">
+        <CloseIcon onClick={() => !loading && onComplete()} data-testid="close-icon" />
         {paymentSucceeded ? renderThankYouMessage() : renderCheckoutForm()}
         {renderSummary()}
         {!paymentSucceeded && renderOrderButton()}
@@ -242,8 +251,8 @@ export default ({ onComplete, selectedColor, selectedSize }: Props) => {
     return (
       <>
         <CheckoutSectionHeader>Address</CheckoutSectionHeader>
-        <AddressForm data-testid='address-form'>
-          {addressElements.map((addressElement) => (
+        <AddressForm data-testid="address-form">
+          {addressElements.map(addressElement => (
             <FormRow key={addressElement.id}>
               <FormLabel htmlFor={addressElement.id}>{addressElement.label}</FormLabel>
               <FormInput
@@ -253,11 +262,13 @@ export default ({ onComplete, selectedColor, selectedSize }: Props) => {
                 placeholder={addressElement.placeholder}
                 autoComplete={addressElement.autoComplete}
                 value={address[addressElement.id]}
-                onChange={(e) => setAddress({ ...address, [addressElement.id]: e.target.value })}
+                onChange={e => setAddress({ ...address, [addressElement.id]: e.target.value })}
                 data-testid={`input-${addressElement.id}`}
               />
               {showErrors && addressErrors[addressElement.id] && (
-                <ErrorText data-testid='address-input-error'>{addressElement.errorMessage}</ErrorText>
+                <ErrorText data-testid="address-input-error">
+                  {addressElement.errorMessage}
+                </ErrorText>
               )}
             </FormRow>
           ))}
@@ -265,27 +276,27 @@ export default ({ onComplete, selectedColor, selectedSize }: Props) => {
         <CheckoutSectionHeader>Payment</CheckoutSectionHeader>
         <RadioOption>
           <RadioInput
-            id='creditCard'
-            type='radio'
-            checked={paymentMethod === 'creditCard'}
-            onChange={() => setPaymentMethod('creditCard')}
+            id="creditCard"
+            type="radio"
+            checked={paymentMethod === "creditCard"}
+            onChange={() => setPaymentMethod("creditCard")}
           />
-          <FormLabel htmlFor='creditCard'>Credit Card</FormLabel>
+          <FormLabel htmlFor="creditCard">Credit Card</FormLabel>
         </RadioOption>
-        {paymentMethod === 'creditCard' && (
-          <CreditCardWrapper data-testid='credit-card-input'>
-            <CardElement options={stripeCardElementOptions} data-testid='stripe-card-element' />
-            {stripeError && <ErrorText data-testid='stripe-error'>{stripeError}</ErrorText>}
+        {paymentMethod === "creditCard" && (
+          <CreditCardWrapper data-testid="credit-card-input">
+            <CardElement options={stripeCardElementOptions} data-testid="stripe-card-element" />
+            {stripeError && <ErrorText data-testid="stripe-error">{stripeError}</ErrorText>}
           </CreditCardWrapper>
         )}
         <RadioOption>
           <RadioInput
-            id='paypal'
-            type='radio'
-            checked={paymentMethod === 'paypal'}
-            onChange={() => setPaymentMethod('paypal')}
+            id="paypal"
+            type="radio"
+            checked={paymentMethod === "paypal"}
+            onChange={() => setPaymentMethod("paypal")}
           />
-          <FormLabel htmlFor='paypal'>Paypal</FormLabel>
+          <FormLabel htmlFor="paypal">Paypal</FormLabel>
         </RadioOption>
       </>
     );
@@ -294,7 +305,9 @@ export default ({ onComplete, selectedColor, selectedSize }: Props) => {
   function renderThankYouMessage() {
     return (
       <>
-        <CheckoutSectionHeader data-testid='thank-you-message'>Thank you for your order!</CheckoutSectionHeader>
+        <CheckoutSectionHeader data-testid="thank-you-message">
+          Thank you for your order!
+        </CheckoutSectionHeader>
         <ConfirmationText>You will shortly get the confirmation via email.</ConfirmationText>
       </>
     );
@@ -304,7 +317,7 @@ export default ({ onComplete, selectedColor, selectedSize }: Props) => {
     return (
       <>
         <CheckoutSectionHeader>Order Summary</CheckoutSectionHeader>
-        <Summary data-testid='summary'>
+        <Summary data-testid="summary">
           <SummaryPicture src={summaryPicture[selectedColor]} />
           <SummaryText>
             model: the classic PINE coat <br />
@@ -319,7 +332,7 @@ export default ({ onComplete, selectedColor, selectedSize }: Props) => {
   }
 
   function renderOrderButton() {
-    if (paymentMethod === 'creditCard' || !formComplete) {
+    if (paymentMethod === "creditCard" || !formComplete) {
       return (
         <OrderNowButton
           color={`pine${selectedColor.charAt(0).toUpperCase()}${selectedColor.slice(1)}`}
@@ -327,23 +340,29 @@ export default ({ onComplete, selectedColor, selectedSize }: Props) => {
             formComplete ? processStripePayment() : setShowErrors(true);
           }}
           disabled={loading}
-          data-testid='order-button'
+          data-testid="order-button"
         >
-          {loading ? <StyledSpinner src={Spinner} alt='loading...' /> : 'Order now'}
+          {loading ? <StyledSpinner src={Spinner} alt="loading..." /> : "Order now"}
         </OrderNowButton>
       );
     } else {
       return (
         <PaypalButtonContainer>
           <PaypalButton
-            style={{ layout: 'horizontal', color: 'silver', height: 30, tagline: false, label: 'pay' }}
+            style={{
+              layout: "horizontal",
+              color: "silver",
+              height: 30,
+              tagline: false,
+              label: "pay",
+            }}
             createOrder={(data: any, actions: any) => {
               return actions.order.create({
-                purchase_units: [{ amount: { currency_code: 'EUR', value: '234.56' } }],
+                purchase_units: [{ amount: { currency_code: "EUR", value: "234.56" } }],
               });
             }}
             onApprove={() => setPaymentSucceeded(true)}
-            data-testid='paypal-button'
+            data-testid="paypal-button"
           />
         </PaypalButtonContainer>
       );
@@ -358,7 +377,7 @@ type Props = {
 };
 
 type AddressElement = {
-  id: 'email' | 'name' | 'street' | 'postalCode' | 'city';
+  id: "email" | "name" | "street" | "postalCode" | "city";
   label: string;
   autoComplete: string;
   placeholder: string;
@@ -366,4 +385,4 @@ type AddressElement = {
   errorMessage: string;
   regExp: RegExp;
 };
-type PaymentMethod = 'creditCard' | 'paypal';
+type PaymentMethod = "creditCard" | "paypal";

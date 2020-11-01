@@ -1,23 +1,23 @@
-import styled, { css, keyframes } from 'styled-components';
+import styled, { css, keyframes } from "styled-components";
 
 export const DummyHeader = styled.div`
-  height: ${(props) => props.theme.headerHeight}px;
+  height: ${props => props.theme.headerHeight}px;
 `;
 
 export const PositionWrapper = styled.div`
   z-index: 10;
   position: fixed;
-  background-color: ${(props) => props.theme.globalBackground};
+  background-color: ${props => props.theme.globalBackground};
   width: 100%;
 `;
 
 export const Grid = styled.div`
   display: grid;
   grid-template-columns: 15% 15% 55% 15%;
-  @media (max-width: ${(props) => props.theme.largeBreakpoint}px) {
+  @media (max-width: ${props => props.theme.largeBreakpoint}px) {
     grid-template-columns: 7.5% 15% 70% 7.5%;
   }
-  @media (max-width: ${(props) => props.theme.mediumBreakpoint}px) {
+  @media (max-width: ${props => props.theme.mediumBreakpoint}px) {
     grid-template-columns: 5% 45% 45% 5%;
   }
 `;
@@ -35,14 +35,14 @@ export const MenuContainer = styled.div`
   flex-flow: row wrap;
   justify-content: space-around;
   width: 100%;
-  height: ${(props) => props.theme.headerHeight}px;
-  @media (max-width: ${(props) => props.theme.mediumBreakpoint}px) {
+  height: ${props => props.theme.headerHeight}px;
+  @media (max-width: ${props => props.theme.mediumBreakpoint}px) {
     justify-content: flex-end;
   }
 `;
 
 export const MenuContainerSmall = styled(MenuContainer)`
-  height: calc(100vh - ${(props) => props.theme.headerHeight}px);
+  height: calc(100vh - ${props => props.theme.headerHeight}px);
   align-content: flex-start;
 `;
 
@@ -55,7 +55,7 @@ export const HamburgerContainer = styled.div`
 export const LineBase = styled.div`
   height: 1px;
   width: 35px;
-  background-color: ${(props) => props.theme.pineBeige};
+  background-color: ${props => props.theme.pineBeige};
   transition: 0.2s;
   margin: 6px 0;
 `;
@@ -64,7 +64,7 @@ interface LineProps {
 }
 
 export const LineTop = styled(LineBase)<LineProps>`
-  ${(props) =>
+  ${props =>
     props.expanded &&
     css`
       -webkit-transform: translateY(-8px) rotate(-45deg);
@@ -73,7 +73,7 @@ export const LineTop = styled(LineBase)<LineProps>`
 `;
 
 export const LineMiddle = styled(LineBase)<LineProps>`
-  ${(props) =>
+  ${props =>
     props.expanded &&
     css`
       opacity: 0;
@@ -81,7 +81,7 @@ export const LineMiddle = styled(LineBase)<LineProps>`
 `;
 
 export const LineBottom = styled(LineBase)<LineProps>`
-  ${(props) =>
+  ${props =>
     props.expanded &&
     css`
       -webkit-transform: translateY(-6px) rotate(45deg);
@@ -100,7 +100,7 @@ const disappear = keyframes`
     100% {opacity: 0; visibility: hidden}
 `;
 
-export const logoHeight = '40px';
+export const logoHeight = "40px";
 
 const appearAndMove = keyframes`
     0% {
@@ -130,13 +130,20 @@ export const SplashScreenCover = styled.div`
   height: 100vh;
   position: fixed;
   left: 0;
-  background-color: ${(props) => props.theme.globalBackground};
+  background-color: ${props => props.theme.globalBackground};
   animation: ${disappear} 0.5s;
   animation-delay: 2s;
   animation-fill-mode: forwards;
 `;
 
-export const Logo = styled.img`
+export const AnimatedLogo = styled.img`
   animation: ${appearAndMove} 2s;
   animation-fill-mode: forwards;
+`;
+
+export const Logo = styled.img`
+  opacity: 1;
+  height: ${logoHeight};
+  margin-top: 0;
+  margin-left: 0;
 `;

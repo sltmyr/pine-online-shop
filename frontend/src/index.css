@@ -1,9 +1,0 @@
-@font-face {
-  font-family: 'Domaine';
-  src: local('Domaine'), url(./fonts/domaine-sans-fine-web-thin.woff) format('woff');
-}
-
-@font-face {
-  font-family: 'Montserrat';
-  src: local('Montserrat'), url(./fonts/Montserrat-Thin.ttf) format('truetype');
-}

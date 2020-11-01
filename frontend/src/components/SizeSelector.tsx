@@ -1,17 +1,12 @@
-import React from 'react';
-import { Container, Selected, Option } from './SizeSelector.styles';
+import React from "react";
+import { Container, Selected, Option } from "./sizeSelector.styles";
 
 const availableSizes = [42, 44, 46, 48];
 
-type SizeSelectorProps = {
-  selectedSize: number;
-  setSelectedSize: (size: number) => void;
-};
-
-export default ({ selectedSize, setSelectedSize }: SizeSelectorProps) => {
+const SizeSelector: React.FC<Props> = ({ selectedSize, setSelectedSize }) => {
   return (
     <Container>
-      {availableSizes.map((size) =>
+      {availableSizes.map(size =>
         size === selectedSize ? (
           <Selected key={size}>{size}</Selected>
         ) : (
@@ -23,3 +18,10 @@ export default ({ selectedSize, setSelectedSize }: SizeSelectorProps) => {
     </Container>
   );
 };
+
+type Props = {
+  selectedSize: number;
+  setSelectedSize: (size: number) => void;
+};
+
+export default SizeSelector;

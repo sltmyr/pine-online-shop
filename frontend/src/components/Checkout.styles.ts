@@ -1,6 +1,6 @@
-import { X } from '@styled-icons/feather';
-import styled from 'styled-components';
-import { Button } from '../global_styles';
+import { X } from "@styled-icons/feather";
+import styled from "styled-components";
+import { Button } from "../styles/global_styles";
 
 export const ModalBackground = styled.div`
   position: fixed;
@@ -23,10 +23,10 @@ export const ModalWindow = styled.div`
   flex-wrap: wrap;
   flex-direction: column;
   width: 70%;
-  @media (max-width: ${(props) => props.theme.largeBreakpoint}px) {
+  @media (max-width: ${props => props.theme.largeBreakpoint}px) {
     width: 85%;
   }
-  @media (max-width: ${(props) => props.theme.mediumBreakpoint}px) {
+  @media (max-width: ${props => props.theme.mediumBreakpoint}px) {
     width: 90%;
   }
 `;
