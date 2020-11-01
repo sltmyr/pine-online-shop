@@ -28,3 +28,7 @@ Follow these steps to deploy the web app. Note: to interact with the AWS via the
 - Finally, deploy the CDK stack by executing `npm install` and `aws-vault exec <PROFILE> -- cdk deploy` in the `/infrastructure` folder
 
 After a first successful deployment, any updates to the code or infrastructure are as simple running `cdk deploy` once.
+
+### Note on copyright
+
+Feel free to use the code or parts of it for your own project in accordance with the Apache 2.0 license. **The fonts are explicitly excluded. Either choose other fonts or purchase a license at [klim.co.nz](https://klim.co.nz)**
