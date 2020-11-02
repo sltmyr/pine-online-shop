@@ -14,14 +14,11 @@ jobs:
       - name: build lambda
         run: ./build_lambda.sh
         working-directory: ./paymentApi
-      - name: install gatsby
-        run: npm install gatsby-cli
-        working-directory: ./frontend
       - name: install frontend dependencies
         run: npm install
         working-directory: ./frontend
       - name: build frontend
-        run: gatsby build
+        run: ./node_modules/.bin/gatsby build
         working-directory: ./frontend
       - name: install cdk dependencies
         run: npm ci
