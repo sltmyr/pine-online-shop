@@ -14,7 +14,7 @@ jobs:
         run: ./build_lambda.sh
         working-directory: ./paymentApi
       - name: install frontend dependencies
-        run: npm install
+        run: npm ci
         working-directory: ./frontend
       - name: build frontend
         run: ./node_modules/.bin/gatsby build

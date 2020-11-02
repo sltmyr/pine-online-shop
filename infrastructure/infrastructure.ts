@@ -9,33 +9,6 @@ import * as targets from "@aws-cdk/aws-route53-targets";
 import * as s3 from "@aws-cdk/aws-s3";
 import * as s3deploy from "@aws-cdk/aws-s3-deployment";
 import * as cdk from "@aws-cdk/core";
-import { exec } from "child_process";
-import { promisify } from "util";
-
-// (async () => {
-//   const async_exec = promisify(exec);
-//   console.log("building react app and payment API deployment artifacts...");
-//   await Promise.all([
-//     async_exec("gatsby build", { cwd: "../frontend" }),
-//     // async_exec("zip build.zip payment_api.py", { cwd: "../paymentApi" }),
-//     // async_exec(
-//     //   "pip install -r requirements.txt --target='./dependencies/python'",
-//     //   { cwd: "../paymentApi" }
-//     // ),
-//   ]);
-//   // await async_exec("zip -r ../dependencies.zip ./*", {
-//   //   cwd: "../paymentApi/dependencies",
-//   // });
-
-(() => {
-  const app = new cdk.App();
-  new WebAppStack(app, "WebAppStack", {
-    env: {
-      account: process.env.CDK_DEFAULT_ACCOUNT,
-      region: process.env.CDK_DEFAULT_REGION,
-    },
-  });
-})();
 
 class WebAppStack extends cdk.Stack {
   constructor(scope: cdk.App, id: string, props: cdk.StackProps) {
@@ -195,3 +168,11 @@ type DomainProps = {
 interface ApiProps extends DomainProps {
   stripeSecretsArn: string;
 }
+
+const app = new cdk.App();
+new WebAppStack(app, "WebAppStack", {
+  env: {
+    account: process.env.CDK_DEFAULT_ACCOUNT,
+    region: process.env.CDK_DEFAULT_REGION,
+  },
+});
