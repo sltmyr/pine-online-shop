@@ -9,10 +9,12 @@ jobs:
   build_and_deploy:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
-      - name: Install dependencies
+      - name: checkout repository
+        uses: actions/checkout@v2
+      - name: install cdk dependencies
         run: npm ci
         working-directory: ./infrastructure
+      - run: sudo apt-get install zip
       - name: cdk diff
         uses: youyo/aws-cdk-github-actions@v1
         with:
