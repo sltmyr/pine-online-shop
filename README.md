@@ -22,10 +22,10 @@ Follow these steps to set up the AWS account for hosting our web app. Note: to i
 - Create a public route53 hosted zone for the domain (in this case pinecoat.com) with the usual NS entries.
 - Request or import a TLS certificate for the domain in the AWS Certificate Manager (ACM). We need one in us-east-1 for the website that is delivered via cloudfront and one in the region where the payment API lambda will be deployed (in this case eu-west-1).
 - Create a secret with AWS Secrets Manager called `stripeKeys` that contains your stripe API key.
-- Add the `GATSBY_PAYPAL_CLIENT_ID` and `STRIPE_PUBLISHABLE_KEY` as secrets to github.
+- Add the `GATSBY_PAYPAL_CLIENT_ID` and `GATSBY_STRIPE_PUBLISHABLE_KEY` as secrets to github.
 - Bootstrap the AWS account to enable the use of CDK by executing `aws-vault exec <PROFILE> -- cdk bootstrap`.
 - Add the domain name and the ARNs of the TLS certificates to the respective variables in `/infrastructure/infrastructure.ts`
-- create a technical user in the AWS account and store the `AWS_ACCESS_KEY_ID` and `AWS_SECRET_ACCESS_KEY` as secrets in github. Make sure the user has the permissions to deploy all necessary resources.
+- Create a technical IAM user called `cdk-deployer` in the AWS account and store the `AWS_ACCESS_KEY_ID` and `AWS_SECRET_ACCESS_KEY` as secrets in github. Make sure the user has the permissions to deploy all necessary resources via AWS Cloudformation.
 
 ### Deployments
 

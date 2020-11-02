@@ -20,7 +20,7 @@ import Layout from "../components/layout";
 import { graphql } from "gatsby";
 import Img, { FluidObject } from "gatsby-image";
 
-const stripePromise = loadStripe(process.env.STRIPE_PUBLISHABLE_KEY!);
+const stripePromise = loadStripe(process.env.GATSBY_STRIPE_PUBLISHABLE_KEY!);
 
 const CoatDetails: React.FC<Props> = ({
   pageContext: { model },
