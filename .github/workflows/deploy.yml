@@ -15,6 +15,12 @@ jobs:
         run: npm ci
         working-directory: ./infrastructure
       - run: sudo apt-get install zip
+      - run: zip build.zip payment_api.py
+        working-directory: ./paymentApi
+      - run: pip install -r requirements.txt --target='./dependencies/python'
+        working-directory: ./paymentApi
+      - run: zip -r ../dependencies.zip ./*
+        working-directory: ./paymentApi/dependencies
       - name: cdk diff
         uses: youyo/aws-cdk-github-actions@v1
         with:
