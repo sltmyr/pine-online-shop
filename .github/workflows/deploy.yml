@@ -1,6 +1,4 @@
-# Work in progress. Should deploy CDK stack to AWS on push to master
-
-name: Deploy to AWS
+name: Build and deploy to AWS
 on:
   push:
     branches: [master]
@@ -22,7 +20,7 @@ jobs:
       - name: install cdk dependencies
         run: npm ci
         working-directory: ./infrastructure
-      - name: run cdk diff
+      - name: run cdk deploy
         run: ./node_modules/.bin/cdk deploy --require-approval=never
         working-directory: infrastructure
         env:
