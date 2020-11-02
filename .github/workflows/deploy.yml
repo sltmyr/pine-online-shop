@@ -15,7 +15,8 @@ jobs:
         run: ./build_lambda.sh
         working-directory: ./paymentApi
       - name: install gatsby
-        run: sudo npm install -g gatsby-cli
+        run: npm install gatsby-cli
+        working-directory: ./frontend
       - name: install frontend dependencies
         run: npm install
         working-directory: ./frontend
