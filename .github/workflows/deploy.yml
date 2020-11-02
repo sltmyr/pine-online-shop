@@ -1,7 +1,6 @@
 # Work in progress. Should deploy CDK stack to AWS on push to master
 
 name: Deploy to AWS
-
 on:
   push:
     branches: [master]
@@ -23,12 +22,9 @@ jobs:
       - name: install cdk dependencies
         run: npm ci
         working-directory: ./infrastructure
-      - name: cdk diff
-        uses: youyo/aws-cdk-github-actions@v1
-        with:
-          cdk_subcommand: "diff"
-          actions_comment: true
-          working_dir: infrastructure
+      - name: run cdk diff
+        run: ./node_modules/.bin/cdk diff
+        working-directory: infrastructure
         env:
           AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
           AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
