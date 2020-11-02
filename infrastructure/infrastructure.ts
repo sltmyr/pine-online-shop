@@ -12,21 +12,22 @@ import * as cdk from "@aws-cdk/core";
 import { exec } from "child_process";
 import { promisify } from "util";
 
-(async () => {
-  const async_exec = promisify(exec);
-  console.log("building react app and payment API deployment artifacts...");
-  await Promise.all([
-    async_exec("gatsby build", { cwd: "../frontend" }),
-    // async_exec("zip build.zip payment_api.py", { cwd: "../paymentApi" }),
-    // async_exec(
-    //   "pip install -r requirements.txt --target='./dependencies/python'",
-    //   { cwd: "../paymentApi" }
-    // ),
-  ]);
-  // await async_exec("zip -r ../dependencies.zip ./*", {
-  //   cwd: "../paymentApi/dependencies",
-  // });
+// (async () => {
+//   const async_exec = promisify(exec);
+//   console.log("building react app and payment API deployment artifacts...");
+//   await Promise.all([
+//     async_exec("gatsby build", { cwd: "../frontend" }),
+//     // async_exec("zip build.zip payment_api.py", { cwd: "../paymentApi" }),
+//     // async_exec(
+//     //   "pip install -r requirements.txt --target='./dependencies/python'",
+//     //   { cwd: "../paymentApi" }
+//     // ),
+//   ]);
+//   // await async_exec("zip -r ../dependencies.zip ./*", {
+//   //   cwd: "../paymentApi/dependencies",
+//   // });
 
+(() => {
   const app = new cdk.App();
   new WebAppStack(app, "WebAppStack", {
     env: {

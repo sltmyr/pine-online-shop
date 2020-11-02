@@ -11,12 +11,17 @@ jobs:
     steps:
       - name: checkout repository
         uses: actions/checkout@v2
-      - name: install cdk dependencies
-        run: npm ci
-        working-directory: ./infrastructure
       - name: build lambda
         run: ./build_lambda.sh
         working-directory: ./paymentApi
+      - name: install gatsby
+        run: npm install -g gatsby-cli
+      - name: build frontend
+        run: gatsby build
+        working-directory: ./frontend
+      - name: install cdk dependencies
+        run: npm ci
+        working-directory: ./infrastructure
       - name: cdk diff
         uses: youyo/aws-cdk-github-actions@v1
         with:
