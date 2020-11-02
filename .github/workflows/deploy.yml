@@ -23,7 +23,7 @@ jobs:
         run: npm ci
         working-directory: ./infrastructure
       - name: run cdk diff
-        run: ./node_modules/.bin/cdk diff
+        run: ./node_modules/.bin/cdk deploy --require-approval=never
         working-directory: infrastructure
         env:
           AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
