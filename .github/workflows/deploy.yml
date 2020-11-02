@@ -14,13 +14,9 @@ jobs:
       - name: install cdk dependencies
         run: npm ci
         working-directory: ./infrastructure
-      - run: sudo apt-get install zip
-      - run: zip build.zip payment_api.py
+      - name: build lambda
+        run: ./build_lambda.sh
         working-directory: ./paymentApi
-      - run: pip install -r requirements.txt --system --target='./dependencies/python'
-        working-directory: ./paymentApi
-      - run: zip -r ../dependencies.zip ./*
-        working-directory: ./paymentApi/dependencies
       - name: cdk diff
         uses: youyo/aws-cdk-github-actions@v1
         with:
