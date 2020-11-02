@@ -17,7 +17,7 @@ jobs:
       - run: sudo apt-get install zip
       - run: zip build.zip payment_api.py
         working-directory: ./paymentApi
-      - run: pip install -r requirements.txt --target='./dependencies/python'
+      - run: pip install -r requirements.txt --system --target='./dependencies/python'
         working-directory: ./paymentApi
       - run: zip -r ../dependencies.zip ./*
         working-directory: ./paymentApi/dependencies
