@@ -19,6 +19,7 @@ jobs:
         working-directory: ./frontend
         env:
           GATSBY_STRIPE_PUBLISHABLE_KEY: ${{ secrets.GATSBY_STRIPE_PUBLISHABLE_KEY }}
+          GATSBY_STRIPE_PUBLISHABLE_KEY: ${{ secrets.GATSBY_STRIPE_SECRET_KEY }}
           GATSBY_PAYPAL_CLIENT_ID: ${{ secrets.GATSBY_PAYPAL_CLIENT_ID }}
       - name: install cdk dependencies
         run: npm ci
