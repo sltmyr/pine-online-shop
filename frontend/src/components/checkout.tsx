@@ -10,7 +10,7 @@ import {
   streetRegex,
 } from "../constants/regex";
 import beigeCoat from "../images/beige-coat-1.jpg";
-import navyCoat from "../images/blue-coat-1.jpg";
+import navyCoat from "../images/navy-coat-1.jpg";
 import greyCoat from "../images/grey-coat-1.jpg";
 import Spinner from "../images/spinner.svg";
 import {

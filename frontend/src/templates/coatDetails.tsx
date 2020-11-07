@@ -23,7 +23,7 @@ import Img, { FluidObject } from "gatsby-image";
 const stripePromise = loadStripe(process.env.GATSBY_STRIPE_PUBLISHABLE_KEY!);
 
 const CoatDetails: React.FC<Props> = ({
-  pageContext: { model },
+  pageContext: { model, price },
   stripeElememtsPromise = stripePromise,
   data,
 }) => {
@@ -49,7 +49,7 @@ const CoatDetails: React.FC<Props> = ({
         </MainPictureWrapper>
         <Description>
           <Title>{text.title[language]}</Title>
-          {text.price[language]}
+          {text.price[language](price)}
           <br />
           <SubTitle>{text.material[language]}</SubTitle>
           {text.cashmere[language]}
@@ -123,8 +123,8 @@ const text = {
     [Language.german]: "UNSER KLASSISCHER MANTEL",
   },
   price: {
-    [Language.english]: "300 € including taxes and shipping.",
-    [Language.german]: "300 € inkl. Steuern und Versand.",
+    [Language.english]: (price: string) => `${price} € including taxes and shipping.`,
+    [Language.german]: (price: string) => `${price} € inkl. Steuern und Versand.`,
   },
   material: {
     [Language.english]: "MATERIAL",
@@ -168,7 +168,7 @@ export type CoatColor = "beige" | "grey" | "navy";
 
 type gatsbyImage = { childImageSharp: { fluid: FluidObject } };
 interface Props {
-  pageContext: { model: string };
+  pageContext: { model: string; price: string };
   stripeElememtsPromise?: Promise<Stripe | null>;
   data: { mainImage: gatsbyImage; secondImage: gatsbyImage; thirdImage: gatsbyImage };
 }

@@ -1,25 +1,23 @@
-exports.createPages = ({ actions: { createPage } }) => {
-  const coats = [
-    {
-      model: "grey",
-      mainImage: "grey-coat-1.jpg",
-      secondImage: "grey-coat-2.jpg",
-      thirdImage: "grey-coat-3.jpg",
-    },
-    {
-      model: "beige",
-      mainImage: "beige-coat-1.jpg",
-      secondImage: "beige-coat-2.jpg",
-      thirdImage: "beige-coat-3.jpg",
-    },
-    {
-      model: "navy",
-      mainImage: "blue-coat-1.jpg",
-      secondImage: "blue-coat-2.jpg",
-      thirdImage: "blue-coat-3.jpg",
-    },
-  ];
+const stripe = require("stripe")(process.env.GATSBY_STRIPE_SECRET_KEY);
 
+async function getCoats() {
+  const products = await stripe.products.list();
+  const prices = await stripe.prices.list();
+  return prices.data.map(priceObject => {
+    const model = products.data.find(product => product.id === priceObject.product).name;
+    const price = priceObject.unit_amount / 100;
+    return {
+      model,
+      price,
+      mainImage: `${model}-coat-1.jpg`,
+      secondImage: `${model}-coat-2.jpg`,
+      thirdImage: `${model}-coat-2.jpg`,
+    };
+  });
+}
+
+exports.createPages = async ({ actions: { createPage } }) => {
+  const coats = await getCoats();
   coats.forEach(coat => {
     createPage({
       path: `/coat/${coat.model}`,
